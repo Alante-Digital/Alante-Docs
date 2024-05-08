@@ -27,9 +27,15 @@
   },
   "navigation": [
     {
-      "group": "Módulos",
+      "group": "Introducción",
       "pages": [
-        "modulos/inventario"
+        "introduction"
+      ]
+    },
+    {
+      "group": "Inventario",
+      "pages": [
+        "inventario/almacenes"
       ]
     }
   ],
