@@ -1,0 +1,60 @@
+---
+title: Usuarios y Permisos
+description: 'Los usuarios son las personas que tienen acceso a interactuar con tu sistema.'
+---
+
+## Introducción
+
+Los usuarios son las personas o entidades que tienen acceso al sistema para realizar diversas operaciones y tareas relacionadas con la gestión empresarial. Estos usuarios pueden ser empleados, gerentes, administradores, etc. La gestión de usuarios y permisos es crucial porque permite controlar quién puede acceder a qué información y funciones dentro del sistema. Al asignar diferentes tipos de permisos, se garantiza que cada usuario solo pueda realizar acciones y visualizar datos pertinentes a su rol y responsabilidades específicas. Esto no solo protege la información sensible y confidencial de la empresa, sino que también mejora la eficiencia operativa al asegurarse de que los usuarios tienen las herramientas adecuadas para realizar su trabajo sin acceso innecesario que podría llevar a errores o mal uso de los datos.
+
+Para visualizar los usuarios que están configurados en tu sistema, ve a la opción del menú **Configuración** y luego en el menú secondario escoge la opción **Usuarios**.
+
+## Manejo de Usuarios
+
+Puedes visualizar y editar la información de tus usuarios (asumiendo que tengas los permisos adecuados para esto). Estas son algunas acciones que puedes realizar con el listado de usuarios.
+
+### Agregar usuarios
+
+Puedes invitar usuarios al sistema presionando el botón **+ Nuevo Usuario**. Esto abrirá una ventana donde debes introducir la información del usuario que deseas agregar.
+
+Para crear el usuario debes especificar:
+- El nombre del usuario
+- El apellido
+- El correo electrónico
+- El usuario para iniciar sesión
+- La contraseña del usuario
+
+![Creando un nuevo usuario](/images/new-user-modal.jpg)
+
+Al crear el usuario, a su correo llegará la información para iniciar sesión en la plataforma.
+
+### Interactuando con los usuarios
+
+El listado de usuarios puede tener hasta cuatro acciones distintas (asumiendo que tengas los permisos requeridos para realizar dichas acciones).
+
+<CardGroup cols={2}>
+  <Card
+    title="Permisos"
+    icon="key"
+  >
+    Te permite editar los permisos del usuario para definir qué niveles de acceso puede tener.
+  </Card>
+  <Card
+    title="Historial"
+    icon="binoculars"
+  >
+    Te permite visualizar todas las acciones que el usuario ha realizado en tu sistema en cualquier rango de fecha.
+  </Card>
+  <Card
+    title="Reenviar Bienvenida"
+    icon="envelope"
+  >
+    Te permite reenviar el correo de bienvenida al usuario, con el link de acceso, una contraseña nueva y su nombre de usuario.
+  </Card>
+  <Card
+    title="Bloquear"
+    icon="ban"
+  >
+    Permite bloquear un usuario para que ya no pueda acceder a tu sistema.
+  </Card>
+</CardGroup>

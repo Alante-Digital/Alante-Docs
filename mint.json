@@ -33,9 +33,13 @@
       ]
     },
     {
-      "group": "Inventario",
+      "group": "Configuración",
       "pages": [
-        "inventario/almacenes"
+          "configuration",
+          {
+              "group": "Usuarios y Permisos",
+              "pages": ["configuracion/usuarios-y-permisos"]
+          }
       ]
     }
   ],
