@@ -33,6 +33,16 @@
       ]
     },
     {
+      "group": "Inventario",
+      "pages": [
+          "Inventario",
+          {
+              "group": "Activos Fijos",
+              "pages": ["inventario/activos-fijos/asignar"]
+          }
+      ]
+    },
+    {
       "group": "Configuración",
       "pages": [
           "configuration",
