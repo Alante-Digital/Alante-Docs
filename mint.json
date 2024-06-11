@@ -38,8 +38,10 @@
           "Inventario",
           {
               "group": "Activos Fijos",
-              "pages": ["inventario/activos-fijos/crear"],
-              "pages": ["inventario/activos-fijos/asignar"]
+              "pages": [
+                "inventario/activos-fijos/crear",
+                "inventario/activos-fijos/asignar"
+              ]
           }
       ]
     },
