@@ -40,8 +40,9 @@
               "group": "Activos Fijos",
               "pages": [
                 "inventario/activos-fijos/crear",
+                "inventario/activos-fijos/editar",
                 "inventario/activos-fijos/asignar",
-                "inventario/activos-fijos/editar"
+                "inventario/activos-fijos/retornar"
               ]
           }
       ]
