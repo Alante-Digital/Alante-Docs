@@ -35,26 +35,22 @@
     {
       "group": "Inventario",
       "pages": [
-          "Inventario",
-          {
-              "group": "Activos Fijos",
-              "pages": [
-                "inventario/activos-fijos/crear",
-                "inventario/activos-fijos/editar",
-                "inventario/activos-fijos/asignar",
-                "inventario/activos-fijos/retornar"
-              ]
-          }
+        "Inventario",
+        {
+          "group": "Activos Fijos",
+          "pages": [
+            "inventario/activos-fijos/crear",
+            "inventario/activos-fijos/editar",
+            "inventario/activos-fijos/asignar",
+            "inventario/activos-fijos/retornar"
+          ]
+        }
       ]
     },
     {
       "group": "Configuración",
       "pages": [
-          "configuration",
-          {
-              "group": "Usuarios y Permisos",
-              "pages": ["configuracion/usuarios-y-permisos"]
-          }
+        "configuracion"
       ]
     }
   ],
