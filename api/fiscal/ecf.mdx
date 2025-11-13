@@ -73,8 +73,6 @@ X-API-Key: alante_xxxxxxxxxxxxx
   "razon_social_comprador": "Cliente XYZ SRL",
   "razon_social_emisor": "Mi Empresa SRL",
   "direccion_emisor": "Calle Principal #123",
-  "municipio": "Santo Domingo",
-  "provincia": "Distrito Nacional",
   "correo_emisor": "contacto@miempresa.com",
   "items": [
     {
@@ -84,7 +82,6 @@ X-API-Key: alante_xxxxxxxxxxxxx
       "precio_unitario": 100.00,
       "descuento": 0,
       "tasa_itbis": 18,
-      "unidad_medida": "UND",
       "indicador_bien_servicio": "1"
     },
     {
@@ -124,8 +121,6 @@ X-API-Key: alante_xxxxxxxxxxxxx
 | `environment` | string | Ambiente de DGII. Valores: `ecf` (producción), `certecf` (certificación), `testecf` (pruebas). Si no se especifica, usa el del certificado de la organización |
 | `razon_social_emisor` | string | Razón social del emisor (si no se proporciona, se usa la de la organización) |
 | `direccion_emisor` | string | Dirección del emisor |
-| `municipio` | string | Municipio del emisor |
-| `provincia` | string | Provincia del emisor |
 | `correo_emisor` | string | Correo electrónico del emisor |
 | `formas_pago` | array | Array de formas de pago |
 
@@ -139,7 +134,6 @@ X-API-Key: alante_xxxxxxxxxxxxx
 | `precio_unitario` | number | Sí | Precio unitario (máximo 2 decimales) |
 | `descuento` | number | No | Monto del descuento (máximo 2 decimales) |
 | `tasa_itbis` | number | Sí | Tasa de ITBIS (ej: 18 para 18%) |
-| `unidad_medida` | string | Sí | Unidad de medida (ej: `UND`, `UN`, `KG`, `MTS`) |
 | `indicador_bien_servicio` | string | Sí | `1` para bienes, `2` para servicios |
 
 **Estructura de Formas de Pago:**
