@@ -63,12 +63,6 @@
       ]
     },
     {
-      "group": "Fiscal",
-      "pages": [
-        "Fiscal/tablero"
-      ]
-    },
-    {
       "group": "Recursos Humanos",
       "pages": [
         "recursos-humanos/tablero"
