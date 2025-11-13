@@ -1,0 +1,461 @@
+# API de Facturación Electrónica Externa
+
+## Descripción General
+
+Esta API permite a sistemas externos generar comprobantes fiscales electrónicos (e-CF) que serán procesados y enviados a la DGII (Dirección General de Impuestos Internos) de la República Dominicana. El sistema se encarga automáticamente de:
+
+- Asignar el siguiente NCF (Número de Comprobante Fiscal) disponible
+- Generar el XML según las especificaciones de la DGII
+- Firmar digitalmente el XML con el certificado de la organización
+- Enviar el comprobante a la DGII
+- Manejar reintentos automáticos si el comprobante es rechazado
+- Almacenar el documento para su consulta posterior
+
+## Autenticación
+
+Todas las peticiones al API requieren autenticación mediante API Key. La API Key debe enviarse en el header `X-API-Key` o como parámetro `api_key` en la URL.
+
+### Obtener una API Key
+
+1. Inicia sesión en Alante Digital
+2. Ve a **Configuración** → **Integraciones**
+3. Crea una nueva API Key
+4. Copia la clave generada (solo se mostrará una vez)
+
+### Formato de Autenticación
+
+**Opción 1: Header (Recomendado)**
+```
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Opción 2: Parámetro en URL**
+```
+?api_key=alante_xxxxxxxxxxxxx
+```
+
+**Opción 3: Bearer Token**
+```
+Authorization: Bearer alante_xxxxxxxxxxxxx
+```
+
+## Base URL
+
+```
+https://tu-dominio.com/api/external/fiscal
+```
+
+Para desarrollo local:
+```
+http://localhost:8000/api/external/fiscal
+```
+
+## Endpoints Disponibles
+
+### 1. Crear Comprobante Fiscal
+
+Genera un nuevo comprobante fiscal electrónico y lo envía a la DGII.
+
+**Endpoint:** `POST /invoices`
+
+**Headers:**
+```
+Content-Type: application/json
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Body (JSON):**
+
+```json
+{
+  "tipo_comprobante": "E31",
+  "fecha_emision": "2025-01-15",
+  "environment": "testecf",
+  "rnc_comprador": "123456789",
+  "razon_social_comprador": "Cliente XYZ SRL",
+  "razon_social_emisor": "Mi Empresa SRL",
+  "direccion_emisor": "Calle Principal #123",
+  "municipio": "Santo Domingo",
+  "provincia": "Distrito Nacional",
+  "correo_emisor": "contacto@miempresa.com",
+  "items": [
+    {
+      "nombre": "Producto 1",
+      "descripcion": "Descripción detallada del producto",
+      "cantidad": 2,
+      "precio_unitario": 100.00,
+      "descuento": 0,
+      "tasa_itbis": 18,
+      "unidad_medida": "UND",
+      "indicador_bien_servicio": "1"
+    },
+    {
+      "nombre": "Servicio de Consultoría",
+      "descripcion": "Servicio profesional",
+      "cantidad": 1,
+      "precio_unitario": 500.00,
+      "descuento": 50.00,
+      "tasa_itbis": 18,
+      "unidad_medida": "UND",
+      "indicador_bien_servicio": "2"
+    }
+  ],
+  "formas_pago": [
+    {
+      "codigo": "01",
+      "monto": 754.00
+    }
+  ]
+}
+```
+
+**Parámetros Requeridos:**
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `tipo_comprobante` | string | Tipo de comprobante fiscal. Valores válidos: `B01`, `B02`, `B04`, `B14`, `B15`, `E31`. Nota: Actualmente solo estos tipos están habilitados. Otros tipos pueden agregarse según necesidad. |
+| `fecha_emision` | string | Fecha de emisión en formato `YYYY-MM-DD` |
+| `rnc_comprador` | string | RNC del comprador (9 o 11 dígitos) |
+| `razon_social_comprador` | string | Razón social del comprador |
+| `items` | array | Array de items de la factura (mínimo 1 item) |
+
+**Parámetros Opcionales:**
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `environment` | string | Ambiente de DGII. Valores: `ecf` (producción), `certecf` (certificación), `testecf` (pruebas). Si no se especifica, usa el del certificado de la organización |
+| `razon_social_emisor` | string | Razón social del emisor (si no se proporciona, se usa la de la organización) |
+| `direccion_emisor` | string | Dirección del emisor |
+| `municipio` | string | Municipio del emisor |
+| `provincia` | string | Provincia del emisor |
+| `correo_emisor` | string | Correo electrónico del emisor |
+| `formas_pago` | array | Array de formas de pago |
+
+**Estructura de Items:**
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|-----------|-------------|
+| `nombre` | string | Sí | Nombre del producto o servicio |
+| `descripcion` | string | Sí | Descripción detallada |
+| `cantidad` | number | Sí | Cantidad (máximo 2 decimales) |
+| `precio_unitario` | number | Sí | Precio unitario (máximo 2 decimales) |
+| `descuento` | number | No | Monto del descuento (máximo 2 decimales) |
+| `tasa_itbis` | number | Sí | Tasa de ITBIS (ej: 18 para 18%) |
+| `unidad_medida` | string | Sí | Unidad de medida (ej: `UND`, `UN`, `KG`, `MTS`) |
+| `indicador_bien_servicio` | string | Sí | `1` para bienes, `2` para servicios |
+
+**Estructura de Formas de Pago:**
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|-----------|-------------|
+| `codigo` | string | Sí | Código de forma de pago según DGII (`01` = Efectivo, `02` = Cheque, `03` = Transferencia, etc.) |
+| `monto` | number | Sí | Monto pagado con esta forma de pago |
+
+**Respuesta Exitosa (201 Created):**
+
+```json
+{
+  "success": true,
+  "fiscal_document": {
+    "uuid": "29d2c2fa-8bf1-4005-88d8-cdbc63e853eb",
+    "numero": "E310000000004",
+    "tipo_comprobante": "E31",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente XYZ SRL",
+    "monto_total": 767.00,
+    "total_itbis": 117.00,
+    "fecha_emision": "2025-01-15",
+    "estado": "Aceptado"
+  },
+  "dgii": {
+    "success": true,
+    "track_id": "bf9f19f4-691e-487f-aa5d-3c9966164bd0",
+    "estado": "Aceptado",
+    "mensajes": [],
+    "environment": "testecf"
+  }
+}
+```
+
+**Respuesta de Error (422 Validation Error):**
+
+```json
+{
+  "success": false,
+  "error": "VALIDATION_ERROR",
+  "message": "Error de validación",
+  "errors": {
+    "tipo_comprobante": [
+      "El campo tipo_comprobante es requerido."
+    ],
+    "items": [
+      "Debe haber al menos un item en la factura."
+    ]
+  }
+}
+```
+
+**Respuesta de Error (500 Processing Error):**
+
+```json
+{
+  "success": false,
+  "error": "PROCESSING_ERROR",
+  "message": "Error procesando la factura: [mensaje de error]"
+}
+```
+
+### 2. Consultar Comprobante Fiscal
+
+Obtiene la información de un comprobante fiscal por su UUID.
+
+**Endpoint:** `GET /invoices/{uuid}`
+
+**Headers:**
+```
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": true,
+  "fiscal_document": {
+    "uuid": "29d2c2fa-8bf1-4005-88d8-cdbc63e853eb",
+    "numero": "E310000000004",
+    "tipo_comprobante": "E31",
+    "rnc_comprador": "123456789",
+    "total_monto": 767.00,
+    "total_itbis": 117.00,
+    "fecha_emision": "2025-01-15",
+    "created_at": "2025-11-13T15:52:25.000000Z"
+  },
+  "dgii": {
+    "track_id": "bf9f19f4-691e-487f-aa5d-3c9966164bd0",
+    "estado": "Aceptado",
+    "mensajes": []
+  }
+}
+```
+
+**Respuesta de Error (404 Not Found):**
+
+```json
+{
+  "success": false,
+  "error": "DOCUMENT_NOT_FOUND",
+  "message": "Documento fiscal no encontrado."
+}
+```
+
+### 3. Descargar PDF del Comprobante
+
+Descarga el PDF del comprobante fiscal generado.
+
+**Endpoint:** `GET /invoices/{uuid}/pdf`
+
+**Headers:**
+```
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Respuesta:** Archivo PDF descargable
+
+**Respuesta de Error (500 PDF Generation Error):**
+
+```json
+{
+  "success": false,
+  "error": "PDF_GENERATION_ERROR",
+  "message": "Error generando el PDF: [mensaje de error]"
+}
+```
+
+### 4. Obtener Datos del Código QR
+
+Obtiene los datos necesarios para generar el código QR del comprobante.
+
+**Endpoint:** `GET /invoices/{uuid}/qr`
+
+**Headers:**
+```
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Respuesta Exitosa (200 OK):**
+
+```json
+{
+  "success": true,
+  "qr_data": {
+    "rnc": "130932621",
+    "encf": "E310000000004",
+    "monto_total": "767.00",
+    "itbis": "117.00",
+    "fecha_emision": "2025-01-15",
+    "codigo_seguridad": "ABC123"
+  },
+  "qr_url": "https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/rnc?RNC=130932621&ENCF=E310000000004"
+}
+```
+
+## Tipos de Comprobantes Válidos
+
+### Facturas Tradicionales
+- `B01` - Factura de Contado
+- `B02` - Factura a Crédito
+- `B14` - Regímenes Especiales
+- `B15` - Gubernamental
+- `B04` - Nota de Crédito
+
+### Facturas Electrónicas (e-CF)
+- `E31` - Factura de Contado Electrónica (requiere 10 dígitos)
+
+**Nota:** Actualmente solo `E31` está habilitado para comprobantes electrónicos. Otros tipos electrónicos (`E32`, `E33`, `E34`, `E41`, `E42`, `E43`, `E44`) pueden habilitarse según necesidad.
+
+## Ambientes Disponibles
+
+### testecf (Pruebas)
+- **URL Base:** `https://ecf.dgii.gov.do/TesteCF`
+- **Uso:** Ambiente de pruebas donde se pueden enviar comprobantes con datos de prueba
+- **Recomendado para:** Desarrollo y pruebas
+- **Nota:** En desarrollo local (`APP_ENV=local`), este ambiente se fuerza automáticamente por seguridad
+
+### certecf (Certificación)
+- **URL Base:** `https://ecf.dgii.gov.do/CerteCF`
+- **Uso:** Ambiente de certificación para validar el funcionamiento antes de producción
+- **Recomendado para:** Pruebas finales antes de producción
+
+### ecf (Producción)
+- **URL Base:** `https://ecf.dgii.gov.do/eCF`
+- **Uso:** Ambiente de producción real
+- **Recomendado para:** Uso en producción con datos reales
+- **Advertencia:** Solo usar cuando estés completamente seguro de que todo funciona correctamente
+
+## Códigos de Forma de Pago
+
+| Código | Descripción |
+|--------|-------------|
+| `01` | Efectivo |
+| `02` | Cheque |
+| `03` | Transferencia Bancaria |
+| `04` | Tarjeta de Crédito |
+| `05` | Tarjeta de Débito |
+| `06` | Nota de Crédito |
+| `07` | Nota de Débito |
+| `08` | Letra de Cambio |
+| `09` | Pagaré |
+| `10` | Otros |
+
+## Manejo de Reintentos Automáticos
+
+El sistema incluye un mecanismo de reintentos automáticos:
+
+1. Si un comprobante es **rechazado** por la DGII, el sistema automáticamente:
+   - Asigna el siguiente NCF disponible
+   - Regenera el XML con el nuevo número
+   - Vuelve a firmar y enviar a la DGII
+   - Repite hasta 5 veces o hasta obtener un comprobante aceptado
+
+2. El documento fiscal se crea **siempre**, incluso si fue rechazado, para mantener un registro completo
+
+3. El estado final se puede consultar mediante el endpoint `GET /invoices/{uuid}`
+
+## Estados de Comprobantes
+
+| Estado | Descripción |
+|--------|-------------|
+| `Aceptado` | El comprobante fue aceptado por la DGII |
+| `Aprobado` | Sinónimo de Aceptado (se normaliza internamente) |
+| `Rechazado` | El comprobante fue rechazado por la DGII |
+| `Pendiente` | El comprobante está siendo procesado |
+
+## Ejemplos de Uso
+
+### Ejemplo 1: Factura Electrónica Simple (E31)
+
+```bash
+curl -X POST https://tu-dominio.com/api/external/fiscal/invoices \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx" \
+  -d '{
+    "tipo_comprobante": "E31",
+    "fecha_emision": "2025-01-15",
+    "environment": "testecf",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente de Prueba",
+    "items": [
+      {
+        "nombre": "Producto de Prueba",
+        "descripcion": "Descripción del producto",
+        "cantidad": 2,
+        "precio_unitario": 100.00,
+        "descuento": 0,
+        "tasa_itbis": 18,
+        "unidad_medida": "UND",
+        "indicador_bien_servicio": "1"
+      }
+    ],
+    "formas_pago": [
+      {
+        "codigo": "01",
+        "monto": 236.00
+      }
+    ]
+  }'
+```
+
+### Ejemplo 2: Consultar Estado de Comprobante
+
+```bash
+curl -X GET https://tu-dominio.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx"
+```
+
+### Ejemplo 3: Descargar PDF
+
+```bash
+curl -X GET https://tu-dominio.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx" \
+  -o factura.pdf
+```
+
+## Códigos de Error Comunes
+
+| Código HTTP | Error | Descripción | Solución |
+|-------------|-------|-------------|----------|
+| 401 | `UNAUTHORIZED` | API Key inválida o no proporcionada | Verificar que la API Key sea correcta y esté activa |
+| 422 | `VALIDATION_ERROR` | Error de validación en los datos enviados | Revisar los campos requeridos y sus formatos |
+| 404 | `DOCUMENT_NOT_FOUND` | Documento fiscal no encontrado | Verificar que el UUID sea correcto y pertenezca a tu organización |
+| 500 | `PROCESSING_ERROR` | Error al procesar la factura | Revisar los logs del servidor o contactar soporte |
+| 500 | `SIGNATURE_ERROR` | Error al firmar el XML | Verificar que el certificado esté configurado correctamente |
+| 500 | `PDF_GENERATION_ERROR` | Error al generar el PDF | Verificar que el documento exista y esté aprobado |
+
+## Notas Importantes
+
+1. **Seguridad en Desarrollo:** En ambientes de desarrollo (`APP_ENV=local`), todos los envíos se fuerzan automáticamente a `testecf` para evitar enviar datos de prueba a producción.
+
+2. **Asignación Automática de NCF:** El sistema asigna automáticamente el siguiente NCF disponible según el tipo de comprobante solicitado. No es necesario especificar el número.
+
+3. **Formato de Fechas:** Las fechas deben enviarse en formato `YYYY-MM-DD` (ej: `2025-01-15`).
+
+4. **Formato de Montos:** Todos los montos deben tener máximo 2 decimales.
+
+5. **UUID vs ID Interno:** El sistema usa UUIDs para identificar documentos externamente. Los IDs numéricos internos no se exponen por seguridad multi-tenant.
+
+6. **Límite de Reintentos:** El sistema intenta hasta 5 veces obtener un comprobante aceptado antes de detenerse.
+
+7. **Consultar Documentos:** Todos los documentos generados pueden consultarse desde el módulo Fiscal de Alante Digital, independientemente de cómo fueron creados (API o interfaz web).
+
+8. **Certificado Requerido:** La organización debe tener un certificado digital válido configurado para poder generar comprobantes fiscales.
+
+## Soporte
+
+Para soporte técnico o consultas sobre el API, contacta al equipo de desarrollo de Alante Digital.
+
+---
+
+**Versión del Documento:** 1.0  
+**Última Actualización:** Noviembre 2025
+
