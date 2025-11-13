@@ -35,21 +35,13 @@
     {
       "group": "Ventas",
       "pages": [
-        "ventas/tablero",
-        {
-          "group": "KPIs",
-          "icon": "pencil",
-          "pages": [
-            "installation",
-            "editor"
-          ]
-        }
+        "ventas/tablero"
       ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/alantedigital",
-    "instagram": "https://instagram.com/alante.digital",
+    "instagram": "https://instagram.com/alantedigital",
     "linkedin": "https://www.linkedin.com/company/alantedigital"
   },
   "search": {
