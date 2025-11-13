@@ -45,12 +45,7 @@ Authorization: Bearer alante_xxxxxxxxxxxxx
 ## Base URL
 
 ```
-https://tu-dominio.com/api/external/fiscal
-```
-
-Para desarrollo local:
-```
-http://localhost:8000/api/external/fiscal
+https://alantedigital.com/api/external/fiscal
 ```
 
 ## Endpoints Disponibles
@@ -116,7 +111,7 @@ X-API-Key: alante_xxxxxxxxxxxxx
 
 | Parámetro | Tipo | Descripción |
 |-----------|------|-------------|
-| `tipo_comprobante` | string | Tipo de comprobante fiscal. Valores válidos: `B01`, `B02`, `B04`, `B14`, `B15`, `E31`. Nota: Actualmente solo estos tipos están habilitados. Otros tipos pueden agregarse según necesidad. |
+| `tipo_comprobante` | string | Tipo de comprobante fiscal. Valores válidos: `E31`, `E32`. Nota: Actualmente solo estos tipos están habilitados. Otros tipos pueden agregarse según necesidad. |
 | `fecha_emision` | string | Fecha de emisión en formato `YYYY-MM-DD` |
 | `rnc_comprador` | string | RNC del comprador (9 o 11 dígitos) |
 | `razon_social_comprador` | string | Razón social del comprador |
@@ -305,13 +300,6 @@ X-API-Key: alante_xxxxxxxxxxxxx
 
 ## Tipos de Comprobantes Válidos
 
-### Facturas Tradicionales
-- `B01` - Factura de Contado
-- `B02` - Factura a Crédito
-- `B14` - Regímenes Especiales
-- `B15` - Gubernamental
-- `B04` - Nota de Crédito
-
 ### Facturas Electrónicas (e-CF)
 - `E31` - Factura de Contado Electrónica (requiere 10 dígitos)
 
@@ -379,7 +367,7 @@ El sistema incluye un mecanismo de reintentos automáticos:
 ### Ejemplo 1: Factura Electrónica Simple (E31)
 
 ```bash
-curl -X POST https://tu-dominio.com/api/external/fiscal/invoices \
+curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
   -H "Content-Type: application/json" \
   -H "X-API-Key: alante_xxxxxxxxxxxxx" \
   -d '{
@@ -412,14 +400,14 @@ curl -X POST https://tu-dominio.com/api/external/fiscal/invoices \
 ### Ejemplo 2: Consultar Estado de Comprobante
 
 ```bash
-curl -X GET https://tu-dominio.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb \
+curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb \
   -H "X-API-Key: alante_xxxxxxxxxxxxx"
 ```
 
 ### Ejemplo 3: Descargar PDF
 
 ```bash
-curl -X GET https://tu-dominio.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf \
+curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf \
   -H "X-API-Key: alante_xxxxxxxxxxxxx" \
   -o factura.pdf
 ```
