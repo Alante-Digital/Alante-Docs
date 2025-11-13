@@ -65,7 +65,7 @@
     {
       "group": "Fiscal",
       "pages": [
-        "fiscal/tablero"
+        "Fiscal/tablero"
       ]
     },
     {
