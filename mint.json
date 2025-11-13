@@ -35,7 +35,15 @@
     {
       "group": "Ventas",
       "pages": [
-        "ventas/tablero"
+        "ventas/tablero",
+        {
+          "group": "KPIs",
+          "icon": "pencil",
+          "pages": [
+            "installation",
+            "editor"
+          ]
+        }
       ]
     }
   ],
