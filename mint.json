@@ -31,6 +31,12 @@
       "pages": [
         "introduction"
       ]
+    },
+    {
+      "group": "Ventas",
+      "pages": [
+        "ventas/tablero"
+      ]
     }
   ],
   "footerSocials": {
