@@ -41,37 +41,37 @@
     {
       "group": "Compras y Gastos",
       "pages": [
-        "ventas/tablero"
+        "compras-y-gastos/tablero"
       ]
     },
     {
       "group": "Inventario",
       "pages": [
-        "ventas/tablero"
+        "inventario/tablero"
       ]
     },
     {
       "group": "Cajas y Bancos",
       "pages": [
-        "ventas/tablero"
+        "cajas-y-bancos/tablero"
       ]
     },
     {
       "group": "Contabilidad",
       "pages": [
-        "ventas/tablero"
+        "contabilidad/tablero"
       ]
     },
     {
       "group": "Fiscal",
       "pages": [
-        "ventas/tablero"
+        "fiscal/tablero"
       ]
     },
     {
       "group": "Recursos Humanos",
       "pages": [
-        "ventas/tablero"
+        "recursos-humanos/tablero"
       ]
     }
   ],
