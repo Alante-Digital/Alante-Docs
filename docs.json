@@ -1,0 +1,103 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Alante Digital",
+  "colors": {
+    "primary": "#1798c8",
+    "light": "#ace4f5",
+    "dark": "#1d506d"
+  },
+  "fonts": {
+    "family": "Inter"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Actualizaciones",
+        "icon": "calendar",
+        "pages": [
+          "actualizaciones"
+        ]
+      }
+    ],
+    "pages": ["introduccion/introduction"],
+    "groups": [
+      {
+        "group": "Introducción",
+        "pages": [
+          "introduccion/introduction"
+        ]
+      },
+      {
+        "group": "Ventas",
+        "pages": [
+          "ventas/tablero"
+        ]
+      },
+      {
+        "group": "Compras y Gastos",
+        "pages": [
+          "compras-y-gastos/tablero"
+        ]
+      },
+      {
+        "group": "Inventario",
+        "pages": [
+          "inventario/tablero"
+        ]
+      },
+      {
+        "group": "Cajas y Bancos",
+        "pages": [
+          "cajas-y-bancos/tablero"
+        ]
+      },
+      {
+        "group": "Contabilidad",
+        "pages": [
+          "contabilidad/tablero"
+        ]
+      },
+      {
+        "group": "Fiscal",
+        "pages": [
+          "fiscal/tablero"
+        ]
+      },
+      {
+        "group": "Recursos Humanos",
+        "pages": [
+          "recursos-humanos/tablero"
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Soporte",
+        "href": "mailto:info@alante.net"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Entrar",
+      "href": "https://alante.digital"
+    }
+  },
+  "search": {
+    "prompt": "Buscar..."
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/alantedigital",
+      "instagram": "https://instagram.com/alantedigital",
+      "linkedin": "https://www.linkedin.com/company/alantedigital"
+    }
+  }
+}

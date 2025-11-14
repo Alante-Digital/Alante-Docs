@@ -46,12 +46,7 @@ Authorization: Bearer alante_xxxxxxxxxxxxx
 ## Base URL
 
 ```
-https://alantedigital.com/api/external/fiscal
-```
-
-Para desarrollo local:
-```
-http://localhost:8000/api/external/fiscal
+https://alante.digital/api/external/fiscal
 ```
 
 ## Endpoints Disponibles
@@ -436,7 +431,7 @@ Cuando un comprobante es **aceptado** por la DGII, el sistema genera automática
 ### Ejemplo 1: Factura Electrónica Simple (E31)
 
 ```bash
-curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
+curl -X POST https://alante.digital/api/external/fiscal/invoices \
   -H "Content-Type: application/json" \
   -H "X-API-Key: alante_xxxxxxxxxxxxx" \
   -d '{
@@ -470,14 +465,14 @@ curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
 ### Ejemplo 2: Consultar Estado de Comprobante
 
 ```bash
-curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb \
+curl -X GET https://alante.digital/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb \
   -H "X-API-Key: alante_xxxxxxxxxxxxx"
 ```
 
 ### Ejemplo 3: Descargar PDF
 
 ```bash
-curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf \
+curl -X GET https://alante.digital/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf \
   -H "X-API-Key: alante_xxxxxxxxxxxxx" \
   -o factura.pdf
 ```
@@ -485,14 +480,14 @@ curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1
 ### Ejemplo 4: Obtener Datos del QR
 
 ```bash
-curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/qr \
+curl -X GET https://alante.digital/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/qr \
   -H "X-API-Key: alante_xxxxxxxxxxxxx"
 ```
 
 ### Ejemplo 5: Descargar XML
 
 ```bash
-curl -X GET https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/xml \
+curl -X GET https://alante.digital/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/xml \
   -H "X-API-Key: alante_xxxxxxxxxxxxx" \
   -o comprobante.xml
 ```
