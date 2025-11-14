@@ -12,15 +12,6 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "anchors": [
-      {
-        "anchor": "Actualizaciones",
-        "icon": "calendar",
-        "pages": [
-          "actualizaciones"
-        ]
-      }
-    ],
     "pages": ["introduccion/introduction"],
     "groups": [
       {
