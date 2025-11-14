@@ -12,6 +12,15 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "products": [
+      {
+        "product": "Actualizaciones",
+        "icon": "calendar",
+        "pages": [
+          "actualizaciones"
+        ]
+      }
+    ],
     "pages": ["introduccion/introduction"],
     "groups": [
       {
