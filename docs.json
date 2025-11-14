@@ -17,13 +17,16 @@
         "group": "Comenzando",
         "pages": [
           "introduccion/introduction",
+          "introduccion/configuracion",
+          "introduccion/usuarios",
           "actualizaciones"
         ]
       },
       {
         "group": "Ventas",
         "pages": [
-          "ventas/tablero"
+          "ventas/tablero",
+          "ventas/facturacion"
         ]
       },
       {
