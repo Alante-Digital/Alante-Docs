@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "aspen",
   "name": "Alante Digital",
   "colors": {
     "primary": "#1798c8",
@@ -12,9 +12,9 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "products": [
+    "anchors": [
       {
-        "product": "Actualizaciones",
+        "anchor": "Actualizaciones",
         "icon": "calendar",
         "pages": [
           "actualizaciones"
