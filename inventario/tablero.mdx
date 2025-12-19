@@ -3,4 +3,347 @@ title: Tablero de Inventario
 description: 'Definiciones del tablero de Inventario y su objetivo'
 ---
 
-## Introducción al tablero de Inventario
+# Tablero de Inventario
+
+## Introducción
+
+El Tablero de Inventario es la pantalla principal del módulo de inventario. Proporciona una vista general del estado de tu inventario, métricas clave, alertas críticas y acceso rápido a las funcionalidades más importantes. Está diseñado para darte una comprensión inmediata de la salud de tu inventario y permitirte tomar decisiones informadas rápidamente.
+
+## Estructura del Tablero
+
+El tablero está organizado en varias secciones que se muestran en orden de prioridad:
+
+1. **Alertas Críticas** (arriba, siempre visible si hay problemas)
+2. **KPIs Principales** (3 métricas clave)
+3. **Contenido Principal** (2 columnas con información detallada)
+4. **Acciones Rápidas** (acceso directo a funciones comunes)
+
+## Alertas Críticas
+
+Las alertas críticas aparecen en la parte superior del tablero y se muestran solo cuando hay situaciones que requieren atención inmediata.
+
+### Productos Sin Stock
+
+**Color:** Rojo (crítico)
+
+Muestra productos que tienen stock en cero o negativo. Esta es la alerta más crítica porque indica que no puedes vender estos productos.
+
+**Información mostrada:**
+- Número total de productos sin stock
+- Lista de hasta 5 productos (con enlace al detalle)
+- Nombre del almacén donde falta stock
+- Enlace para ver todos los productos sin stock
+
+**Acción recomendada:**
+- Revisar los productos listados
+- Realizar compras o entradas de inventario para reponer stock
+- Verificar si hay productos que ya no se usan y deben desactivarse
+
+### Productos Bajo Stock Mínimo
+
+**Color:** Ámbar/Amarillo (advertencia)
+
+Muestra productos cuyo stock actual está por debajo del stock mínimo configurado. Esto indica que necesitas reponer pronto, pero aún hay stock disponible.
+
+**Información mostrada:**
+- Número total de productos bajo stock mínimo
+- Lista de hasta 5 productos (con enlace al detalle)
+- Stock actual vs. stock mínimo
+- Nombre del almacén
+- Enlace para ver todos los productos bajo stock
+
+**Ordenamiento:**
+Los productos se ordenan por criticidad, mostrando primero aquellos que están más lejos del stock mínimo.
+
+**Acción recomendada:**
+- Planificar compras para reponer stock
+- Revisar si el stock mínimo está configurado correctamente
+- Considerar aumentar el stock mínimo si las ventas han crecido
+
+## KPIs Principales
+
+Los KPIs (Indicadores Clave de Rendimiento) se muestran en tres tarjetas grandes en la parte superior del tablero.
+
+### Valor Total de Inventario
+
+**Color:** Verde
+
+**Descripción:** Muestra el valor total del inventario calculado como la suma de (stock × costo) de todos los productos en todos los almacenes.
+
+**Cálculo:**
+```
+Valor Total = Σ (Stock del producto × Costo del producto)
+```
+
+**Importancia:**
+- Representa el capital invertido en inventario
+- Ayuda a entender el valor de los activos en stock
+- Útil para análisis financiero y planificación
+
+**Información adicional:**
+- Muestra "Capital invertido en stock" como descripción
+- Formato: RD$ con separadores de miles y 2 decimales
+
+### Productos con Stock
+
+**Color:** Azul
+
+**Descripción:** Muestra cuántos productos tienen stock disponible (mayor a cero) de todos los productos activos.
+
+**Información mostrada:**
+- Número de productos con stock
+- Total de productos activos (para contexto)
+- Proporción de productos con stock vs. total
+
+**Importancia:**
+- Indica qué tan activo es tu inventario
+- Ayuda a identificar si hay muchos productos sin movimiento
+- Útil para decisiones de desactivación de productos
+
+### Movimientos Hoy
+
+**Color:** Púrpura
+
+**Descripción:** Muestra la actividad del día actual en términos de movimientos de inventario.
+
+**Información mostrada:**
+- Número de movimientos registrados hoy
+- Total de unidades movidas (suma de todas las cantidades)
+
+**Tipos de movimientos incluidos:**
+- Entradas
+- Salidas
+- Ajustes
+- Transferencias
+
+**Importancia:**
+- Indica el nivel de actividad del inventario
+- Ayuda a identificar días con alta o baja actividad
+- Útil para planificación de recursos
+
+## Contenido Principal
+
+El contenido principal se divide en dos columnas: una columna izquierda (2/3 del ancho) con información detallada y una columna derecha (1/3 del ancho) con acciones rápidas.
+
+### Columna Izquierda
+
+#### Top 10 Productos por Valor en Stock
+
+Muestra los 10 productos que representan mayor capital invertido en inventario.
+
+**Información mostrada:**
+- Posición (#1, #2, etc.)
+- Nombre y código del producto (con enlace al detalle)
+- Existencia actual (stock)
+- Costo unitario
+- Valor total (stock × costo)
+- Almacén donde está el stock
+
+**Ordenamiento:**
+Ordenados de mayor a menor valor total.
+
+**Uso:**
+- Identificar productos que representan mayor inversión
+- Planificar compras y rotación
+- Analizar concentración de capital en productos específicos
+
+**Acciones:**
+- Click en el nombre del producto para ver el detalle
+- Enlace a reportes para análisis más detallado
+
+#### Movimientos de Hoy
+
+Muestra los movimientos de inventario registrados en el día actual.
+
+**Información mostrada por movimiento:**
+- Tipo de movimiento (Entrada, Salida, Ajuste, Transferencia)
+- Referencia o número del movimiento
+- Almacén donde se realizó
+- Número de productos involucrados
+- Total de unidades movidas
+- Fecha y hora del movimiento
+
+**Visualización:**
+- Cada movimiento se muestra en una tarjeta
+- Colores diferentes según el tipo:
+  - Verde: Entradas
+  - Rojo: Salidas
+  - Azul: Ajustes
+  - Púrpura: Transferencias
+- Iconos distintivos para cada tipo
+
+**Límite:**
+Muestra hasta 10 movimientos. Para ver todos, hay un enlace a la página completa de movimientos.
+
+**Uso:**
+- Monitorear actividad en tiempo real
+- Verificar que los movimientos se están registrando correctamente
+- Identificar patrones de actividad
+
+### Columna Derecha
+
+#### Acciones Rápidas
+
+Proporciona acceso directo a las funciones más comunes del módulo de inventario.
+
+**Acciones disponibles:**
+
+1. **Nuevo Producto**
+   - Crea un nuevo producto o servicio
+   - Requiere permiso: Crear Productos
+   - Color: Azul
+
+2. **Entrada de Stock**
+   - Registra una nueva entrada de inventario
+   - Requiere permiso: Crear Movimientos
+   - Color: Verde
+   - Pre-configurado con tipo "entrada"
+
+3. **Salida de Stock**
+   - Registra una nueva salida de inventario
+   - Requiere permiso: Crear Movimientos
+   - Color: Rojo
+   - Pre-configurado con tipo "salida"
+
+4. **Ajuste de Stock**
+   - Realiza un ajuste de inventario
+   - Requiere permiso: Crear Movimientos
+   - Color: Ámbar
+   - Pre-configurado con tipo "ajuste"
+
+**Comportamiento:**
+- Si tienes permisos: Botón activo con enlace directo
+- Si no tienes permisos: Botón deshabilitado con mensaje "Sin permisos"
+- Al hacer click sin permisos, se muestra una notificación explicando los permisos necesarios
+
+#### Enlaces Rápidos
+
+Proporciona acceso rápido a las secciones principales del módulo.
+
+**Enlaces disponibles:**
+- Ver Productos
+- Ver Movimientos
+- Ver Almacenes
+- Reportes
+
+**Uso:**
+- Navegación rápida sin usar el menú principal
+- Acceso directo a secciones frecuentemente usadas
+
+## Cálculos y Métricas
+
+### Valor Total de Inventario
+
+El valor total se calcula sumando el valor de cada producto-almacén:
+
+```
+Para cada ProductWarehouse:
+  Valor = Stock × Costo (del warehouse o del producto)
+  
+Valor Total = Suma de todos los valores
+```
+
+**Notas:**
+- Usa el costo del warehouse si está disponible, sino usa el costo del producto
+- Solo incluye productos stockables
+- Incluye todos los almacenes de la organización
+
+### Productos con Stock
+
+Cuenta productos únicos que tienen stock mayor a cero en al menos un almacén:
+
+```
+Productos con Stock = COUNT(DISTINCT product_id) 
+WHERE stock > 0 
+AND producto es stockable
+```
+
+### Stock Mínimo vs. Stock Actual
+
+Para productos bajo stock mínimo:
+
+```
+Crítico si: stock < stock_min AND stock > 0
+```
+
+Los productos se ordenan por la diferencia:
+```
+Criticidad = stock_min - stock
+```
+
+Mayor diferencia = más crítico = aparece primero.
+
+## Actualización de Datos
+
+El tablero se actualiza automáticamente cada vez que accedes a él. Los datos reflejan el estado actual del inventario al momento de cargar la página.
+
+**Datos en tiempo real:**
+- Los movimientos de hoy se actualizan inmediatamente después de crear un movimiento
+- Las alertas se actualizan cuando cambia el stock
+- Los KPIs reflejan el estado actual del inventario
+
+**Nota:** Para ver datos actualizados, recarga la página o navega de nuevo al tablero.
+
+## Permisos Requeridos
+
+El tablero muestra información según los permisos del usuario:
+
+- **Ver tablero:** Acceso básico al módulo de inventario
+- **Ver alertas:** Se muestran automáticamente si hay problemas
+- **Acciones rápidas:** Requieren permisos específicos para cada acción
+- **Enlaces:** Acceso a las secciones según permisos de lectura
+
+## Mejores Prácticas
+
+### Revisión Diaria
+
+1. **Revisa las alertas críticas primero**
+   - Atiende productos sin stock inmediatamente
+   - Planifica compras para productos bajo stock mínimo
+
+2. **Monitorea los KPIs**
+   - Verifica que el valor de inventario esté dentro de lo esperado
+   - Revisa la proporción de productos con stock
+   - Analiza la actividad diaria
+
+3. **Revisa los Top 10 productos**
+   - Identifica productos con alta inversión
+   - Planifica rotación y compras
+   - Analiza si la concentración es adecuada
+
+4. **Revisa movimientos del día**
+   - Verifica que todo se esté registrando correctamente
+   - Identifica patrones o anomalías
+   - Asegura trazabilidad completa
+
+### Análisis Semanal
+
+- Compara el valor de inventario semana a semana
+- Analiza tendencias en productos bajo stock
+- Revisa la actividad de movimientos
+- Identifica productos que requieren atención
+
+### Acciones Preventivas
+
+- Configura stock mínimos apropiados para evitar alertas constantes
+- Mantén productos desactivados si no se usan
+- Revisa y actualiza costos regularmente
+
+## Resumen
+
+El Tablero de Inventario es tu punto de entrada al módulo de inventario. Proporciona:
+
+- **Vista general inmediata** del estado de tu inventario
+- **Alertas críticas** para problemas que requieren atención
+- **Métricas clave** para entender el valor y actividad
+- **Información detallada** sobre productos y movimientos
+- **Acceso rápido** a funciones comunes
+
+**Flujo recomendado:**
+1. Revisa alertas críticas (arriba)
+2. Revisa KPIs principales (métricas clave)
+3. Analiza Top 10 productos (mayor inversión)
+4. Revisa movimientos del día (actividad)
+5. Usa acciones rápidas según necesidades
+
+Todo esto en una sola pantalla, diseñada para darte la información que necesitas de manera clara y accionable.
