@@ -38,7 +38,8 @@
       {
         "group": "Inventario",
         "pages": [
-          "inventario/tablero"
+          "inventario/tablero",
+          "inventario/lotes"
         ]
       },
       {

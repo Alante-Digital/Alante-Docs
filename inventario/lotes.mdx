@@ -1,0 +1,230 @@
+# Sistema de Lotes de Vencimiento
+
+## Introducción
+
+El sistema de lotes de vencimiento permite gestionar productos que requieren control de fechas de caducidad. Este sistema funciona de manera automática y transparente, asegurando que los productos más próximos a vencer se vendan primero, sin necesidad de que el usuario seleccione manualmente qué lote utilizar.
+
+## ¿Qué son los Lotes?
+
+Un lote es un grupo de productos del mismo tipo que comparten una fecha de vencimiento específica. Por ejemplo, si recibes 100 unidades de leche que vencen el 15 de enero de 2025, puedes crear un lote con esa información. Si luego recibes otras 50 unidades que vencen el 20 de enero, crearás un segundo lote.
+
+Los lotes permiten:
+- **Control de vencimientos**: Saber exactamente cuándo vence cada grupo de productos
+- **Trazabilidad**: Rastrear qué lote se vendió en cada transacción
+- **Rotación automática**: El sistema vende primero los productos más próximos a vencer
+- **Alertas**: Notificaciones cuando hay productos próximos a vencer o vencidos
+
+## Configuración de Productos
+
+Para que un producto pueda usar lotes, debe estar marcado como "Requiere control de lotes" en su configuración. Esta opción solo está disponible para productos que manejan stock (no para servicios).
+
+Cuando un producto tiene esta opción activada:
+- El sistema mostrará alertas si hay stock sin lote asignado
+- Las salidas aplicarán automáticamente el método PEPS (Primero en Entrar, Primero en Salir)
+- Podrás crear reportes de productos próximos a vencer
+
+## Flujo de Trabajo
+
+### 1. Entrada de Productos
+
+Cuando recibes productos en el inventario (a través de compras o entradas manuales), estos ingresan al sistema normalmente. Si el producto requiere lotes, el stock queda disponible como "sin lote asignado".
+
+**Ejemplo:**
+- Recibes 100 unidades de carne molida
+- El stock total se actualiza a 100 unidades
+- El stock sin lote asignado también se actualiza a 100 unidades
+- Aún no se ha creado ningún lote
+
+### 2. Creación de Lotes
+
+Los lotes se crean **manualmente** después de que los productos ya están en inventario. Esto te da flexibilidad para organizar los productos según tus necesidades.
+
+**Proceso de creación:**
+1. Accedes a la gestión de lotes del producto
+2. El sistema muestra:
+   - Stock total disponible
+   - Stock sin lote asignado
+   - Lotes existentes del producto
+3. Creas un nuevo lote especificando:
+   - Fecha de vencimiento (obligatoria)
+   - Cantidad a asignar al lote (máximo: stock sin lote disponible)
+   - El número de lote se genera automáticamente (ej: LOT-00001, LOT-00002)
+
+**Ejemplo práctico:**
+```
+Situación inicial:
+- Producto: Carne molida
+- Stock total: 100 unidades
+- Stock sin lote: 100 unidades
+- Lotes: ninguno
+
+Creas lote 1:
+- Número: LOT-00001 (auto-generado)
+- Fecha vencimiento: 2025-12-31
+- Cantidad: 60 unidades
+
+Resultado:
+- Stock total: 100 unidades (sin cambios)
+- Stock sin lote: 40 unidades (100 - 60)
+- Lotes: 1 lote con 60 unidades
+
+Creas lote 2:
+- Número: LOT-00002 (auto-generado)
+- Fecha vencimiento: 2026-01-15
+- Cantidad: 40 unidades
+
+Resultado final:
+- Stock total: 100 unidades
+- Stock sin lote: 0 unidades
+- Lotes: 2 lotes (60 + 40)
+```
+
+### 3. Salida de Productos (FIFO Automático)
+
+Cuando vendes productos que requieren lotes, el sistema **automáticamente** aplica el método FIFO (First In, First Out). Esto significa que se descuentan primero los productos del lote más próximo a vencer, sin que tengas que hacer nada.
+
+**El proceso es completamente transparente:**
+- Vendes normalmente como siempre lo has hecho
+- No ves ni seleccionas lotes durante la venta
+- El sistema internamente distribuye las cantidades entre lotes
+- Se registra qué lote se vendió para trazabilidad
+
+**Ejemplo de funcionamiento FIFO:**
+
+```
+Situación inicial:
+- LOT-00001: Vence 31-12-2025, 30 unidades disponibles
+- LOT-00002: Vence 15-01-2026, 50 unidades disponibles
+- LOT-00003: Vence 28-02-2026, 50 unidades disponibles
+
+Venta 1: Vendes 25 unidades
+→ Sistema automáticamente descuenta de LOT-00001 (25 unidades)
+→ LOT-00001 queda con 5 unidades
+
+Venta 2: Vendes 10 unidades
+→ Sistema automáticamente descuenta:
+   * 5 unidades de LOT-00001 (se agota completamente)
+   * 5 unidades de LOT-00002 (siguiente en la lista)
+→ LOT-00001: 0 unidades (se marca como cerrado automáticamente)
+→ LOT-00002: 45 unidades
+
+Venta 3: Vendes 50 unidades
+→ Sistema automáticamente descuenta de LOT-00002 (45 unidades)
+→ Como solo había 45, descuenta 5 adicionales de LOT-00003
+→ LOT-00002: 0 unidades (cerrado)
+→ LOT-00003: 45 unidades
+```
+
+**Orden de prioridad:**
+1. Primero se descuentan lotes activos ordenados por fecha de vencimiento (más próximo primero)
+2. Si no hay fecha de vencimiento, se ordenan por fecha de creación
+3. Si se agotan todos los lotes y aún falta cantidad, se descuenta del stock sin lote asignado
+
+### 4. Cierre Automático de Lotes
+
+Cuando un lote se agota completamente (cantidad llega a cero), el sistema lo marca automáticamente como "cerrado". Los lotes cerrados:
+- No aparecen en selecciones para nuevas ventas
+- Se mantienen en el historial para trazabilidad
+- Pueden consultarse en reportes históricos
+
+## Gestión de Stock
+
+El sistema mantiene tres valores importantes para cada producto-almacén:
+
+1. **Stock Total**: Suma de todos los productos (en lotes + sin lote)
+2. **Stock en Lotes**: Suma de las cantidades de todos los lotes activos
+3. **Stock sin Lote**: Productos que aún no han sido asignados a un lote
+
+**Fórmula:**
+```
+Stock Total = Stock en Lotes + Stock sin Lote
+```
+
+**Validaciones importantes:**
+- No puedes crear un lote con más cantidad de la disponible sin lote
+- Si hay 80 unidades sin lote, máximo puedes asignar 80 a un lote
+- El sistema valida automáticamente estas restricciones
+
+## Alertas y Notificaciones
+
+El sistema proporciona alertas útiles para la gestión de lotes:
+
+### Productos que Requieren Lotes
+Si un producto está marcado como "requiere lotes" y tiene stock sin lote asignado, el sistema mostrará una alerta indicando cuántas unidades necesitan ser asignadas a lotes.
+
+### Productos Próximos a Vencer
+El sistema puede alertarte sobre productos que están próximos a vencer (configurable, típicamente 30, 60 o 90 días). Esto te permite tomar acciones preventivas como ofertas especiales o rotación de inventario.
+
+### Productos Vencidos
+Se muestran alertas para productos que ya han vencido, permitiéndote identificar rápidamente qué productos no deben venderse.
+
+## Trazabilidad
+
+Cada movimiento de inventario que involucra lotes registra qué lote específico se utilizó. Esto permite:
+
+- **Rastreo completo**: Saber exactamente qué lote se vendió en cada factura o venta
+- **Historial por lote**: Ver todos los movimientos de un lote específico
+- **Reportes detallados**: Analizar rotación, vencimientos y rendimiento por lote
+
+## Reportes Disponibles
+
+El sistema ofrece varios reportes relacionados con lotes:
+
+1. **Reporte de Productos Próximos a Vencer**
+   - Lista productos con lotes que vencen en un período determinado
+   - Filtros por días de anticipación, almacén y producto
+   - Útil para planificar rotación de inventario
+
+2. **Reporte de Productos Vencidos**
+   - Lista productos con lotes que ya han vencido
+   - Muestra cantidad vencida por producto
+   - Ayuda a identificar productos que deben retirarse
+
+3. **Kardex por Lote**
+   - Historial completo de movimientos de un lote específico
+   - Muestra entradas, salidas y ajustes
+   - Trazabilidad completa del lote
+
+4. **Rotación por Lote**
+   - Análisis de qué lotes se están vendiendo primero
+   - Identifica lotes estancados que requieren atención
+   - Útil para optimizar la gestión de inventario
+
+## Compatibilidad
+
+El sistema de lotes está diseñado para ser completamente compatible con productos que no requieren lotes:
+
+- **Productos sin lotes**: Funcionan exactamente igual que antes, sin cambios
+- **Productos con lotes**: Agregan funcionalidad adicional sin complicar el proceso
+- **Migración gradual**: Puedes activar el control de lotes en productos existentes cuando lo necesites
+- **Stock existente**: Cuando activas lotes en un producto con stock, ese stock queda disponible como "sin lote" para que lo asignes manualmente
+
+## Ventajas del Sistema
+
+1. **Automatización**: El FIFO se aplica automáticamente, sin intervención manual
+2. **Simplicidad**: Las ventas funcionan igual que siempre, el sistema maneja los lotes internamente
+3. **Flexibilidad**: Puedes crear lotes cuando lo necesites, no estás limitado al momento de la compra
+4. **Trazabilidad**: Registro completo de qué lote se vendió en cada transacción
+5. **Control**: Alertas y reportes que te ayudan a gestionar vencimientos eficientemente
+6. **Compatibilidad**: No afecta productos que no requieren lotes
+
+## Consideraciones Importantes
+
+- **Números de lote**: Se generan automáticamente usando secuencias únicas por organización (LOT-00001, LOT-00002, etc.)
+- **Fechas de vencimiento**: Son obligatorias al crear un lote
+- **Cantidad máxima**: No puedes asignar más cantidad de la disponible sin lote
+- **Lotes cerrados**: Se mantienen en el historial pero no se usan en nuevas ventas
+- **Seguridad**: El sistema usa identificadores únicos (UUID) para proteger la información
+
+## Resumen
+
+El sistema de lotes de vencimiento es una herramienta poderosa que funciona de manera automática y transparente. Te permite:
+
+- Controlar fechas de vencimiento de productos
+- Asegurar rotación adecuada (FIFO automático)
+- Mantener trazabilidad completa
+- Recibir alertas sobre productos próximos a vencer
+- Generar reportes detallados
+
+Todo esto sin complicar tu flujo de trabajo diario, ya que las ventas funcionan exactamente igual que antes, mientras el sistema maneja inteligentemente la distribución de lotes en segundo plano.
+
