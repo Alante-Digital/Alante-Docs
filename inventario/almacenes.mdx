@@ -1,0 +1,267 @@
+# Gestión de Almacenes
+
+## Introducción
+
+Los almacenes son ubicaciones físicas o virtuales donde se almacenan tus productos. El sistema te permite gestionar múltiples almacenes, cada uno con su propio inventario, lo que te ayuda a organizar y controlar mejor tus productos según su ubicación.
+
+## ¿Qué son los Almacenes?
+
+Un almacén representa un lugar donde guardas productos. Puede ser:
+- Una bodega física
+- Una sucursal
+- Un punto de venta
+- Cualquier ubicación donde mantengas inventario
+
+**Características principales:**
+- Cada almacén mantiene su propio inventario independiente
+- Puedes tener múltiples almacenes en tu organización
+- Los productos pueden estar en varios almacenes simultáneamente
+- Puedes transferir productos entre almacenes
+- Cada almacén puede tener configuraciones de stock mínimo y máximo por producto
+
+## Almacén Principal
+
+Cada organización tiene un **almacén principal** que se crea automáticamente. Este almacén:
+
+- No se puede eliminar
+- Aparece primero en las listas
+- Se usa como almacén por defecto en muchas operaciones
+- Puede editarse pero mantiene su condición de principal
+
+**Nota:** Si necesitas cambiar cuál es el almacén principal, debes contactar al soporte técnico.
+
+## Crear un Almacén
+
+Para crear un nuevo almacén:
+
+1. Accede a la sección de Almacenes en el módulo de Inventario
+2. Haz clic en "Nuevo Almacén"
+3. Completa la información:
+   - **Nombre** (obligatorio): Nombre identificador del almacén
+   - **Ubicación**: Ciudad, sucursal o referencia de ubicación
+   - **Responsable**: Persona a cargo del almacén
+   - **Teléfono**: Número de contacto
+   - **Dirección**: Dirección física del almacén
+   - **Notas**: Información adicional que quieras registrar
+   - **Branding**: Asociar una marca o sucursal (opcional)
+4. Haz clic en "Crear Almacén"
+
+**Consideraciones:**
+- El nombre debe ser único dentro de tu organización
+- Todos los campos excepto el nombre son opcionales
+- Puedes completar la información más tarde editando el almacén
+
+## Editar un Almacén
+
+Puedes modificar la información de un almacén en cualquier momento:
+
+1. Accede a la lista de almacenes
+2. Haz clic en el botón de editar del almacén que quieres modificar
+3. Modifica los campos que necesites
+4. Haz clic en "Guardar Cambios"
+
+**Restricciones:**
+- El almacén principal no se puede eliminar, pero sí editar
+- El nombre debe seguir siendo único
+
+## Eliminar un Almacén
+
+Puedes eliminar un almacén siempre que:
+
+- **No sea el almacén principal** (el principal no se puede eliminar)
+- **No tenga productos con stock** (debe estar vacío)
+
+**Proceso:**
+1. Accede a la lista de almacenes
+2. Haz clic en el botón de eliminar del almacén
+3. Confirma la eliminación
+
+**Si el almacén tiene stock:**
+- El sistema te mostrará un mensaje indicando que no se puede eliminar
+- Primero debes transferir o vender todos los productos del almacén
+- Una vez vacío, podrás eliminarlo
+
+## Ver Detalle de un Almacén
+
+Al hacer clic en un almacén, verás:
+
+### Información del Almacén
+- Nombre y ubicación
+- Datos de contacto (responsable, teléfono, dirección)
+- Notas adicionales
+- Branding asociado
+
+### Productos en el Almacén
+Lista completa de todos los productos que tienen stock en ese almacén, mostrando:
+
+- **Producto**: Nombre y código
+- **Categoría**: Categoría del producto
+- **Stock Actual**: Cantidad disponible
+- **Stock Mínimo**: Nivel mínimo configurado
+- **Stock Máximo**: Nivel máximo configurado (si está configurado)
+- **Costo**: Costo del producto en ese almacén
+
+### Acciones Disponibles
+
+Desde el detalle del almacén puedes:
+
+- **Transferir productos** a otro almacén
+- **Configurar stock mínimo** por producto
+- **Configurar stock máximo** por producto
+- **Exportar reporte** en Excel o PDF
+- **Ver detalle** de cada producto
+
+## Transferir Productos entre Almacenes
+
+Puedes mover productos de un almacén a otro cuando necesites:
+
+- Reabastecer otro almacén
+- Consolidar inventario
+- Reorganizar productos
+
+**Proceso de transferencia:**
+
+1. Accede al detalle del almacén de origen
+2. Haz clic en "Transferir Productos"
+3. Selecciona el almacén de destino
+4. Agrega los productos que quieres transferir:
+   - Solo aparecen productos que tienen stock en el almacén de origen
+   - Especifica la cantidad a transferir para cada producto
+5. Agrega notas si es necesario (opcional)
+6. Confirma la transferencia
+
+**Resultado:**
+- Se descuenta el stock del almacén de origen
+- Se agrega el stock al almacén de destino
+- Se registra un movimiento de transferencia en el historial
+- El costo se mantiene en el almacén de destino
+
+**Consideraciones:**
+- Solo puedes transferir productos que tienen stock disponible
+- La cantidad a transferir no puede exceder el stock disponible
+- El sistema registra automáticamente el movimiento
+
+## Configurar Stock Mínimo y Máximo
+
+Puedes configurar niveles de stock por producto en cada almacén:
+
+### Stock Mínimo
+
+El stock mínimo es la cantidad por debajo de la cual el sistema te alertará que necesitas reponer.
+
+**Configuración:**
+1. Accede al detalle del almacén
+2. En la lista de productos, localiza el campo "Stock Mínimo"
+3. Ingresa la cantidad mínima deseada
+4. El sistema guarda automáticamente
+
+**Uso:**
+- El tablero de inventario mostrará alertas cuando el stock esté por debajo del mínimo
+- Te ayuda a planificar compras antes de quedarte sin stock
+
+### Stock Máximo
+
+El stock máximo es la cantidad máxima recomendada que debes mantener en ese almacén.
+
+**Configuración:**
+1. Accede al detalle del almacén
+2. En la lista de productos, localiza el campo "Stock Máximo"
+3. Ingresa la cantidad máxima deseada
+4. El sistema guarda automáticamente
+
+**Uso:**
+- Te ayuda a evitar sobre-inventario
+- Útil para planificación de espacio
+- Puede usarse en reportes y análisis
+
+**Nota:** El stock máximo es informativo. El sistema no bloquea entradas que excedan este valor, solo te ayuda a mantener control.
+
+## Exportar Reportes
+
+Puedes exportar la información de stock de un almacén en dos formatos:
+
+### Exportar a Excel
+
+1. Accede al detalle del almacén
+2. Haz clic en "Exportar Excel"
+3. Se descargará un archivo con:
+   - Lista completa de productos
+   - Stock actual, mínimo y máximo
+   - Categorías
+   - Información del almacén
+
+**Uso:**
+- Análisis en Excel
+- Compartir con otros departamentos
+- Crear reportes personalizados
+
+### Exportar a PDF
+
+1. Accede al detalle del almacén
+2. Haz clic en "Exportar PDF"
+3. Se generará un PDF con:
+   - Información del almacén
+   - Lista de productos con stock
+   - Totales y resúmenes
+   - Formato listo para imprimir
+
+**Uso:**
+- Imprimir para revisión física
+- Archivar documentación
+- Compartir con gerencia
+
+## Asociar Branding a Almacenes
+
+Puedes asociar un branding (marca o sucursal) a un almacén. Esto es útil cuando:
+
+- Tienes múltiples marcas o sucursales
+- Quieres identificar visualmente a qué marca pertenece cada almacén
+- Necesitas reportes diferenciados por marca
+
+**Configuración:**
+1. Al crear o editar un almacén
+2. Selecciona el branding en el campo correspondiente
+3. Guarda los cambios
+
+**Nota:** El branding es opcional. Si no seleccionas uno, el almacén no tendrá branding asociado.
+
+## Mejores Prácticas
+
+### Organización de Almacenes
+
+- **Nombres claros**: Usa nombres descriptivos que identifiquen fácilmente cada almacén
+- **Ubicación**: Completa el campo de ubicación para facilitar la identificación
+- **Responsable**: Asigna un responsable a cada almacén para mejor control
+
+### Gestión de Stock
+
+- **Configura stock mínimos**: Establece niveles mínimos realistas para recibir alertas oportunas
+- **Revisa regularmente**: Revisa el stock de cada almacén periódicamente
+- **Transfiere cuando sea necesario**: Usa las transferencias para mantener stock balanceado
+
+### Mantenimiento
+
+- **Limpia almacenes vacíos**: Elimina almacenes que ya no uses (si no tienen stock)
+- **Actualiza información**: Mantén actualizada la información de contacto y ubicación
+- **Usa notas**: Aprovecha el campo de notas para información relevante
+
+## Resumen
+
+Los almacenes te permiten:
+
+- **Organizar tu inventario** por ubicación física o lógica
+- **Controlar stock** de manera independiente en cada ubicación
+- **Transferir productos** entre almacenes cuando sea necesario
+- **Configurar alertas** mediante stock mínimo y máximo
+- **Generar reportes** específicos por almacén
+- **Asociar marcas** o sucursales a almacenes
+
+**Flujo típico:**
+1. Crea los almacenes que necesitas
+2. Configura stock mínimo y máximo por producto
+3. Realiza entradas de inventario en el almacén correspondiente
+4. Monitorea el stock desde el detalle de cada almacén
+5. Transfiere productos entre almacenes según necesidades
+6. Exporta reportes cuando necesites análisis o documentación
+
+Todo esto te ayuda a mantener un control preciso y organizado de tu inventario en todas tus ubicaciones.

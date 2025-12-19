@@ -1,0 +1,306 @@
+# Gestión de Servicios
+
+## Introducción
+
+Los servicios son elementos que vendes pero que no tienen existencia física ni se rastrean en inventario. A diferencia de los productos, los servicios se prestan o se realizan, no se almacenan ni se cuentan.
+
+## ¿Qué son los Servicios?
+
+Un servicio es un elemento que puedes vender pero que no requiere control de inventario. Ejemplos comunes:
+- Consultoría
+- Reparaciones
+- Instalaciones
+- Mantenimiento
+- Asesorías
+- Diseño
+- Capacitación
+
+**Características principales:**
+- No tienen stock ni existencia
+- No se rastrean en almacenes
+- No aparecen en movimientos de inventario
+- Se pueden vender igual que productos
+- Tienen precio y costo
+- Se pueden categorizar igual que productos
+
+## Diferencias entre Productos y Servicios
+
+### Productos
+- Tienen existencia física
+- Se rastrean en inventario
+- Tienen stock en almacenes
+- Aparecen en movimientos de inventario
+- Pueden tener lotes de vencimiento
+- Pueden ser pesados
+- Pueden ser recetas
+
+### Servicios
+- No tienen existencia física
+- No se rastrean en inventario
+- No tienen stock
+- No aparecen en movimientos de inventario
+- No pueden tener lotes
+- No pueden ser pesados
+- No pueden ser recetas
+
+**Resumen:** Los productos se almacenan y se cuentan, los servicios se prestan y se facturan.
+
+## Crear un Servicio
+
+Para crear un nuevo servicio:
+
+1. Accede a la sección de Productos y Servicios en el módulo de Inventario
+2. Haz clic en "Producto o Servicio"
+3. En el campo "Tipo", selecciona "Servicio" (o marca el toggle si está disponible)
+4. Completa la información básica:
+   - **Código**: Se genera automáticamente (puedes cambiarlo)
+   - **Nombre**: Nombre del servicio
+   - **Categoría**: Categoría a la que pertenece (opcional)
+   - **Tasa de ITBIS**: 0%, 16% o 18%
+5. Configura la venta:
+   - Marca "¿Se vende?" si el servicio se vende
+   - Ingresa el precio de venta (sin ITBIS)
+   - El sistema calculará el precio con ITBIS automáticamente
+6. Configura el costo (opcional):
+   - Si el servicio tiene un costo asociado, puedes ingresarlo
+   - Útil para calcular márgenes de ganancia
+7. Haz clic en "Crear"
+
+**Consideraciones:**
+- Al marcar como servicio, el sistema automáticamente desactiva el rastreo de inventario
+- Los servicios no requieren almacén ni stock inicial
+- Puedes cambiar un producto a servicio o viceversa después de crearlo
+
+## Editar un Servicio
+
+Puedes modificar cualquier información de un servicio:
+
+1. Accede a la lista de Productos y Servicios
+2. Filtra por "Servicios" si quieres ver solo servicios
+3. Haz clic en el servicio que quieres editar
+4. Haz clic en "Editar"
+5. Modifica los campos que necesites
+6. Haz clic en "Guardar Cambios"
+
+**Campos editables:**
+- Nombre
+- Código
+- Categoría
+- Tasa de ITBIS
+- Precio de venta
+- Costo
+- Estado (activo/inactivo)
+- Si se vende o no
+
+## Precios y Costos
+
+### Precio de Venta
+
+El precio de venta es el monto que cobras al cliente por el servicio.
+
+**Configuración:**
+- Se ingresa sin ITBIS
+- El sistema calcula automáticamente el precio con ITBIS
+- Puedes tener múltiples niveles de precio (si está configurado)
+- Se puede calcular automáticamente desde el costo usando margen o recargo
+
+**Ejemplo:**
+```
+Precio sin ITBIS: RD$1,000.00
+Tasa de ITBIS: 18%
+Precio con ITBIS: RD$1,180.00
+```
+
+### Costo
+
+El costo representa el gasto asociado a prestar el servicio.
+
+**Usos:**
+- Calcular márgenes de ganancia
+- Análisis de rentabilidad
+- Reportes financieros
+
+**Ejemplo:**
+```
+Costo: RD$600.00
+Precio: RD$1,000.00
+Ganancia: RD$400.00 (40% de margen)
+```
+
+### Cálculo Automático de Precios
+
+Puedes configurar el sistema para que calcule el precio automáticamente desde el costo usando:
+
+**Margen de ganancia:**
+- El margen se calcula sobre el precio de venta
+- Ejemplo: Costo RD$100, Margen 25% → Precio RD$133.33
+
+**Recargo al costo:**
+- El recargo se añade al costo
+- Ejemplo: Costo RD$100, Recargo 25% → Precio RD$125.00
+
+## Filtrar Servicios
+
+En la lista de Productos y Servicios puedes filtrar para ver solo servicios:
+
+1. En el filtro "Tipo", selecciona "Servicios"
+2. La lista mostrará solo los servicios
+3. Puedes combinar con otros filtros (categoría, estado, búsqueda)
+
+**Ventajas:**
+- Ver todos tus servicios de un vistazo
+- Separar servicios de productos
+- Facilitar la gestión cuando tienes muchos elementos
+
+## Vender Servicios
+
+Los servicios se venden igual que los productos:
+
+**En facturas:**
+- Aparecen en el listado de productos disponibles
+- Se agregan a la factura igual que productos
+- Se facturan con su precio configurado
+- Se aplica ITBIS según la tasa configurada
+
+**En POS:**
+- Aparecen en el listado de productos
+- Se pueden buscar por nombre o código
+- Se agregan a la venta igual que productos
+- No requieren stock disponible
+
+**Ventajas:**
+- Mismo proceso de venta que productos
+- No hay restricciones de stock
+- Se pueden vender en cualquier momento
+- Se facturan normalmente
+
+## Categorías de Servicios
+
+Los servicios pueden tener categorías igual que los productos:
+
+**Ventajas:**
+- Organizar servicios por tipo
+- Filtrar por categoría
+- Reportes por categoría
+- Mejor organización
+
+**Ejemplos de categorías para servicios:**
+- Consultoría
+- Reparaciones
+- Mantenimiento
+- Instalaciones
+- Capacitación
+
+## Restricciones de Servicios
+
+Los servicios tienen algunas restricciones que los diferencian de productos:
+
+### No Rastrean Inventario
+- No tienen stock
+- No aparecen en almacenes
+- No se pueden mover entre almacenes
+- No aparecen en movimientos de inventario
+
+### No Pueden Ser Pesados
+- Los servicios no se venden por peso
+- No se pueden configurar como productos pesados
+
+### No Pueden Ser Recetas
+- Los servicios no están compuestos de otros elementos
+- No se pueden crear recetas de servicios
+
+### No Tienen Lotes
+- Los servicios no tienen fecha de vencimiento
+- No se rastrean por lotes
+
+**Estas restricciones son automáticas:** El sistema las aplica cuando marcas un elemento como servicio.
+
+## Cambiar entre Producto y Servicio
+
+Puedes cambiar un elemento de producto a servicio o viceversa:
+
+**De Producto a Servicio:**
+1. Edita el producto
+2. Marca como "Servicio"
+3. El sistema automáticamente:
+   - Desactiva el rastreo de inventario
+   - Elimina cualquier stock existente
+   - Quita asociaciones con almacenes
+4. Guarda los cambios
+
+**De Servicio a Producto:**
+1. Edita el servicio
+2. Desmarca "Servicio" (se convierte en producto)
+3. El sistema automáticamente:
+   - Activa el rastreo de inventario
+   - Permite configurar almacenes y stock
+4. Guarda los cambios
+
+**Consideraciones:**
+- Al cambiar de producto a servicio, se pierde el historial de stock
+- Al cambiar de servicio a producto, necesitarás configurar stock inicial
+- Los cambios son permanentes
+
+## Mejores Prácticas
+
+### Organización
+
+- **Usa categorías**: Organiza tus servicios en categorías lógicas
+- **Nombres claros**: Usa nombres descriptivos que identifiquen claramente el servicio
+- **Códigos consistentes**: Mantén un formato consistente para los códigos de servicios
+
+### Precios
+
+- **Revisa regularmente**: Revisa y actualiza precios periódicamente
+- **Documenta costos**: Ingresa los costos para análisis de rentabilidad
+- **Usa márgenes**: Configura márgenes o recargos para cálculo automático
+
+### Gestión
+
+- **Mantén activos**: Desactiva servicios que ya no ofreces en lugar de eliminarlos
+- **Actualiza información**: Mantén la información de servicios actualizada
+- **Usa filtros**: Aprovecha los filtros para ver solo servicios cuando sea necesario
+
+## Casos de Uso Comunes
+
+### Servicios de Consultoría
+- Crear servicios por tipo de consultoría
+- Establecer precios por hora o por proyecto
+- Categorizar por área de expertise
+
+### Servicios de Reparación
+- Crear servicios por tipo de reparación
+- Establecer precios fijos o por hora
+- Categorizar por tipo de equipo o sistema
+
+### Servicios de Mantenimiento
+- Crear servicios de mantenimiento preventivo
+- Establecer precios por frecuencia
+- Categorizar por tipo de mantenimiento
+
+### Servicios de Instalación
+- Crear servicios por tipo de instalación
+- Establecer precios fijos
+- Categorizar por tipo de sistema o equipo
+
+## Resumen
+
+Los servicios te permiten:
+
+- **Vender elementos intangibles** sin necesidad de inventario
+- **Facturar servicios** igual que productos
+- **Organizar servicios** con categorías
+- **Calcular precios** automáticamente desde costos
+- **Mantener control** de lo que ofreces sin rastrear stock
+- **Simplificar gestión** para elementos que no requieren inventario
+
+**Flujo típico:**
+1. Crea el servicio con nombre, precio y categoría
+2. Configura el costo si es necesario
+3. El servicio queda disponible para venta
+4. Se puede vender en facturas y POS
+5. Se factura normalmente con ITBIS
+6. No requiere gestión de stock ni almacenes
+
+Todo esto te ayuda a gestionar tanto productos físicos como servicios de manera unificada en el mismo sistema, manteniendo la flexibilidad de tener diferentes configuraciones según el tipo de elemento que vendes.
+

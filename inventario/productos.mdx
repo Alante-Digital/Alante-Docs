@@ -1,0 +1,450 @@
+# Gestión de Productos
+
+## Introducción
+
+Los productos son elementos físicos que vendes y que requieren control de inventario. A diferencia de los servicios, los productos tienen existencia física, se almacenan, se cuentan y se rastrean en almacenes.
+
+## ¿Qué son los Productos?
+
+Un producto es un elemento físico que:
+- Tiene existencia física
+- Se rastrea en inventario
+- Tiene stock en almacenes
+- Aparece en movimientos de inventario
+- Puede tener lotes de vencimiento
+- Puede ser pesado
+- Puede ser una receta
+
+**Características principales:**
+- Control de stock en tiempo real
+- Gestión por almacenes
+- Trazabilidad completa
+- Soporte para lotes con fechas de vencimiento
+- Múltiples tipos especiales (pesados, recetas)
+- Presentaciones y variantes
+
+## Diferencias entre Productos y Servicios
+
+### Productos
+- Tienen existencia física
+- Se rastrean en inventario
+- Tienen stock en almacenes
+- Aparecen en movimientos de inventario
+- Pueden tener lotes de vencimiento
+- Pueden ser pesados
+- Pueden ser recetas
+
+### Servicios
+- No tienen existencia física
+- No se rastrean en inventario
+- No tienen stock
+- No aparecen en movimientos de inventario
+- No pueden tener lotes
+- No pueden ser pesados
+- No pueden ser recetas
+
+**Resumen:** Los productos se almacenan y se cuentan, los servicios se prestan y se facturan.
+
+## Crear un Producto
+
+Para crear un nuevo producto:
+
+1. Accede a la sección de Productos y Servicios en el módulo de Inventario
+2. Haz clic en "Producto o Servicio"
+3. Asegúrate de que el tipo esté en "Producto" (no "Servicio")
+4. Completa la información básica:
+   - **Código**: Se genera automáticamente (puedes cambiarlo)
+   - **Nombre**: Nombre del producto
+   - **Categoría**: Categoría a la que pertenece (opcional)
+   - **Tasa de ITBIS**: 0%, 16% o 18%
+   - **Unidad de medida**: Unidad, kg, lt, etc.
+5. Configura la venta:
+   - Marca "¿Se vende?" si el producto se vende
+   - Ingresa el precio de venta (sin ITBIS)
+   - El sistema calculará el precio con ITBIS automáticamente
+   - Configura niveles de precio si están disponibles
+6. Configura la compra:
+   - Marca "¿Se compra?" si el producto se compra
+   - Ingresa el costo
+   - El sistema puede calcular el precio automáticamente desde el costo
+7. Configura el inventario:
+   - Marca "¿Rastrear inventario?" para controlar stock
+   - Configura stock inicial y almacén
+   - Establece stock mínimo y máximo
+8. Haz clic en "Crear"
+
+**Consideraciones:**
+- El código se genera automáticamente pero puedes cambiarlo
+- Si no seleccionas un almacén, se usa el almacén principal
+- El stock inicial es opcional pero recomendado
+
+## Configuración de Inventario
+
+### Rastrear Inventario
+
+Cuando activas "¿Rastrear inventario?":
+- El producto tendrá stock en almacenes
+- Aparecerá en movimientos de inventario
+- Se controlará el stock en ventas
+- Podrás configurar stock mínimo y máximo
+
+Cuando desactivas "¿Rastrear inventario?":
+- El producto no tendrá stock
+- No aparecerá en movimientos de inventario
+- Se podrá vender sin restricciones de stock
+- Útil para productos fabricados bajo pedido
+
+### Permitir Stock Negativo
+
+Esta opción permite vender productos aunque tengan stock en 0 o negativo.
+
+**Cuándo usar:**
+- Productos fabricados bajo pedido
+- Productos que se compran después de la venta
+- Situaciones donde el stock físico no coincide con el registrado
+
+**Consideraciones:**
+- Úsalo con precaución
+- Puede causar problemas de control
+- Útil para casos específicos
+
+### Gestión de Lotes
+
+Cuando activas "¿Requiere gestión de lotes con fechas de vencimiento?":
+- El producto requerirá crear lotes manualmente
+- Cada lote tendrá fecha de vencimiento
+- El sistema aplicará PEPS automáticamente en ventas
+- Necesitarás crear lotes al ingresar productos
+
+**Cuándo usar:**
+- Productos con fecha de vencimiento
+- Productos perecederos
+- Productos que requieren trazabilidad por lote
+
+## Stock Inicial
+
+Al crear un producto, puedes configurar stock inicial:
+
+**Configuración:**
+- **Existencia inicial**: Cantidad de productos que tienes al crear el producto
+- **Almacén**: Almacén donde se registrará el stock inicial
+
+**Proceso:**
+1. Ingresa la cantidad inicial
+2. Selecciona el almacén (o se usa el principal por defecto)
+3. El sistema crea automáticamente:
+   - Un movimiento de inventario tipo "inicial"
+   - El stock en el almacén seleccionado
+   - Un asiento contable si es necesario
+
+**Consideraciones:**
+- El stock inicial es opcional
+- Si no ingresas stock inicial, el producto empezará con stock 0
+- Puedes agregar stock después con movimientos de entrada
+
+## Almacenes
+
+Los productos se asocian a almacenes donde se guarda el stock.
+
+**Asignación automática:**
+- Al crear un producto con stock inicial, se asigna al almacén seleccionado
+- Si no seleccionas almacén, se usa el almacén principal
+- El producto puede estar en múltiples almacenes
+
+**Gestión posterior:**
+- Puedes transferir productos entre almacenes
+- Puedes ver el stock por almacén
+- Cada almacén mantiene su propio stock del producto
+
+## Precios y Costos
+
+### Precio de Venta
+
+El precio de venta es el monto que cobras al cliente.
+
+**Configuración:**
+- Se ingresa sin ITBIS
+- El sistema calcula automáticamente el precio con ITBIS
+- Puedes tener múltiples niveles de precio
+- Se puede calcular automáticamente desde el costo
+
+**Niveles de precio:**
+- Precio base: Precio estándar
+- Nivel 1, 2, 3, 4: Precios adicionales para diferentes clientes o situaciones
+- Cada nivel puede tener su propio precio
+
+### Costo
+
+El costo representa el precio al que compras el producto.
+
+**Usos:**
+- Calcular márgenes de ganancia
+- Análisis de rentabilidad
+- Reportes financieros
+- Cálculo automático de precios
+
+### Cálculo Automático de Precios
+
+Puedes configurar el sistema para que calcule el precio automáticamente desde el costo usando:
+
+**Margen de ganancia:**
+- El margen se calcula sobre el precio de venta
+- Ejemplo: Costo RD$100, Margen 25% → Precio RD$133.33
+
+**Recargo al costo:**
+- El recargo se añade al costo
+- Ejemplo: Costo RD$100, Recargo 25% → Precio RD$125.00
+
+**Configuración:**
+- Solo disponible si el producto se vende Y se compra
+- Selecciona el método (margen o recargo)
+- Ingresa el porcentaje
+- El sistema calcula el precio automáticamente
+
+## Tipos Especiales de Productos
+
+### Productos Pesados
+
+Los productos pesados se venden por peso usando códigos de barras de balanza.
+
+**Características:**
+- Se identifican por un código de barras de 13 dígitos
+- El código contiene el SKU y el peso
+- El sistema calcula automáticamente el precio según el peso
+- No pueden ser recetas
+
+**Cuándo usar:**
+- Productos vendidos por peso (frutas, carnes, etc.)
+- Productos que usan balanza con código de barras
+
+### Productos Receta
+
+Los productos receta están compuestos de otros productos.
+
+**Características:**
+- Se definen con componentes y cantidades
+- El costo se calcula automáticamente de los componentes
+- El stock disponible se calcula según los componentes
+- Al vender, se descuentan los componentes automáticamente
+- No pueden ser pesados
+
+**Cuándo usar:**
+- Productos ensamblados
+- Combos o paquetes
+- Productos que requieren componentes
+
+### Productos con Lotes
+
+Los productos con lotes requieren gestión de lotes con fechas de vencimiento.
+
+**Características:**
+- Requieren crear lotes manualmente
+- Cada lote tiene fecha de vencimiento
+- El sistema aplica PEPS automáticamente
+- Trazabilidad completa por lote
+
+**Cuándo usar:**
+- Productos perecederos
+- Productos con fecha de vencimiento
+- Productos que requieren trazabilidad
+
+## Presentaciones
+
+Las presentaciones son diferentes formas de vender el mismo producto.
+
+**Ejemplo:**
+- Producto principal: "Coca Cola" (botella de 2L)
+- Presentación 1: "Coca Cola - 6 pack" (6 botellas)
+- Presentación 2: "Coca Cola - Caja" (24 botellas)
+
+**Características:**
+- El stock se calcula automáticamente desde el producto principal
+- Cada presentación tiene su propio precio
+- Se pueden vender independientemente
+- El stock se descuenta del producto principal
+
+**Cuándo usar:**
+- Productos que se venden en diferentes empaques
+- Productos que se agrupan (docenas, cajas, etc.)
+- Diferentes formas de presentar el mismo producto
+
+## Variantes
+
+Las variantes son versiones diferentes del mismo producto.
+
+**Ejemplo:**
+- Producto principal: "Camiseta"
+- Variante 1: "Camiseta - Talla S"
+- Variante 2: "Camiseta - Talla M"
+- Variante 3: "Camiseta - Talla L"
+
+**Características:**
+- Cada variante tiene su propio código, precio y stock
+- Se gestionan independientemente
+- El producto principal no se vende directamente
+- Útil para productos con diferentes características
+
+**Cuándo usar:**
+- Productos con diferentes tallas
+- Productos con diferentes colores
+- Productos con diferentes especificaciones
+
+## Códigos de Barras
+
+Los productos pueden tener códigos de barras para identificación rápida.
+
+**Configuración:**
+- Ingresa el código de barras al crear o editar el producto
+- Se puede buscar productos por código de barras
+- Útil para POS y escaneo rápido
+
+**Consideraciones:**
+- El código de barras es opcional
+- Debe ser único si se ingresa
+- Útil para productos físicos
+
+## Editar un Producto
+
+Puedes modificar cualquier información de un producto:
+
+1. Accede a la lista de Productos y Servicios
+2. Filtra por "Productos" si quieres ver solo productos
+3. Haz clic en el producto que quieres editar
+4. Haz clic en "Editar"
+5. Modifica los campos que necesites
+6. Haz clic en "Guardar Cambios"
+
+**Campos editables:**
+- Nombre
+- Código
+- Categoría
+- Tasa de ITBIS
+- Precio de venta
+- Costo
+- Configuración de inventario
+- Stock mínimo y máximo
+- Estado (activo/inactivo)
+- Si se vende o se compra
+
+**Consideraciones:**
+- Algunos cambios pueden afectar el historial
+- El stock no se modifica directamente desde la edición
+- Usa movimientos de inventario para cambiar stock
+
+## Ver Detalle de un Producto
+
+Al hacer clic en un producto, verás:
+
+**Información general:**
+- Nombre, código, categoría
+- Precio y costo
+- Estado y configuración
+- Tipo de producto (normal, pesado, receta, etc.)
+
+**Pestañas disponibles:**
+- **Información**: Datos generales del producto
+- **Stock**: Stock por almacén
+- **Movimientos**: Historial de movimientos (kardex)
+- **Presentaciones**: Si tiene presentaciones
+- **Variantes**: Si tiene variantes
+- **Receta**: Si es una receta, muestra los componentes
+
+## Filtrar Productos
+
+En la lista de Productos y Servicios puedes filtrar:
+
+**Por tipo:**
+- Todos
+- Productos
+- Servicios
+- Productos pesados
+
+**Por categoría:**
+- Selecciona una categoría específica
+
+**Por estado:**
+- Activos
+- Inactivos
+- Todos
+
+**Por búsqueda:**
+- Busca por nombre, código o código de barras
+
+**Ventajas:**
+- Encuentra productos rápidamente
+- Organiza la vista según necesites
+- Facilita la gestión cuando tienes muchos productos
+
+## Stock Mínimo y Máximo
+
+Puedes configurar niveles de stock para alertas:
+
+**Stock mínimo:**
+- Cantidad mínima recomendada
+- El sistema alerta cuando el stock está por debajo
+- Útil para evitar quedarse sin producto
+
+**Stock máximo:**
+- Cantidad máxima recomendada
+- El sistema alerta cuando el stock está por encima
+- Útil para evitar sobreinventario
+
+**Configuración:**
+- Se configura por producto y almacén
+- Se puede actualizar desde el detalle del almacén
+- Aparece en alertas del tablero de inventario
+
+## Mejores Prácticas
+
+### Organización
+
+- **Usa categorías**: Organiza tus productos en categorías lógicas
+- **Nombres claros**: Usa nombres descriptivos que identifiquen claramente el producto
+- **Códigos consistentes**: Mantén un formato consistente para los códigos
+- **Códigos de barras**: Ingresa códigos de barras cuando sea posible
+
+### Precios
+
+- **Revisa regularmente**: Revisa y actualiza precios periódicamente
+- **Documenta costos**: Ingresa los costos para análisis de rentabilidad
+- **Usa márgenes**: Configura márgenes o recargos para cálculo automático
+- **Niveles de precio**: Aprovecha los niveles de precio para diferentes clientes
+
+### Inventario
+
+- **Stock inicial**: Ingresa stock inicial al crear productos
+- **Stock mínimo**: Configura stock mínimo para alertas
+- **Almacenes**: Asigna productos a almacenes correctos
+- **Revisa regularmente**: Revisa el stock periódicamente
+
+### Tipos Especiales
+
+- **Lotes**: Usa lotes para productos perecederos
+- **Recetas**: Usa recetas para productos compuestos
+- **Pesados**: Usa productos pesados para venta por peso
+- **Presentaciones**: Usa presentaciones para diferentes empaques
+
+## Resumen
+
+Los productos te permiten:
+
+- **Gestionar inventario** de manera completa y controlada
+- **Rastrear stock** en tiempo real por almacén
+- **Controlar lotes** con fechas de vencimiento
+- **Manejar diferentes tipos** de productos (pesados, recetas)
+- **Crear presentaciones** y variantes
+- **Calcular precios** automáticamente desde costos
+- **Mantener trazabilidad** completa de movimientos
+- **Configurar alertas** de stock mínimo y máximo
+
+**Flujo típico:**
+1. Crea el producto con información básica
+2. Configura precio y costo
+3. Configura inventario (stock inicial, almacén, stock mínimo/máximo)
+4. Si es necesario, configura tipo especial (lotes, receta, pesado)
+5. El producto queda disponible para venta y compra
+6. Gestiona el stock con movimientos de inventario
+7. Revisa el historial y stock regularmente
+
+Todo esto te ayuda a mantener un control preciso de tus productos físicos, desde la creación hasta la venta, proporcionando la información necesaria para tomar decisiones informadas y mantener un inventario optimizado.
+

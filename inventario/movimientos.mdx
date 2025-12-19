@@ -1,0 +1,333 @@
+# Movimientos de Inventario
+
+## Introducción
+
+Los movimientos de inventario son registros que documentan cada cambio en el stock de tus productos. Cada vez que ingresas, sales o ajustas productos en un almacén, se crea un movimiento que queda registrado permanentemente para trazabilidad y control.
+
+## ¿Qué son los Movimientos?
+
+Un movimiento es un documento que registra un cambio en el inventario. Cada movimiento tiene:
+- Un número de secuencia único (ej: MI-00001, MI-00002)
+- Una fecha y hora
+- Un tipo (entrada, salida o ajuste)
+- Un almacén donde ocurre
+- Una lista de productos afectados
+- Notas opcionales
+
+**Características principales:**
+- Cada movimiento es permanente e inmodificable
+- Se registran automáticamente en el historial (kardex) de cada producto
+- Se generan asientos contables automáticamente
+- Proporcionan trazabilidad completa de todos los cambios
+
+## Tipos de Movimientos
+
+### Entrada
+
+Una entrada aumenta el stock de productos en un almacén.
+
+**Cuándo usar:**
+- Recibes productos de una compra
+- Ingresas productos manualmente
+- Recibes devoluciones de clientes
+- Cualquier situación que aumente el inventario
+
+**Efecto:**
+- Aumenta el stock del producto en el almacén
+- Actualiza el costo del producto si es necesario
+- Registra el movimiento en el historial
+
+**Información requerida:**
+- Almacén donde ingresan los productos
+- Productos y cantidades que ingresan
+- Costo unitario de cada producto
+- Fecha del movimiento
+
+### Salida
+
+Una salida disminuye el stock de productos en un almacén.
+
+**Cuándo usar:**
+- Vendes productos
+- Descartas productos dañados
+- Regalas o donas productos
+- Cualquier situación que disminuya el inventario
+
+**Efecto:**
+- Disminuye el stock del producto en el almacén
+- Valida que haya suficiente stock disponible
+- Para productos con lotes, aplica PEPS automáticamente
+- Registra el movimiento en el historial
+
+**Validaciones:**
+- Debe haber suficiente stock disponible
+- Si el producto requiere lotes, se descuentan automáticamente del lote más próximo a vencer
+- No permite salidas que resulten en stock negativo (a menos que el producto lo permita)
+
+**Información requerida:**
+- Almacén de donde salen los productos
+- Productos y cantidades que salen
+- Fecha del movimiento
+
+### Ajuste
+
+Un ajuste corrige el stock a un valor específico. Es útil cuando necesitas corregir discrepancias entre el stock real y el registrado.
+
+**Cuándo usar:**
+- Después de un conteo físico
+- Para corregir errores de registro
+- Cuando encuentras diferencias entre el sistema y la realidad
+- Para inicializar stock de productos existentes
+
+**Efecto:**
+- Ajusta el stock al valor que especifiques
+- Si el nuevo stock es mayor, se trata como entrada
+- Si el nuevo stock es menor, se trata como salida
+- Registra el movimiento en el historial
+
+**Ejemplo:**
+```
+Stock actual: 50 unidades
+Ajuste a: 45 unidades
+Resultado: Se registra una salida de 5 unidades
+```
+
+**Información requerida:**
+- Almacén donde se ajusta
+- Productos y el nuevo stock que debe tener cada uno
+- Costo unitario (para ajustes positivos)
+- Fecha del movimiento
+
+## Crear un Movimiento
+
+Para crear un nuevo movimiento:
+
+1. Accede a la sección de Movimientos en el módulo de Inventario
+2. Haz clic en "Nuevo Movimiento"
+3. Completa la información básica:
+   - **Tipo**: Selecciona Entrada, Salida o Ajuste
+   - **Almacén**: Selecciona el almacén donde ocurre el movimiento
+   - **Fecha**: Fecha y hora del movimiento (por defecto es la fecha actual)
+   - **Notas**: Información adicional sobre el movimiento (opcional)
+4. Agrega productos:
+   - Haz clic en "Agregar Producto"
+   - Selecciona el producto
+   - Ingresa la cantidad
+   - Para entradas y ajustes positivos, ingresa el costo unitario
+5. Revisa el total calculado
+6. Haz clic en "Guardar Movimiento"
+
+**Consideraciones:**
+- Puedes agregar múltiples productos en un solo movimiento
+- El sistema calcula automáticamente el total
+- Para salidas, el sistema valida que haya suficiente stock
+- Una vez guardado, el movimiento no se puede modificar
+
+## Transferencias entre Almacenes
+
+Las transferencias permiten mover productos de un almacén a otro. El sistema crea automáticamente dos movimientos:
+- Una salida en el almacén de origen
+- Una entrada en el almacén de destino
+
+**Proceso:**
+1. Accede a la transferencia desde el detalle de un almacén o desde movimientos
+2. Selecciona el almacén de destino
+3. Agrega los productos a transferir:
+   - Solo aparecen productos que tienen stock en el almacén de origen
+   - Especifica la cantidad a transferir
+4. Agrega notas si es necesario
+5. Confirma la transferencia
+
+**Resultado:**
+- Se descuenta el stock del almacén de origen
+- Se agrega el stock al almacén de destino
+- Se mantiene el costo del producto
+- Se crean dos movimientos vinculados (salida y entrada)
+- Ambos movimientos se marcan como transferencia
+
+**Validaciones:**
+- Debe haber suficiente stock en el almacén de origen
+- El almacén de destino debe ser diferente al de origen
+- La cantidad no puede exceder el stock disponible
+
+## Ver Movimientos
+
+### Lista de Movimientos
+
+La lista muestra todos los movimientos registrados, ordenados del más reciente al más antiguo.
+
+**Información mostrada:**
+- **Secuencia**: Número único del movimiento (ej: MI-00001)
+- **Fecha**: Fecha y hora del movimiento
+- **Tipo**: Entrada, Salida o Ajuste
+- **Almacén**: Almacén donde ocurrió el movimiento
+
+**Funcionalidades:**
+- Búsqueda por fecha, tipo o almacén
+- Click en cualquier movimiento para ver el detalle
+- Filtrado en tiempo real mientras escribes
+
+### Detalle de un Movimiento
+
+Al hacer clic en un movimiento, verás:
+
+**Información del movimiento:**
+- Número de secuencia
+- Fecha y hora exacta
+- Tipo de movimiento
+- Almacén
+- Número de productos involucrados
+- Total del movimiento
+- Notas (si las hay)
+
+**Lista de productos:**
+- Nombre de cada producto (con enlace al detalle)
+- Cantidad movida
+- Costo unitario
+- Subtotal por producto
+- Total del movimiento
+
+**Uso:**
+- Verificar detalles de un movimiento específico
+- Auditar cambios en el inventario
+- Revisar costos utilizados
+- Consultar notas y referencias
+
+## Números de Secuencia
+
+Cada movimiento recibe un número de secuencia único que lo identifica.
+
+**Formato:**
+- Prefijo: MI- (Movimiento de Inventario)
+- Número: 5 dígitos (ej: 00001, 00002)
+- Ejemplo completo: MI-00001, MI-00002
+
+**Características:**
+- Se generan automáticamente
+- Son únicos por organización
+- Se asignan secuencialmente
+- Se usan para referenciar movimientos
+
+## Trazabilidad
+
+Cada movimiento queda registrado permanentemente y proporciona trazabilidad completa:
+
+**En el producto:**
+- Cada producto tiene un historial (kardex) que muestra todos sus movimientos
+- Puedes ver cómo ha cambiado el stock a lo largo del tiempo
+- Se registra el stock anterior y el nuevo stock después del movimiento
+
+**En el almacén:**
+- Puedes ver todos los movimientos de un almacén específico
+- Útil para auditorías y controles
+
+**En el sistema:**
+- Todos los movimientos quedan registrados con fecha, hora y usuario
+- No se pueden modificar ni eliminar
+- Proporcionan un registro completo de cambios
+
+## Productos con Lotes
+
+Cuando registras una salida de un producto que requiere lotes:
+
+**Proceso automático:**
+- El sistema aplica PEPS (Primero en Entrar, Primero en Salir) automáticamente
+- Se descuentan primero los productos del lote más próximo a vencer
+- Si un lote se agota, automáticamente se pasa al siguiente
+- Se registra qué lote se utilizó para trazabilidad
+
+**Transparencia:**
+- No necesitas seleccionar lotes manualmente
+- El sistema maneja todo automáticamente
+- Puedes ver qué lote se utilizó en el detalle del movimiento
+
+## Costos y Contabilidad
+
+### Entradas
+
+Cuando registras una entrada:
+- El costo que ingresas se usa para actualizar el costo del producto
+- Se genera un asiento contable automáticamente
+- El costo se registra en el movimiento para referencia
+
+### Salidas
+
+Cuando registras una salida:
+- Se usa el costo actual del producto para contabilidad
+- Se genera un asiento contable automáticamente
+- El costo se registra en el movimiento
+
+### Ajustes
+
+Cuando registras un ajuste:
+- Si el ajuste es positivo (aumenta stock), se usa el costo que ingreses
+- Si el ajuste es negativo (disminuye stock), se usa el costo actual
+- Se genera un asiento contable automáticamente
+
+**Nota:** Los asientos contables se generan automáticamente y no requieren intervención manual.
+
+## Validaciones y Restricciones
+
+### Salidas
+
+- **Stock suficiente**: Debe haber suficiente stock disponible
+- **Stock negativo**: No permite salidas que resulten en stock negativo (a menos que el producto tenga configurado "Permitir stock negativo")
+
+**Mensajes de error:**
+- Si intentas sacar más de lo disponible, verás un mensaje indicando el stock disponible
+
+### Transferencias
+
+- **Almacenes diferentes**: El almacén de origen y destino deben ser diferentes
+- **Stock suficiente**: Debe haber suficiente stock en el almacén de origen
+
+### General
+
+- **Productos válidos**: Solo puedes usar productos que están activos y son stockables
+- **Cantidades válidas**: Las cantidades deben ser mayores a cero
+- **Costos válidos**: Los costos deben ser mayores o iguales a cero
+
+## Mejores Prácticas
+
+### Registro de Movimientos
+
+- **Registra inmediatamente**: Registra los movimientos tan pronto como ocurran
+- **Usa fechas correctas**: Asegúrate de usar la fecha real del movimiento, no la fecha actual si es diferente
+- **Agrega notas**: Usa el campo de notas para información relevante (número de factura, motivo, etc.)
+- **Revisa antes de guardar**: Verifica que las cantidades y costos sean correctos antes de guardar
+
+### Organización
+
+- **Agrupa cuando sea posible**: Si varios productos entran o salen al mismo tiempo, agrupa en un solo movimiento
+- **Separa por tipo**: Usa movimientos separados para entradas, salidas y ajustes
+- **Documenta transferencias**: Agrega notas en las transferencias explicando el motivo
+
+### Control
+
+- **Revisa regularmente**: Revisa los movimientos periódicamente para verificar que todo esté correcto
+- **Usa el historial**: Consulta el kardex de productos para ver el historial completo
+- **Mantén trazabilidad**: Aprovecha las notas para mantener trazabilidad de cada movimiento
+
+## Resumen
+
+Los movimientos de inventario te permiten:
+
+- **Registrar cambios** en el inventario de manera permanente
+- **Mantener trazabilidad** completa de todos los productos
+- **Controlar stock** con validaciones automáticas
+- **Generar contabilidad** automáticamente
+- **Transferir productos** entre almacenes
+- **Aplicar PEPS** automáticamente para productos con lotes
+- **Auditar cambios** consultando el historial completo
+
+**Flujo típico:**
+1. Ocurre un cambio en el inventario (entrada, salida o ajuste)
+2. Creas un movimiento registrando los productos afectados
+3. El sistema valida y procesa el movimiento
+4. Se actualiza el stock automáticamente
+5. Se registra en el historial (kardex) de cada producto
+6. Se genera el asiento contable automáticamente
+7. El movimiento queda registrado permanentemente para consulta
+
+Todo esto te ayuda a mantener un control preciso y trazable de todos los cambios en tu inventario, proporcionando la información necesaria para tomar decisiones informadas y cumplir con requisitos de auditoría.
+

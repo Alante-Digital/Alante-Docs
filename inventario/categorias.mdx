@@ -1,0 +1,210 @@
+# Gestión de Categorías de Productos
+
+## Introducción
+
+Las categorías te permiten organizar y clasificar tus productos de manera lógica. Al agrupar productos similares en categorías, puedes encontrar productos más fácilmente, generar reportes por categoría y mantener tu inventario mejor organizado.
+
+## ¿Qué son las Categorías?
+
+Una categoría es una forma de agrupar productos que comparten características similares. Por ejemplo, puedes tener categorías como:
+- Electrónicos
+- Ropa
+- Alimentos
+- Herramientas
+
+**Características principales:**
+- Cada producto puede pertenecer a una categoría
+- Las categorías pueden tener subcategorías (jerarquía)
+- Puedes asignar un color a cada categoría para identificación visual
+- Las categorías pueden activarse o desactivarse
+- Puedes ver cuántos productos hay en cada categoría
+
+## Jerarquía de Categorías
+
+El sistema permite crear categorías con jerarquía, es decir, categorías que tienen subcategorías.
+
+**Ejemplo de jerarquía:**
+
+```
+Electrónicos (categoría principal)
+  ├── Computadoras (subcategoría)
+  │   ├── Laptops (subcategoría)
+  │   └── Desktops (subcategoría)
+  └── Accesorios (subcategoría)
+      ├── Teclados
+      └── Mouse
+```
+
+**Ventajas de la jerarquía:**
+- Organización más detallada
+- Búsqueda más fácil de productos
+- Reportes más específicos
+- Mejor estructura para inventarios grandes
+
+**Nombre completo:**
+Cuando una categoría tiene una categoría padre, el sistema muestra el nombre completo como: "Categoría Padre > Categoría". Por ejemplo: "Electrónicos > Computadoras > Laptops".
+
+## Crear una Categoría
+
+Para crear una nueva categoría:
+
+1. Accede a la sección de Categorías en el módulo de Inventario
+2. Haz clic en "Nueva Categoría"
+3. Completa la información:
+   - **Nombre** (obligatorio): Nombre de la categoría
+   - **Descripción**: Información adicional sobre la categoría (opcional)
+   - **Color**: Color para identificar visualmente la categoría (opcional)
+   - **Categoría padre**: Si quieres que sea subcategoría, selecciona la categoría padre (opcional)
+   - **Estado**: Activa o inactiva (por defecto está activa)
+4. Haz clic en "Crear Categoría"
+
+**Consideraciones:**
+- El nombre debe ser único dentro de tu organización
+- Si no seleccionas una categoría padre, será una categoría principal
+- El color es útil para identificación visual en listas y reportes
+
+## Editar una Categoría
+
+Puedes modificar la información de una categoría en cualquier momento:
+
+1. Accede a la lista de categorías
+2. Haz clic en el botón de editar de la categoría que quieres modificar
+3. Modifica los campos que necesites
+4. Haz clic en "Guardar Cambios"
+
+**Restricciones:**
+- El nombre debe seguir siendo único
+- No puedes hacer que una categoría sea padre de sí misma
+- No puedes crear ciclos en la jerarquía (ej: A es padre de B, y B es padre de A)
+
+**Ejemplo de ciclo no permitido:**
+- Si "Electrónicos" es padre de "Computadoras"
+- No puedes hacer que "Computadoras" sea padre de "Electrónicos"
+
+## Eliminar una Categoría
+
+Puedes eliminar una categoría siempre que:
+
+- **No tenga productos asignados**
+- **No tenga subcategorías**
+
+**Proceso:**
+1. Accede a la lista de categorías
+2. Haz clic en el botón de eliminar de la categoría
+3. Confirma la eliminación
+
+**Si la categoría tiene productos:**
+- El sistema te mostrará un mensaje indicando que no se puede eliminar
+- Primero debes cambiar los productos a otra categoría o eliminar los productos
+- Una vez sin productos, podrás eliminarla
+
+**Si la categoría tiene subcategorías:**
+- El sistema te mostrará un mensaje indicando que no se puede eliminar
+- Primero debes eliminar o mover las subcategorías
+- Una vez sin subcategorías, podrás eliminarla
+
+## Activar y Desactivar Categorías
+
+Puedes desactivar una categoría sin eliminarla. Esto es útil cuando:
+
+- Quieres ocultar temporalmente una categoría
+- La categoría ya no se usa pero quieres mantener el historial
+- Estás reorganizando tus categorías
+
+**Categorías inactivas:**
+- No aparecen en los listados al crear o editar productos
+- Los productos existentes mantienen su categoría asignada
+- Puedes reactivarlas en cualquier momento
+
+**Para desactivar:**
+1. Edita la categoría
+2. Desmarca la opción "Activa"
+3. Guarda los cambios
+
+**Para reactivar:**
+1. Edita la categoría
+2. Marca la opción "Activa"
+3. Guarda los cambios
+
+## Asignar Categorías a Productos
+
+Cuando creas o editas un producto, puedes asignarle una categoría:
+
+1. En el formulario del producto
+2. Selecciona la categoría en el campo correspondiente
+3. Si la categoría tiene jerarquía, verás el nombre completo (ej: "Electrónicos > Computadoras")
+4. Guarda el producto
+
+**Consideraciones:**
+- Un producto solo puede tener una categoría
+- Puedes cambiar la categoría de un producto en cualquier momento
+- Las categorías inactivas no aparecen en el selector
+
+## Colores de Categorías
+
+Cada categoría puede tener un color asignado. Esto es útil para:
+
+- **Identificación visual**: Reconocer rápidamente categorías en listas
+- **Organización**: Agrupar visualmente categorías relacionadas
+- **Reportes**: Los colores pueden aparecer en reportes y gráficos
+
+**Configuración:**
+- Al crear o editar una categoría, puedes seleccionar un color
+- El color se muestra como un círculo junto al nombre de la categoría
+- Si no seleccionas un color, se usa un color por defecto
+
+## Ver Productos por Categoría
+
+Desde la lista de categorías puedes ver cuántos productos tiene cada categoría:
+
+- Cada tarjeta de categoría muestra el número de productos
+- Puedes hacer clic en "Ver productos" para ver todos los productos de esa categoría
+- Esto te ayuda a identificar categorías con muchos o pocos productos
+
+## Mejores Prácticas
+
+### Organización de Categorías
+
+- **Nombres claros**: Usa nombres descriptivos que identifiquen fácilmente el tipo de productos
+- **Jerarquía lógica**: Organiza las categorías de manera que tenga sentido para tu negocio
+- **No demasiadas categorías**: Evita crear demasiadas categorías principales; usa subcategorías en su lugar
+- **Consistencia**: Mantén un criterio consistente al crear categorías
+
+### Estructura Recomendada
+
+**Para negocios pequeños:**
+- 5-10 categorías principales
+- Subcategorías solo si realmente las necesitas
+
+**Para negocios grandes:**
+- 10-20 categorías principales
+- Subcategorías para mayor detalle
+- Jerarquía de 2-3 niveles máximo
+
+### Mantenimiento
+
+- **Revisa regularmente**: Revisa tus categorías periódicamente
+- **Consolida si es necesario**: Si tienes categorías con muy pocos productos, considera consolidarlas
+- **Desactiva en lugar de eliminar**: Si una categoría ya no se usa pero tiene productos históricos, desactívala en lugar de eliminarla
+- **Usa descripciones**: Aprovecha el campo de descripción para aclarar qué productos van en cada categoría
+
+## Resumen
+
+Las categorías te permiten:
+
+- **Organizar productos** de manera lógica y estructurada
+- **Encontrar productos** más fácilmente
+- **Generar reportes** por categoría
+- **Mantener inventario ordenado** con jerarquías
+- **Identificar visualmente** categorías con colores
+- **Gestionar productos** de manera más eficiente
+
+**Flujo típico:**
+1. Crea las categorías principales que necesitas
+2. Crea subcategorías si necesitas mayor detalle
+3. Asigna categorías a tus productos al crearlos
+4. Revisa y ajusta la estructura según crezca tu inventario
+5. Usa los colores para identificación visual rápida
+
+Todo esto te ayuda a mantener un inventario bien organizado y fácil de navegar, lo que mejora la eficiencia en la gestión diaria de tus productos.
+

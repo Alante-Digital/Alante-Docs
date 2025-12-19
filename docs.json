@@ -39,9 +39,14 @@
         "group": "Inventario",
         "pages": [
           "inventario/tablero",
+          "inventario/servicios",
+          "inventario/productos",
           "inventario/productos-pesados",
           "inventario/recetas",
-          "inventario/lotes"
+          "inventario/lotes",
+          "inventario/movimientos",
+          "inventario/almacenes",
+          "inventario/categorias"
         ]
       },
       {
