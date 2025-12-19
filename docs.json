@@ -39,7 +39,7 @@
         "group": "Inventario",
         "pages": [
           "inventario/tablero",
-          "inventario/productos-pesados"
+          "inventario/productos-pesados",
           "inventario/recetas",
           "inventario/lotes"
         ]
