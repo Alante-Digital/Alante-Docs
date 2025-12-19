@@ -1,0 +1,244 @@
+# Sistema de Productos Pesados
+
+## Introducción
+
+El sistema de productos pesados permite gestionar productos que se venden por peso, como carnes, frutas, verduras y otros productos a granel. Esta funcionalidad está diseñada principalmente para su uso en el Punto de Venta (POS), donde se captura el peso real del producto mediante códigos de barras especiales generados por básculas.
+
+## ¿Qué son los Productos Pesados?
+
+Un producto pesado es aquel que se vende por peso en lugar de por unidades. Por ejemplo, en lugar de vender "1 unidad de carne molida", vendes "2.5 libras de carne molida". El precio se calcula multiplicando el peso por el precio por libra del producto.
+
+**Características principales:**
+- Se marcan con la opción "Es producto pesado" en la configuración del producto
+- El peso se captura automáticamente mediante códigos de barras de 13 dígitos
+- La cantidad vendida es el peso real del producto
+- El precio total se calcula como: peso × precio por libra
+
+## Configuración de Productos
+
+Para que un producto funcione como pesado, debe estar marcado como "Es producto pesado" en su configuración. Esta opción está disponible para productos que manejan stock.
+
+**Consideraciones importantes:**
+- Un producto pesado no puede ser al mismo tiempo un producto con receta
+- Un producto pesado puede tener lotes de vencimiento si es necesario
+- La unidad de medida típicamente será "lb" (libras) o "kg" (kilogramos)
+
+## Códigos de Barras para Productos Pesados
+
+El sistema utiliza códigos de barras especiales de 13 dígitos generados por básculas para capturar automáticamente el peso del producto.
+
+### Estructura del Código de Barras
+
+El código de barras de un producto pesado tiene la siguiente estructura:
+
+```
+[Flag: 2 dígitos] + [SKU: 5 dígitos] + [Peso: 6 dígitos]
+```
+
+**Ejemplo:**
+- Flag: `22` (configurable por organización)
+- SKU: `00123` (código del producto)
+- Peso: `025000` (representa 2.50 libras)
+
+**Código completo:** `2200123025000`
+
+### Desglose del Código
+
+1. **Flag (2 dígitos)**: Identifica que es un producto pesado. Por defecto es "22", pero puede configurarse por organización.
+2. **SKU (5 dígitos)**: Los 5 dígitos del código del producto (sin el prefijo "SKU-"). Por ejemplo, si el código es "SKU-00123", se usan "00123".
+3. **Peso (6 dígitos)**: El peso en centavos de libra. Por ejemplo:
+   - `025000` = 2.50 libras (2500 centavos × 0.01)
+   - `100000` = 10.00 libras (100000 centavos × 0.01)
+   - `000125` = 0.125 libras (125 centavos × 0.01)
+
+### Conversión del Peso
+
+El sistema convierte automáticamente los 6 dígitos del peso a libras multiplicando por 0.01:
+
+```
+Peso en libras = (Últimos 6 dígitos) × 0.01
+```
+
+**Ejemplo:**
+- Código: `2200123025000`
+- Peso en centavos: `025000`
+- Peso en libras: `025000 × 0.01 = 2.50 libras`
+
+## Flujo de Trabajo en el POS
+
+### 1. Escaneo del Código de Barras
+
+Cuando un cajero escanea un código de barras de 13 dígitos en el POS:
+
+1. El sistema verifica si el código comienza con el flag configurado (por defecto "22")
+2. Si coincide, identifica que es un producto pesado
+3. Extrae el SKU del producto (dígitos 3-7)
+4. Extrae el peso (últimos 6 dígitos) y lo convierte a libras
+5. Busca el producto por su código (SKU-XXXXX)
+6. Agrega el producto al carrito con la cantidad igual al peso capturado
+
+### 2. Visualización en el Carrito
+
+Cuando un producto pesado se agrega al carrito, se muestra de manera especial:
+
+- **Nombre del producto**: Se muestra el nombre seguido del peso entre paréntesis
+  - Ejemplo: "Carne molida (2.50 lb)"
+- **Cantidad**: Muestra el peso real capturado (ej: 2.50)
+- **Precio unitario**: Precio por libra del producto
+- **Total**: Peso × precio por libra
+
+### 3. Cálculo del Total
+
+El total de un producto pesado se calcula automáticamente:
+
+```
+Subtotal = Peso (lb) × Precio por libra
+ITBIS = Subtotal × (Tasa ITBIS / 100)
+Total = Subtotal + ITBIS
+```
+
+**Ejemplo:**
+- Producto: Carne molida
+- Peso: 2.50 libras
+- Precio por libra: RD$150.00
+- ITBIS: 18%
+
+```
+Subtotal = 2.50 × 150.00 = RD$375.00
+ITBIS = 375.00 × 0.18 = RD$67.50
+Total = 375.00 + 67.50 = RD$442.50
+```
+
+### 4. Procesamiento de la Venta
+
+Cuando se completa la venta:
+
+1. Se registra la cantidad vendida como el peso capturado (ej: 2.50)
+2. Se descuenta del inventario la misma cantidad (2.50 libras)
+3. Se registra en el movimiento de inventario como salida
+4. Se genera la factura con el peso y precio correctos
+
+## Gestión de Inventario
+
+Los productos pesados se manejan en el inventario igual que los productos normales, pero con algunas consideraciones:
+
+### Entradas de Inventario
+
+Cuando recibes productos pesados en compras o entradas manuales:
+
+- La cantidad ingresada debe ser el peso total recibido
+- Ejemplo: Si recibes 50 libras de carne, ingresas 50.00 como cantidad
+- El stock se actualiza en libras
+
+### Salidas de Inventario
+
+Cuando vendes productos pesados:
+
+- La cantidad vendida es el peso real capturado por la báscula
+- El stock se descuenta en libras
+- Ejemplo: Si vendes 2.50 libras, el stock se reduce en 2.50 libras
+
+### Movimientos de Inventario
+
+Los movimientos de inventario registran el peso:
+
+- **Entrada**: Se registra el peso ingresado (ej: 50.00 lb)
+- **Salida**: Se registra el peso vendido (ej: 2.50 lb)
+- **Ajuste**: Se registra el peso ajustado
+
+## Reporte de Productos Pesados
+
+El sistema incluye un reporte especializado para analizar las ventas de productos pesados.
+
+### Información del Reporte
+
+El reporte muestra:
+
+1. **Por Producto:**
+   - Nombre y código del producto
+   - Cantidad total vendida (en libras)
+   - Peso total vendido
+   - Ingresos totales
+   - Precio promedio por libra
+   - Número de ventas realizadas
+   - Fecha de última venta
+
+2. **Resumen General:**
+   - Total de productos pesados vendidos
+   - Peso total vendido (en libras)
+   - Ingresos totales
+   - Precio promedio por libra
+
+### Filtros Disponibles
+
+- **Rango de fechas**: Permite seleccionar el período a analizar
+- **Exportación**: Puede exportarse a CSV para análisis externo
+
+### Uso del Reporte
+
+El reporte es útil para:
+
+- Analizar qué productos pesados se venden más
+- Calcular ingresos por tipo de producto
+- Identificar tendencias de venta
+- Optimizar precios según el rendimiento
+- Planificar compras basadas en rotación
+
+## Configuración del Sistema
+
+### Flag de Productos Pesados
+
+El flag que identifica productos pesados en códigos de barras puede configurarse por organización. Por defecto es "22", pero puede cambiarse según las necesidades.
+
+**Nota**: Si cambias el flag, asegúrate de que todas las básculas estén configuradas para usar el mismo flag.
+
+### Unidad de Medida
+
+La unidad por defecto para productos pesados es "lb" (libras), pero puede configurarse según las necesidades de tu negocio.
+
+## Consideraciones Importantes
+
+### Compatibilidad con Otras Funcionalidades
+
+- **Lotes de vencimiento**: Los productos pesados pueden usar lotes si es necesario
+- **Recetas**: Un producto pesado NO puede tener receta (son mutuamente excluyentes)
+- **Presentaciones**: Los productos pesados pueden tener presentaciones relacionadas
+- **Niveles de precio**: Los productos pesados respetan los niveles de precio del cliente
+
+### Precisión del Peso
+
+- El sistema captura el peso con 2 decimales de precisión
+- El peso mínimo capturable es 0.01 libras (1 centavo de libra)
+- El peso máximo capturable es 9999.99 libras (limitado por los 6 dígitos)
+
+### Básculas Compatibles
+
+El sistema es compatible con básculas que generen códigos de barras de 13 dígitos con la estructura descrita. Asegúrate de que tu báscula esté configurada para:
+
+- Generar códigos de 13 dígitos
+- Usar el flag correcto (por defecto "22")
+- Incluir el SKU del producto en las posiciones 3-7
+- Incluir el peso en centavos de libra en las posiciones 8-13
+
+## Ventajas del Sistema
+
+1. **Automatización**: El peso se captura automáticamente, reduciendo errores manuales
+2. **Precisión**: El peso exacto se registra directamente desde la báscula
+3. **Velocidad**: El proceso de venta es más rápido al no tener que ingresar el peso manualmente
+4. **Trazabilidad**: Se registra el peso exacto vendido en cada transacción
+5. **Reportes**: Análisis detallado de ventas por peso
+6. **Flexibilidad**: Compatible con diferentes tipos de básculas
+
+## Resumen
+
+El sistema de productos pesados permite gestionar eficientemente productos que se venden por peso. La funcionalidad principal está en el POS, donde se captura automáticamente el peso mediante códigos de barras especiales generados por básculas.
+
+**Flujo típico:**
+1. El producto se marca como "pesado" en su configuración
+2. En el POS, se escanea el código de barras de la báscula
+3. El sistema detecta automáticamente el peso y agrega el producto al carrito
+4. El precio se calcula como peso × precio por libra
+5. La venta se procesa normalmente, descontando el peso del inventario
+
+Todo esto funciona de manera transparente, permitiendo que el cajero simplemente escanee el código y el sistema maneje automáticamente el peso y los cálculos.
+

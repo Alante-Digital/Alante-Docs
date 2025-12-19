@@ -21,7 +21,6 @@ Para que un producto pueda usar lotes, debe estar marcado como "Requiere control
 Cuando un producto tiene esta opción activada:
 - El sistema mostrará alertas si hay stock sin lote asignado
 - Las salidas aplicarán automáticamente el método PEPS (Primero en Entrar, Primero en Salir)
-- Podrás crear reportes de productos próximos a vencer
 
 ## Flujo de Trabajo
 
@@ -79,9 +78,9 @@ Resultado final:
 - Lotes: 2 lotes (60 + 40)
 ```
 
-### 3. Salida de Productos (FIFO Automático)
+### 3. Salida de Productos (PEPS Automático)
 
-Cuando vendes productos que requieren lotes, el sistema **automáticamente** aplica el método FIFO (First In, First Out). Esto significa que se descuentan primero los productos del lote más próximo a vencer, sin que tengas que hacer nada.
+Cuando vendes productos que requieren lotes, el sistema **automáticamente** aplica el método PEPS (Primero en Entrar, Primero en Salir). Esto significa que se descuentan primero los productos del lote más próximo a vencer, sin que tengas que hacer nada.
 
 **El proceso es completamente transparente:**
 - Vendes normalmente como siempre lo has hecho
@@ -89,7 +88,7 @@ Cuando vendes productos que requieren lotes, el sistema **automáticamente** apl
 - El sistema internamente distribuye las cantidades entre lotes
 - Se registra qué lote se vendió para trazabilidad
 
-**Ejemplo de funcionamiento FIFO:**
+**Ejemplo de funcionamiento PEPS:**
 
 ```
 Situación inicial:
@@ -153,7 +152,7 @@ El sistema proporciona alertas útiles para la gestión de lotes:
 Si un producto está marcado como "requiere lotes" y tiene stock sin lote asignado, el sistema mostrará una alerta indicando cuántas unidades necesitan ser asignadas a lotes.
 
 ### Productos Próximos a Vencer
-El sistema puede alertarte sobre productos que están próximos a vencer (configurable, típicamente 30, 60 o 90 días). Esto te permite tomar acciones preventivas como ofertas especiales o rotación de inventario.
+El sistema puede alertarte sobre productos que están próximos a vencer. Esto te permite tomar acciones preventivas como ofertas especiales o rotación de inventario.
 
 ### Productos Vencidos
 Se muestran alertas para productos que ya han vencido, permitiéndote identificar rápidamente qué productos no deben venderse.
@@ -163,32 +162,7 @@ Se muestran alertas para productos que ya han vencido, permitiéndote identifica
 Cada movimiento de inventario que involucra lotes registra qué lote específico se utilizó. Esto permite:
 
 - **Rastreo completo**: Saber exactamente qué lote se vendió en cada factura o venta
-- **Historial por lote**: Ver todos los movimientos de un lote específico
-- **Reportes detallados**: Analizar rotación, vencimientos y rendimiento por lote
-
-## Reportes Disponibles
-
-El sistema ofrece varios reportes relacionados con lotes:
-
-1. **Reporte de Productos Próximos a Vencer**
-   - Lista productos con lotes que vencen en un período determinado
-   - Filtros por días de anticipación, almacén y producto
-   - Útil para planificar rotación de inventario
-
-2. **Reporte de Productos Vencidos**
-   - Lista productos con lotes que ya han vencido
-   - Muestra cantidad vencida por producto
-   - Ayuda a identificar productos que deben retirarse
-
-3. **Kardex por Lote**
-   - Historial completo de movimientos de un lote específico
-   - Muestra entradas, salidas y ajustes
-   - Trazabilidad completa del lote
-
-4. **Rotación por Lote**
-   - Análisis de qué lotes se están vendiendo primero
-   - Identifica lotes estancados que requieren atención
-   - Útil para optimizar la gestión de inventario
+- **Historial por lote**: Ver todos los movimientos de un lote específico a través del kardex del producto
 
 ## Compatibilidad
 
@@ -201,11 +175,11 @@ El sistema de lotes está diseñado para ser completamente compatible con produc
 
 ## Ventajas del Sistema
 
-1. **Automatización**: El FIFO se aplica automáticamente, sin intervención manual
+1. **Automatización**: El método PEPS se aplica automáticamente, sin intervención manual
 2. **Simplicidad**: Las ventas funcionan igual que siempre, el sistema maneja los lotes internamente
 3. **Flexibilidad**: Puedes crear lotes cuando lo necesites, no estás limitado al momento de la compra
 4. **Trazabilidad**: Registro completo de qué lote se vendió en cada transacción
-5. **Control**: Alertas y reportes que te ayudan a gestionar vencimientos eficientemente
+5. **Control**: Alertas que te ayudan a gestionar vencimientos eficientemente
 6. **Compatibilidad**: No afecta productos que no requieren lotes
 
 ## Consideraciones Importantes
@@ -214,17 +188,16 @@ El sistema de lotes está diseñado para ser completamente compatible con produc
 - **Fechas de vencimiento**: Son obligatorias al crear un lote
 - **Cantidad máxima**: No puedes asignar más cantidad de la disponible sin lote
 - **Lotes cerrados**: Se mantienen en el historial pero no se usan en nuevas ventas
-- **Seguridad**: El sistema usa identificadores únicos (UUID) para proteger la información
+- **Trazabilidad**: Puedes consultar qué lote se utilizó en cada movimiento a través del kardex del producto
 
 ## Resumen
 
 El sistema de lotes de vencimiento es una herramienta poderosa que funciona de manera automática y transparente. Te permite:
 
 - Controlar fechas de vencimiento de productos
-- Asegurar rotación adecuada (FIFO automático)
+- Asegurar rotación adecuada (PEPS automático)
 - Mantener trazabilidad completa
 - Recibir alertas sobre productos próximos a vencer
-- Generar reportes detallados
 
 Todo esto sin complicar tu flujo de trabajo diario, ya que las ventas funcionan exactamente igual que antes, mientras el sistema maneja inteligentemente la distribución de lotes en segundo plano.
 

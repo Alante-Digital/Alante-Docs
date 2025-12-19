@@ -1,0 +1,309 @@
+# Sistema de Recetas de Productos
+
+## Introducción
+
+El sistema de recetas de productos permite crear productos compuestos que se fabrican o ensamblan a partir de otros productos (componentes). Cuando vendes un producto con receta, el sistema automáticamente descuenta los componentes necesarios del inventario, calcula el costo basado en los componentes, y valida que haya suficiente stock disponible.
+
+## ¿Qué son las Recetas?
+
+Una receta es una lista de componentes (productos) y las cantidades necesarias para producir o ensamblar un producto final. Por ejemplo, un "Sandwich Especial" puede tener como componentes:
+- 2 unidades de pan
+- 1 unidad de jamón
+- 1 unidad de queso
+- 0.5 unidades de lechuga
+
+Cuando vendes 1 "Sandwich Especial", el sistema automáticamente descuenta 2 panes, 1 jamón, 1 queso y 0.5 lechuga del inventario.
+
+**Características principales:**
+- El producto final no tiene stock propio, se calcula basado en los componentes
+- El costo se calcula automáticamente sumando los costos de los componentes
+- Al vender, se descuentan automáticamente los componentes del inventario
+- El sistema valida que haya suficiente stock antes de permitir la venta
+
+## Configuración de Productos con Receta
+
+Para que un producto funcione con receta, debe estar marcado como "Tiene receta" en su configuración.
+
+**Consideraciones importantes:**
+- Un producto con receta NO puede ser al mismo tiempo un producto pesado
+- Un producto con receta puede tener lotes de vencimiento si sus componentes los requieren
+- El producto con receta debe ser stockable (manejar inventario)
+- El producto con receta no tiene stock propio, su stock se calcula basado en los componentes
+
+## Creación de Recetas
+
+### Agregar Componentes
+
+Para crear una receta, debes agregar componentes al producto:
+
+1. **Seleccionar el componente**: Elige un producto existente que será parte de la receta
+2. **Definir la cantidad**: Especifica cuántas unidades del componente se necesitan para producir 1 unidad del producto final
+3. **Validaciones automáticas**:
+   - No puedes agregar el mismo producto como componente de sí mismo
+   - No puedes crear referencias circulares (ej: A contiene B, B contiene A)
+   - No puedes agregar el mismo componente dos veces
+
+**Ejemplo práctico:**
+
+```
+Producto: Pizza Margarita
+Componentes:
+- Masa de pizza: 1 unidad
+- Salsa de tomate: 0.5 unidades
+- Queso mozzarella: 0.3 unidades
+- Albahaca: 0.1 unidades
+```
+
+### Estructura de la Receta
+
+Cada componente en la receta tiene:
+- **Componente**: El producto que se utiliza
+- **Cantidad**: Cuántas unidades del componente se necesitan por cada unidad del producto final
+- **Costo del componente**: Se toma del costo actual del componente
+- **Costo total**: Cantidad × costo del componente
+
+## Cálculo Automático del Costo
+
+El sistema calcula automáticamente el costo del producto con receta sumando los costos de todos sus componentes:
+
+```
+Costo Total = Σ (Cantidad del componente × Costo del componente)
+```
+
+**Ejemplo:**
+
+```
+Producto: Pizza Margarita
+Componentes:
+- Masa de pizza: 1 × RD$50.00 = RD$50.00
+- Salsa de tomate: 0.5 × RD$30.00 = RD$15.00
+- Queso mozzarella: 0.3 × RD$200.00 = RD$60.00
+- Albahaca: 0.1 × RD$100.00 = RD$10.00
+
+Costo Total Calculado: RD$135.00
+```
+
+**Características del cálculo:**
+- Se actualiza automáticamente cuando cambias los componentes o sus cantidades
+- Se actualiza cuando cambia el costo de algún componente
+- El costo del producto se actualiza en tiempo real
+
+## Cálculo del Stock Disponible
+
+El stock disponible de un producto con receta se calcula basado en el componente que tiene menos stock disponible:
+
+```
+Stock Disponible = Mínimo (Stock del componente / Cantidad requerida)
+```
+
+**Ejemplo:**
+
+```
+Producto: Pizza Margarita
+Componentes y stock disponible:
+- Masa de pizza: 1 unidad necesaria, stock disponible: 50 → Puedo hacer 50 pizzas
+- Salsa de tomate: 0.5 unidades necesarias, stock disponible: 20 → Puedo hacer 40 pizzas (20 / 0.5)
+- Queso mozzarella: 0.3 unidades necesarias, stock disponible: 10 → Puedo hacer 33 pizzas (10 / 0.3)
+- Albahaca: 0.1 unidades necesarias, stock disponible: 5 → Puedo hacer 50 pizzas (5 / 0.1)
+
+Stock Disponible del Producto: 33 pizzas (limitado por el queso mozzarella)
+```
+
+**Características:**
+- El stock se calcula en tiempo real
+- Puede variar según el almacén seleccionado
+- Si falta algún componente, el stock disponible es 0
+
+## Validación de Stock
+
+Antes de permitir una venta, el sistema valida que haya suficiente stock de todos los componentes:
+
+**Proceso de validación:**
+1. Calcula cuánto de cada componente se necesita para la cantidad a vender
+2. Verifica que haya suficiente stock disponible de cada componente
+3. Si falta algún componente, muestra un error indicando qué falta y cuánto
+
+**Ejemplo de validación:**
+
+```
+Intento vender: 5 unidades de Pizza Margarita
+
+Componentes necesarios:
+- Masa de pizza: 5 × 1 = 5 unidades necesarias, stock: 50 → ✓ Disponible
+- Salsa de tomate: 5 × 0.5 = 2.5 unidades necesarias, stock: 20 → ✓ Disponible
+- Queso mozzarella: 5 × 0.3 = 1.5 unidades necesarias, stock: 0.5 → ✗ Faltan 1.0 unidades
+
+Resultado: Venta bloqueada, falta queso mozzarella
+```
+
+## Proceso de Venta
+
+Cuando vendes un producto con receta, el sistema automáticamente:
+
+### 1. Validación de Stock
+Verifica que haya suficiente stock de todos los componentes antes de procesar la venta.
+
+### 2. Descuento de Componentes
+Descuenta automáticamente los componentes del inventario:
+
+```
+Cantidad a descontar = Cantidad vendida × Cantidad del componente en la receta
+```
+
+**Ejemplo:**
+
+```
+Venta: 3 unidades de Pizza Margarita
+
+Componentes descontados:
+- Masa de pizza: 3 × 1 = 3 unidades
+- Salsa de tomate: 3 × 0.5 = 1.5 unidades
+- Queso mozzarella: 3 × 0.3 = 0.9 unidades
+- Albahaca: 3 × 0.1 = 0.3 unidades
+```
+
+### 3. Registro de Movimientos
+Se registran movimientos de inventario para:
+- Cada componente descontado (salida)
+- El producto con receta vendido (para trazabilidad)
+
+### 4. Cálculo de Costos
+El costo utilizado para contabilidad es el costo calculado de la receta al momento de la venta.
+
+## Gestión de Recetas
+
+### Agregar Componentes
+
+Puedes agregar componentes a una receta en cualquier momento:
+
+1. Accede a la gestión de recetas del producto
+2. Selecciona un componente de la lista de productos disponibles
+3. Especifica la cantidad necesaria
+4. El sistema valida y agrega el componente
+5. El costo del producto se actualiza automáticamente
+
+### Modificar Cantidades
+
+Puedes modificar la cantidad de cualquier componente:
+
+1. Accede a la receta del producto
+2. Modifica la cantidad del componente
+3. El sistema actualiza automáticamente:
+   - El costo del producto
+   - El stock disponible
+
+### Eliminar Componentes
+
+Puedes eliminar componentes de la receta:
+
+1. Accede a la receta del producto
+2. Elimina el componente que ya no necesites
+3. El sistema actualiza automáticamente el costo
+4. Si eliminas todos los componentes, el producto deja de ser una receta
+
+## Prevención de Referencias Circulares
+
+El sistema previene referencias circulares para evitar problemas lógicos:
+
+**Ejemplo de referencia circular:**
+- Producto A contiene Producto B
+- Producto B contiene Producto A
+
+**Validación:**
+- El sistema verifica recursivamente si agregar un componente crearía un ciclo
+- Si detecta un ciclo potencial, bloquea la operación
+- Muestra un mensaje de error explicando el problema
+
+## Impresión de Recetas
+
+El sistema permite imprimir las recetas de productos, mostrando:
+
+- Información del producto (nombre, código, costo calculado)
+- Lista completa de componentes con:
+  - Nombre y código del componente
+  - Cantidad necesaria
+  - Costo unitario del componente
+  - Costo total del componente
+- Costo total calculado de la receta
+- Información de la organización
+
+**Uso:**
+- Documentación para cocina o producción
+- Referencia rápida de ingredientes
+- Control de calidad
+- Capacitación de personal
+
+## Compatibilidad con Otras Funcionalidades
+
+### Lotes de Vencimiento
+
+Los productos con receta pueden usar componentes que requieren lotes:
+- El sistema aplica PEPS automático al descontar componentes con lotes
+- Se registra qué lote se utilizó para trazabilidad
+- Funciona de manera transparente
+
+### Productos Pesados
+
+**IMPORTANTE**: Un producto NO puede ser al mismo tiempo:
+- Producto pesado
+- Producto con receta
+
+Son mutuamente excluyentes. Debes elegir una u otra funcionalidad.
+
+### Presentaciones
+
+Los productos con receta pueden tener presentaciones relacionadas, pero la receta se aplica al producto principal.
+
+## Ventajas del Sistema
+
+1. **Automatización**: Los componentes se descuentan automáticamente al vender
+2. **Precisión**: El costo se calcula automáticamente basado en componentes reales
+3. **Control de Stock**: Validación automática antes de permitir ventas
+4. **Trazabilidad**: Registro completo de qué componentes se utilizaron
+5. **Flexibilidad**: Puedes modificar recetas en cualquier momento
+6. **Cálculo en Tiempo Real**: Stock y costos se actualizan automáticamente
+
+## Consideraciones Importantes
+
+### Stock del Producto con Receta
+
+- El producto con receta **NO tiene stock propio**
+- Su stock se calcula dinámicamente basado en los componentes
+- El stock disponible es el mínimo de todos los componentes
+
+### Costo del Producto
+
+- El costo se calcula automáticamente
+- Se actualiza cuando cambias componentes o sus cantidades
+- Se actualiza cuando cambia el costo de algún componente
+- No debes ingresar el costo manualmente
+
+### Componentes Faltantes
+
+- Si un componente se elimina o no existe, el stock disponible será 0
+- El sistema valida antes de permitir ventas
+- Muestra mensajes claros sobre qué componentes faltan
+
+### Precisión de Cantidades
+
+- Las cantidades pueden tener hasta 3 decimales
+- Útil para ingredientes que se miden en fracciones (ej: 0.5 tazas, 0.25 libras)
+
+## Resumen
+
+El sistema de recetas permite gestionar productos compuestos de manera eficiente y automática. Cuando vendes un producto con receta:
+
+1. El sistema valida que haya suficiente stock de todos los componentes
+2. Descuenta automáticamente los componentes del inventario
+3. Calcula el costo basado en los componentes actuales
+4. Registra todos los movimientos para trazabilidad completa
+
+**Flujo típico:**
+1. Creas un producto y lo marcas como "Tiene receta"
+2. Agregas los componentes y sus cantidades
+3. El sistema calcula automáticamente el costo y stock disponible
+4. Al vender, el sistema valida stock y descuenta componentes automáticamente
+5. Puedes modificar la receta en cualquier momento
+
+Todo esto funciona de manera transparente, permitiendo que el proceso de venta sea igual que con productos normales, mientras el sistema maneja automáticamente la complejidad de los componentes en segundo plano.
+
