@@ -1,0 +1,281 @@
+---
+title: Préstamos a Empleados
+description: Guía completa para gestionar préstamos otorgados a empleados
+---
+
+# Préstamos a Empleados
+
+El sistema de préstamos a empleados te permite registrar préstamos que la organización otorga a sus empleados y llevar un control completo de los pagos realizados por cada empleado.
+
+## ¿Qué son los Préstamos a Empleados?
+
+Los préstamos a empleados son montos de dinero que la organización entrega a un empleado con la expectativa de que sean devueltos. El sistema te permite:
+
+- ✅ Registrar cuando se otorga un préstamo a un empleado
+- ✅ Llevar control de los pagos que el empleado realiza
+- ✅ Ver el saldo pendiente de cada préstamo
+- ✅ Consultar el historial completo de préstamos y pagos
+- ✅ Generar recibos automáticamente
+
+---
+
+## Crear un Préstamo
+
+Cuando otorgas un préstamo a un empleado, debes registrarlo en el sistema para llevar el control adecuado.
+
+### ¿Dónde crear un préstamo?
+
+1. Ve a **Compras y Gastos** en el menú principal
+2. Selecciona **Pagos**
+3. Haz clic en **Nuevo Pago**
+
+### Pasos para crear un préstamo
+
+#### 1. Seleccionar el tipo de pago
+
+En la pantalla de nuevo pago, en el campo **"Tipo de Pago"**, selecciona **"Préstamo Empleados"**.
+
+#### 2. Seleccionar el empleado
+
+Aparecerá un menú desplegable con todos los empleados activos. Selecciona el empleado al que le estás otorgando el préstamo.
+
+> **Nota**: Solo puedes crear préstamos a empleados que estén activos en el sistema.
+
+#### 3. Ingresar el monto
+
+En la sección **"Documentos Pendientes"**, ingresa el monto del préstamo que estás otorgando.
+
+#### 4. Seleccionar cómo se pagó
+
+Indica cómo se entregó el dinero al empleado. Puedes usar uno o más métodos de pago:
+
+- **Efectivo**: Si se entregó en efectivo
+- **Transferencia**: Si se hizo una transferencia bancaria
+- **Cheque**: Si se emitió un cheque
+- **Tarjeta**: Si se usó tarjeta de débito/crédito
+
+> **Importante**: La suma de todos los métodos de pago debe igualar exactamente el monto del préstamo.
+
+#### 5. Completar información adicional
+
+- **Fecha del préstamo**: La fecha en que se otorgó el préstamo
+- **Moneda**: Si tu organización maneja múltiples monedas, selecciona la moneda del préstamo
+- **Notas**: Puedes agregar notas adicionales si lo deseas (opcional)
+
+#### 6. Guardar
+
+Haz clic en **"Guardar"** para crear el préstamo. El sistema automáticamente:
+
+- Genera un recibo de salida (RP-XXXXX) que documenta que se entregó dinero
+- Crea el préstamo con un número único (PDC-XXXXX)
+- Registra el préstamo en el perfil del empleado
+
+---
+
+## Pagar un Préstamo
+
+Cuando un empleado realiza un pago hacia su préstamo, debes registrarlo en el sistema.
+
+### ¿Dónde registrar el pago?
+
+1. Ve a **Ventas** en el menú principal
+2. Selecciona **Recibos**
+3. Haz clic en **Nuevo Recibo**
+
+### Pasos para registrar un pago
+
+#### 1. Seleccionar el tipo de cobro
+
+En la pantalla de nuevo recibo, en el campo **"Tipo de Cobro"**, selecciona **"Préstamo Empleados"**.
+
+#### 2. Seleccionar el empleado
+
+Aparecerá un menú desplegable con todos los empleados que tienen préstamos pendientes. Selecciona el empleado que está realizando el pago.
+
+> **Nota**: Si un empleado se vuelve inactivo pero tiene préstamos pendientes, seguirá apareciendo en esta lista hasta que salde todas sus deudas.
+
+#### 3. Ver los préstamos pendientes
+
+Al seleccionar un empleado, aparecerá la sección **"Facturas Pendientes"** mostrando todos sus préstamos pendientes. Para cada préstamo verás:
+
+- **Número del préstamo** (PDC-XXXXX)
+- **Fecha del préstamo**
+- **Monto total** del préstamo
+- **Saldo pendiente** (cuánto falta por pagar)
+
+#### 4. Especificar cuánto pagar
+
+Para cada préstamo que quieras pagar, ingresa el monto que el empleado está pagando. Puedes:
+
+- Pagar un préstamo completo de una vez
+- Pagar parcialmente uno o más préstamos
+- Pagar múltiples préstamos en un solo recibo
+
+> **Importante**: No puedes pagar más de lo que falta por pagar en cada préstamo. El sistema te avisará si intentas pagar más del saldo pendiente.
+
+#### 5. Seleccionar cómo se recibió el pago
+
+Indica cómo recibiste el dinero del empleado. Puedes usar uno o más métodos de pago:
+
+- **Efectivo**: Si recibiste efectivo
+- **Transferencia**: Si recibiste una transferencia bancaria
+- **Cheque**: Si recibiste un cheque
+- **Tarjeta**: Si se usó tarjeta de débito/crédito
+
+> **Importante**: La suma de todos los métodos de pago debe igualar exactamente el total que estás aplicando a los préstamos.
+
+#### 6. Guardar
+
+Haz clic en **"Guardar"** para registrar el pago. El sistema automáticamente:
+
+- Genera un recibo de cobro (RC-XXXXX) que documenta que se recibió dinero
+- Registra el pago aplicado a cada préstamo
+- Actualiza el saldo pendiente de cada préstamo
+- Marca como "saldado" cualquier préstamo que quede en cero
+
+---
+
+## Consultar Préstamos en el Perfil del Empleado
+
+Puedes ver todos los préstamos de un empleado desde su perfil.
+
+### ¿Dónde consultar?
+
+1. Ve a **Recursos Humanos** en el menú principal
+2. Selecciona **Empleados**
+3. Busca y selecciona el empleado que quieres consultar
+4. Haz clic en la pestaña **"Deudas"**
+
+### ¿Qué información verás?
+
+#### Resumen del total adeudado
+
+En la parte superior verás un resumen que muestra el total que el empleado debe, agrupado por moneda si tiene préstamos en diferentes monedas.
+
+#### Préstamos pendientes
+
+Para cada préstamo pendiente verás:
+
+- **Número del préstamo** (PDC-XXXXX)
+- **Fecha** en que se otorgó el préstamo
+- **Monto total** del préstamo
+- **Monto pagado** y el porcentaje pagado
+- **Saldo pendiente** (destacado en rojo)
+- **Barra de progreso** que muestra visualmente cuánto se ha pagado
+- **Enlace al recibo** de salida original
+
+#### Pagos realizados
+
+Cada préstamo tiene una sección desplegable llamada **"Pagos Realizados"**. Al hacer clic, verás:
+
+- **Número de recibo** de cada pago (RC-XXXXX)
+- **Fecha** de cada pago
+- **Monto** que se aplicó en cada pago
+- **Enlace** para ver el recibo completo
+
+#### Préstamos saldados
+
+Al final de la pestaña hay una sección de **"Préstamos Saldados"** que muestra todos los préstamos que ya fueron pagados completamente. Para cada préstamo saldado verás:
+
+- **Número del préstamo**
+- **Fecha** del préstamo
+- **Monto total**
+- **Badge "Saldado"** en verde
+- **Enlace** al recibo de salida original
+- **Pagos realizados** (sección desplegable con el historial completo)
+
+### Acciones disponibles
+
+- **Crear Nuevo Préstamo**: El botón **"Nuevo Préstamo"** te lleva directamente a la pantalla de creación de préstamos con el empleado ya preseleccionado
+- **Ver Recibos**: Puedes hacer clic en cualquier número de recibo para ver el documento completo
+
+---
+
+## Preguntas Frecuentes
+
+### ¿Puedo crear un préstamo a un empleado inactivo?
+
+No, solo puedes crear préstamos a empleados que estén activos. Sin embargo, si un empleado se vuelve inactivo pero tiene préstamos pendientes, estos seguirán apareciendo en el sistema y podrás registrar pagos normalmente.
+
+### ¿Puedo pagar múltiples préstamos en un solo recibo?
+
+Sí, puedes seleccionar múltiples préstamos y especificar cuánto pagar de cada uno en un solo recibo de cobro. Esto es útil cuando un empleado hace un pago que quiere distribuir entre varios préstamos.
+
+### ¿Qué pasa si intento pagar más de lo que falta por pagar?
+
+El sistema no te permitirá hacerlo. Si intentas pagar más del saldo pendiente, recibirás un mensaje de error indicando que el monto excede lo permitido.
+
+### ¿Cómo se calcula el saldo pendiente?
+
+El saldo pendiente se calcula automáticamente restando todos los pagos realizados del monto total del préstamo. El sistema actualiza este cálculo cada vez que registras un nuevo pago.
+
+### ¿Puedo tener préstamos en diferentes monedas?
+
+Sí, el sistema soporta préstamos en diferentes monedas. Cada préstamo puede tener su propia moneda, y el resumen en el perfil del empleado agrupa los totales por moneda.
+
+### ¿Dónde puedo ver el historial completo de pagos de un préstamo?
+
+En el perfil del empleado, pestaña "Deudas", expande la sección **"Pagos Realizados"** de cualquier préstamo. Ahí verás todos los pagos realizados con sus fechas, montos y enlaces a los recibos.
+
+### ¿Qué significa el número PDC-XXXXX?
+
+Es el número único que el sistema asigna automáticamente a cada préstamo. PDC significa "Préstamo de Colaborador" y el número te ayuda a identificar y referenciar cada préstamo de manera única.
+
+### ¿Puedo cancelar o eliminar un préstamo?
+
+Actualmente, el sistema no permite cancelar o eliminar préstamos una vez creados. Si necesitas hacer una corrección, contacta al administrador del sistema.
+
+### ¿Los préstamos afectan la contabilidad?
+
+Sí, el sistema registra automáticamente los movimientos contables cuando creas un préstamo o cuando registras un pago. No necesitas hacer nada adicional, el sistema se encarga de todo.
+
+---
+
+## Consejos Útiles
+
+### Para crear préstamos
+
+- ✅ Verifica que el empleado esté activo antes de crear el préstamo
+- ✅ Asegúrate de que los métodos de pago sumen exactamente el monto del préstamo
+- ✅ Agrega notas si hay información importante sobre el préstamo
+
+### Para registrar pagos
+
+- ✅ Revisa el saldo pendiente antes de registrar el pago
+- ✅ Puedes pagar parcialmente si el empleado no tiene el monto completo
+- ✅ Usa la sección de notas si necesitas registrar información adicional sobre el pago
+
+### Para consultar préstamos
+
+- ✅ Revisa regularmente la pestaña "Deudas" de los empleados
+- ✅ Usa la sección desplegable de "Pagos Realizados" para ver el historial completo
+- ✅ El botón "Nuevo Préstamo" desde el perfil del empleado facilita crear préstamos rápidamente
+
+---
+
+## Resumen Rápido
+
+### Crear un préstamo
+1. Compras y Gastos → Pagos → Nuevo Pago
+2. Seleccionar "Préstamo Empleados"
+3. Seleccionar empleado y monto
+4. Agregar métodos de pago
+5. Guardar
+
+### Pagar un préstamo
+1. Ventas → Recibos → Nuevo Recibo
+2. Seleccionar "Préstamo Empleados"
+3. Seleccionar empleado
+4. Especificar montos a pagar
+5. Agregar métodos de pago
+6. Guardar
+
+### Consultar préstamos
+1. Recursos Humanos → Empleados → [Empleado]
+2. Pestaña "Deudas"
+3. Ver préstamos pendientes y saldados
+4. Expandir "Pagos Realizados" para ver historial
+
+---
+
+¿Necesitas ayuda adicional? Contacta al administrador del sistema o revisa la documentación general del sistema.

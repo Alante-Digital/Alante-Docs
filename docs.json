@@ -70,7 +70,8 @@
       {
         "group": "Recursos Humanos",
         "pages": [
-          "recursos-humanos/tablero"
+          "recursos-humanos/tablero",
+          "recursos-humanos/prestamos"
         ]
       }
     ]
