@@ -1,0 +1,742 @@
+# 🧪 GUÍA DE PRUEBAS - MÓDULO DE SOPORTE
+
+**Versión:** 1.0  
+**Fecha:** Enero 2026  
+**Objetivo:** Guía completa para el equipo de QA para probar todas las funcionalidades del módulo de Soporte
+
+---
+
+## 📋 **ÍNDICE**
+
+1. [Configuración Inicial](#1-configuración-inicial)
+2. [Dashboard](#2-dashboard)
+3. [Gestión de Tickets](#3-gestión-de-tickets)
+4. [Comentarios y Adjuntos](#4-comentarios-y-adjuntos)
+5. [Asignación y Estados](#5-asignación-y-estados)
+6. [Automatización](#6-automatización)
+7. [SLAs](#7-slas)
+8. [Base de Conocimientos](#8-base-de-conocimientos)
+9. [Integración con Email](#9-integración-con-email)
+10. [Reportes](#10-reportes)
+11. [Encuestas de Satisfacción](#11-encuestas-de-satisfacción)
+12. [Campos Personalizados](#12-campos-personalizados)
+13. [Búsqueda y Vistas Guardadas](#13-búsqueda-y-vistas-guardadas)
+14. [Acciones Masivas](#14-acciones-masivas)
+15. [Permisos](#15-permisos)
+
+---
+
+## 1. **CONFIGURACIÓN INICIAL**
+
+### 1.1 Verificar Inicialización Automática
+- [ ] Crear una nueva organización
+- [ ] Verificar que se crea automáticamente:
+  - [ ] Secuencia de tickets (TKT-00001)
+  - [ ] Configuración de soporte
+  - [ ] Configuración de email con token único
+  - [ ] 5 etiquetas por defecto (Urgente, Bug, Solicitud, Pregunta, Seguimiento)
+  - [ ] 4 categorías de KB por defecto (General, FAQ, Guías, Solución de Problemas)
+
+### 1.2 Configuración de Email
+- [ ] Ir a **Configuración > Soporte > Configuración de Email**
+- [ ] Verificar que se muestra el email único de la organización (formato: `alante-XXXXX@support.alante.digital`)
+- [ ] Verificar que el email está obfuscado (no muestra el ID de la organización)
+- [ ] Verificar que se puede copiar el email
+
+### 1.3 Configuración de Encuestas
+- [ ] Ir a **Configuración > Soporte > Encuestas de Satisfacción**
+- [ ] Verificar que se puede habilitar/deshabilitar encuestas
+- [ ] Verificar que se puede configurar el tiempo de espera (horas)
+- [ ] Verificar que se pueden editar las preguntas de la encuesta
+
+---
+
+## 2. **DASHBOARD**
+
+### 2.1 Acceso al Dashboard
+- [ ] Verificar que se puede acceder desde el menú de navegación
+- [ ] Verificar que se muestra el onboarding la primera vez
+- [ ] Verificar que se puede omitir el onboarding
+- [ ] Verificar que se puede reiniciar el onboarding desde el botón flotante
+
+### 2.2 Métricas Principales
+- [ ] Verificar que se muestran las siguientes métricas:
+  - [ ] Tickets abiertos
+  - [ ] Tickets pendientes
+  - [ ] Tickets resueltos hoy
+  - [ ] Tickets resueltos este mes
+  - [ ] Tiempo promedio de primera respuesta
+  - [ ] Tiempo promedio de resolución
+  - [ ] Tasa de satisfacción
+  - [ ] Cumplimiento de SLA
+
+### 2.3 Vistas Rápidas
+- [ ] Verificar que se muestran:
+  - [ ] Tickets recientes (últimos 10)
+  - [ ] Mis tickets asignados (solo abiertos)
+  - [ ] Tickets sin asignar (solo abiertos)
+- [ ] Verificar que los números coinciden con los filtros en el listado
+
+### 2.4 Gráficos
+- [ ] Verificar que se muestran gráficos:
+  - [ ] Distribución por estado
+  - [ ] Distribución por prioridad
+  - [ ] Distribución por agente
+  - [ ] Tendencias mensuales
+
+### 2.5 Accesos Rápidos
+- [ ] Verificar que los botones de acceso rápido funcionan:
+  - [ ] Crear nuevo ticket
+  - [ ] Ver todos los tickets
+  - [ ] Ver mis tickets
+  - [ ] Ver tickets sin asignar
+
+---
+
+## 3. **GESTIÓN DE TICKETS**
+
+### 3.1 Crear Ticket
+- [ ] Ir a **Soporte > Tickets > Crear**
+- [ ] Verificar que todos los campos están disponibles:
+  - [ ] Título (requerido)
+  - [ ] Descripción (requerido)
+  - [ ] Cliente/Solicitante (requerido)
+  - [ ] Tipo (requerido)
+  - [ ] Prioridad (requerido)
+  - [ ] Estado (requerido)
+  - [ ] Agente asignado (opcional)
+  - [ ] Etiquetas (opcional)
+  - [ ] Campos personalizados (si están configurados)
+- [ ] Crear un ticket y verificar:
+  - [ ] Se asigna un número de ticket (TKT-XXXXX)
+  - [ ] Se guarda correctamente
+  - [ ] Se redirige a la vista del ticket
+
+### 3.2 Listado de Tickets
+- [ ] Ir a **Soporte > Tickets**
+- [ ] Verificar que se muestran todos los tickets
+- [ ] Verificar que se ordenan por última actualización (más recientes primero)
+- [ ] Verificar que se muestran columnas:
+  - [ ] Número de ticket
+  - [ ] Título
+  - [ ] Cliente
+  - [ ] Estado
+  - [ ] Prioridad
+  - [ ] Agente asignado
+  - [ ] Fecha de creación
+  - [ ] Última actualización
+- [ ] Verificar que los tickets recientemente actualizados tienen un indicador visual
+
+### 3.3 Ver Ticket (Show)
+- [ ] Abrir un ticket desde el listado
+- [ ] Verificar que se muestra:
+  - [ ] Información completa del ticket
+  - [ ] Historial de comentarios (más recientes primero)
+  - [ ] Adjuntos
+  - [ ] Historial de actividades
+  - [ ] Información de SLA
+  - [ ] Vínculos relacionados
+  - [ ] Sugerencias de KB
+- [ ] Verificar que el botón "Acciones" muestra:
+  - [ ] Editar
+  - [ ] Cambiar Estado
+  - [ ] Asignar/Reasignar
+  - [ ] Fusionar
+  - [ ] Dividir
+  - [ ] Escalar
+  - [ ] Enviar Encuesta
+
+### 3.4 Editar Ticket
+- [ ] Abrir un ticket y hacer clic en "Editar"
+- [ ] Verificar que se pueden modificar todos los campos
+- [ ] Guardar cambios y verificar que se actualizan correctamente
+- [ ] Verificar que se registra en el historial de actividades
+
+### 3.5 Cambiar Estado
+- [ ] Abrir un ticket
+- [ ] Usar el botón "Acciones > Cambiar Estado"
+- [ ] Verificar que se pueden cambiar entre todos los estados:
+  - [ ] Nuevo
+  - [ ] Abierto
+  - [ ] Pendiente
+  - [ ] En espera
+  - [ ] Resuelto
+  - [ ] Cerrado
+  - [ ] Cancelado
+- [ ] Verificar que se registra en el historial
+
+### 3.6 Cambiar Prioridad
+- [ ] Abrir un ticket
+- [ ] Cambiar la prioridad desde el formulario de edición
+- [ ] Verificar que se actualiza correctamente
+- [ ] Verificar que se registra en el historial
+
+### 3.7 Asignar/Reasignar Ticket
+- [ ] Abrir un ticket sin asignar
+- [ ] Usar "Acciones > Asignar/Reasignar"
+- [ ] Seleccionar un agente
+- [ ] Verificar que se asigna correctamente
+- [ ] Verificar que se envía notificación al agente
+- [ ] Verificar que se registra en el historial
+
+### 3.8 Etiquetas
+- [ ] Abrir un ticket
+- [ ] Agregar etiquetas desde el formulario de edición
+- [ ] Verificar que se guardan correctamente
+- [ ] Verificar que se muestran con sus colores
+- [ ] Eliminar una etiqueta y verificar que se quita
+
+### 3.9 Vínculos Relacionados
+- [ ] Abrir un ticket
+- [ ] Buscar la sección "Tickets Relacionados"
+- [ ] Agregar un ticket relacionado
+- [ ] Seleccionar tipo de relación (Relacionado, Duplicado, Bloquea, etc.)
+- [ ] Verificar que se guarda correctamente
+- [ ] Verificar que aparece en ambos tickets
+
+---
+
+## 4. **COMENTARIOS Y ADJUNTOS**
+
+### 4.1 Agregar Comentario Público
+- [ ] Abrir un ticket
+- [ ] Escribir un comentario en el campo de comentarios
+- [ ] Verificar que está marcado como "Público" (visible para cliente)
+- [ ] Enviar el comentario
+- [ ] Verificar que aparece en el historial
+- [ ] Verificar que se envía notificación por email al cliente
+
+### 4.2 Agregar Comentario Interno
+- [ ] Abrir un ticket
+- [ ] Escribir un comentario
+- [ ] Marcar como "Interno"
+- [ ] Enviar el comentario
+- [ ] Verificar que aparece marcado como interno
+- [ ] Verificar que NO se envía notificación al cliente
+
+### 4.3 Adjuntar Archivo a Comentario
+- [ ] Al crear un comentario, adjuntar un archivo
+- [ ] Verificar que se sube correctamente
+- [ ] Verificar que se muestra en el comentario
+- [ ] Verificar que se puede descargar
+
+### 4.4 Adjuntar Archivo Directo al Ticket
+- [ ] Abrir un ticket
+- [ ] Buscar la sección de adjuntos
+- [ ] Subir un archivo
+- [ ] Verificar que se guarda correctamente
+- [ ] Verificar que se puede descargar
+
+### 4.5 Ver Adjuntos
+- [ ] Abrir un ticket con adjuntos
+- [ ] Verificar que se muestran todos los adjuntos
+- [ ] Verificar que se puede descargar cada uno
+- [ ] Verificar que se muestra el nombre del archivo y tamaño
+
+---
+
+## 5. **ASIGNACIÓN Y ESTADOS**
+
+### 5.1 Filtros Rápidos
+- [ ] En el listado de tickets, verificar filtros:
+  - [ ] "Mis Tickets" - Solo muestra tickets abiertos asignados al usuario actual
+  - [ ] "Sin Asignar" - Solo muestra tickets abiertos sin asignar
+  - [ ] Verificar que NO muestra tickets cerrados en estos filtros
+
+### 5.2 Cambiar Estado desde Listado
+- [ ] Seleccionar múltiples tickets (usando checkboxes)
+- [ ] Usar acciones masivas para cambiar estado
+- [ ] Verificar que se actualizan todos los tickets seleccionados
+
+### 5.3 Asignación Masiva
+- [ ] Seleccionar múltiples tickets
+- [ ] Usar acciones masivas para asignar a un agente
+- [ ] Verificar que se asignan todos los tickets seleccionados
+
+---
+
+## 6. **AUTOMATIZACIÓN**
+
+### 6.1 Crear Regla de Automatización
+- [ ] Ir a **Soporte > Automatización > Crear**
+- [ ] Verificar que se pueden configurar:
+  - [ ] Nombre de la regla
+  - [ ] Descripción
+  - [ ] Estado (Activa/Inactiva)
+  - [ ] Prioridad de ejecución
+  - [ ] Condiciones (múltiples):
+    - [ ] Estado del ticket
+    - [ ] Prioridad
+    - [ ] Tipo
+    - [ ] Etiquetas
+    - [ ] Cliente
+    - [ ] Agente asignado
+    - [ ] Palabras clave en título/descripción
+  - [ ] Acciones (múltiples):
+    - [ ] Asignar a agente
+    - [ ] Cambiar estado
+    - [ ] Cambiar prioridad
+    - [ ] Agregar etiquetas
+    - [ ] Enviar email
+    - [ ] Agregar comentario
+    - [ ] Aplicar SLA
+    - [ ] Notificar a usuario
+    - [ ] Escalar ticket
+- [ ] Crear una regla y verificar que se guarda
+
+### 6.2 Activar/Desactivar Regla
+- [ ] Ir al listado de reglas
+- [ ] Activar/desactivar una regla
+- [ ] Verificar que solo las reglas activas se ejecutan
+
+### 6.3 Probar Regla
+- [ ] Crear un ticket que cumpla las condiciones de una regla
+- [ ] Verificar que la regla se ejecuta automáticamente
+- [ ] Verificar que se realizan las acciones configuradas
+- [ ] Verificar que se registra en el historial del ticket
+
+### 6.4 Editar Regla
+- [ ] Abrir una regla existente
+- [ ] Modificar condiciones o acciones
+- [ ] Guardar y verificar que se actualiza
+
+---
+
+## 7. **SLAs**
+
+### 7.1 Crear SLA
+- [ ] Ir a **Soporte > SLAs > Crear**
+- [ ] Verificar que se pueden configurar:
+  - [ ] Nombre
+  - [ ] Descripción
+  - [ ] Tiempo de primera respuesta (minutos/horas)
+  - [ ] Tiempo de resolución (minutos/horas)
+  - [ ] Horarios de negocio (días y horas)
+  - [ ] Días festivos
+  - [ ] Aplicar a (tipo, prioridad, cliente, etc.)
+  - [ ] Estado (Activo/Inactivo)
+- [ ] Crear un SLA y verificar que se guarda
+
+### 7.2 Aplicar SLA a Ticket
+- [ ] Crear un ticket que cumpla las condiciones del SLA
+- [ ] Verificar que se aplica automáticamente el SLA
+- [ ] Verificar que se calculan los tiempos objetivo
+- [ ] Verificar que se muestran en la vista del ticket
+
+### 7.3 Verificar Violaciones de SLA
+- [ ] Crear un ticket con SLA
+- [ ] Esperar o simular que se viola el SLA
+- [ ] Ejecutar el comando: `php artisan support:check-sla-violations`
+- [ ] Verificar que se registra la violación
+- [ ] Verificar que se envía notificación por email
+
+### 7.4 Ver Violaciones
+- [ ] Ir a **Soporte > SLAs > [SLA] > Violaciones**
+- [ ] Verificar que se muestran todas las violaciones
+- [ ] Verificar que se muestran detalles:
+  - [ ] Ticket
+  - [ ] Tipo de violación (primera respuesta/resolución)
+  - [ ] Tiempo objetivo
+  - [ ] Tiempo real
+  - [ ] Fecha de violación
+
+### 7.5 Horarios de Negocio
+- [ ] Crear un SLA con horarios de negocio específicos
+- [ ] Verificar que el cálculo de SLA solo cuenta tiempo en horarios de negocio
+- [ ] Verificar que se excluyen fines de semana
+- [ ] Verificar que se excluyen días festivos
+
+---
+
+## 8. **BASE DE CONOCIMIENTOS**
+
+### 8.1 Crear Categoría
+- [ ] Ir a **Soporte > Base de Conocimientos > Categorías**
+- [ ] Crear una nueva categoría
+- [ ] Verificar que se guarda correctamente
+
+### 8.2 Crear Artículo
+- [ ] Ir a **Soporte > Base de Conocimientos > Crear**
+- [ ] Verificar que se pueden configurar:
+  - [ ] Título
+  - [ ] Contenido (rich text)
+  - [ ] Categoría
+  - [ ] Estado (Borrador/Publicado)
+  - [ ] Etiquetas
+- [ ] Crear un artículo y verificar que se guarda
+
+### 8.3 Publicar Artículo
+- [ ] Crear un artículo en estado "Borrador"
+- [ ] Cambiar a "Publicado"
+- [ ] Verificar que aparece en búsquedas
+- [ ] Verificar que se puede ver públicamente
+
+### 8.4 Buscar Artículos
+- [ ] Usar la búsqueda de KB
+- [ ] Verificar que encuentra artículos por título y contenido
+- [ ] Verificar que solo muestra artículos publicados
+
+### 8.5 Sugerencias Automáticas
+- [ ] Crear un nuevo ticket
+- [ ] Escribir título y descripción
+- [ ] Verificar que aparecen sugerencias de artículos de KB
+- [ ] Verificar que las sugerencias son relevantes
+- [ ] Hacer clic en una sugerencia y verificar que se abre el artículo
+
+### 8.6 Plantillas de Tickets
+- [ ] Ir a **Soporte > Plantillas**
+- [ ] Crear una plantilla
+- [ ] Verificar que se pueden usar variables dinámicas:
+  - [ ] {{customer_name}}
+  - [ ] {{ticket_number}}
+  - [ ] {{agent_name}}
+  - [ ] {{organization_name}}
+- [ ] Usar la plantilla en un comentario
+- [ ] Verificar que las variables se reemplazan correctamente
+
+---
+
+## 9. **INTEGRACIÓN CON EMAIL**
+
+### 9.1 Configuración IMAP
+- [ ] Verificar que la configuración IMAP está en `.env`:
+  - [ ] `SUPPORT_IMAP_HOST=mail.support.alante.digital`
+  - [ ] `SUPPORT_IMAP_PORT=993`
+  - [ ] `SUPPORT_IMAP_ENCRYPTION=ssl`
+  - [ ] `SUPPORT_IMAP_USERNAME=info@support.alante.digital`
+  - [ ] `SUPPORT_IMAP_PASSWORD=...`
+
+### 9.2 Procesar Emails
+- [ ] Enviar un email a `info@support.alante.digital`
+- [ ] En el "To" usar el email único de la organización (ej: `alante-XXXXX@support.alante.digital`)
+- [ ] Ejecutar: `php artisan support:process-emails`
+- [ ] Verificar que se crea un ticket automáticamente
+- [ ] Verificar que:
+  - [ ] El contenido del email está en la descripción del ticket
+  - [ ] El remitente se asocia con un contacto del CRM (si existe)
+  - [ ] Se crea un comentario con el contenido del email
+  - [ ] El cliente se identifica correctamente
+
+### 9.3 Responder por Email
+- [ ] Abrir un ticket
+- [ ] Agregar un comentario
+- [ ] Verificar que se envía email al cliente
+- [ ] Verificar que el email incluye:
+  - [ ] El contenido del comentario
+  - [ ] El número de ticket
+  - [ ] Enlaces para responder por email
+  - [ ] Branding de la organización
+
+### 9.4 Responder desde Email
+- [ ] Recibir un email de notificación de ticket
+- [ ] Responder al email
+- [ ] Ejecutar: `php artisan support:process-emails`
+- [ ] Verificar que se agrega como comentario al ticket
+- [ ] Verificar que se asocia con el contacto correcto
+
+### 9.5 Email Threading
+- [ ] Enviar múltiples respuestas por email al mismo ticket
+- [ ] Verificar que todas se agregan como comentarios
+- [ ] Verificar que se mantiene el hilo de conversación
+
+### 9.6 Logs de Email
+- [ ] Verificar que los logs se guardan en `storage/logs/support_email.log`
+- [ ] Verificar que se registran:
+  - [ ] Emails procesados
+  - [ ] Tickets creados
+  - [ ] Errores (si los hay)
+
+---
+
+## 10. **REPORTES**
+
+### 10.1 Acceso a Reportes
+- [ ] Ir a **Soporte > Reportes**
+- [ ] Verificar que se muestra un índice con todos los reportes disponibles
+- [ ] Verificar que cada reporte tiene una descripción
+
+### 10.2 Reporte de Tickets
+- [ ] Ir a **Soporte > Reportes > Reporte de Tickets**
+- [ ] Verificar que se pueden aplicar filtros:
+  - [ ] Rango de fechas
+  - [ ] Estado
+  - [ ] Prioridad
+  - [ ] Tipo
+  - [ ] Agente
+  - [ ] Cliente
+- [ ] Verificar que se muestran datos correctos
+- [ ] Exportar a Excel y verificar que se descarga
+- [ ] Exportar a CSV y verificar que se descarga
+- [ ] Exportar a PDF y verificar que se descarga
+
+### 10.3 Reporte de Agentes
+- [ ] Ir a **Soporte > Reportes > Reporte de Agentes**
+- [ ] Verificar que se muestran:
+  - [ ] Tickets asignados
+  - [ ] Tickets resueltos
+  - [ ] Tiempo promedio de respuesta
+  - [ ] Tiempo promedio de resolución
+  - [ ] Tasa de satisfacción
+- [ ] Verificar que los datos son correctos
+- [ ] Exportar y verificar que funciona
+
+### 10.4 Reporte de Satisfacción
+- [ ] Ir a **Soporte > Reportes > Reporte de Satisfacción**
+- [ ] Verificar que se muestran:
+  - [ ] Distribución de calificaciones
+  - [ ] Tasa de respuesta
+  - [ ] Comentarios
+  - [ ] Tendencias
+- [ ] Verificar que los datos son correctos
+
+### 10.5 Reporte de SLA
+- [ ] Ir a **Soporte > Reportes > Reporte de SLA**
+- [ ] Verificar que se muestran:
+  - [ ] Cumplimiento de SLA
+  - [ ] Violaciones
+  - [ ] Tiempos promedio
+  - [ ] Tickets dentro/fuera de SLA
+- [ ] Verificar que los datos son correctos
+
+---
+
+## 11. **ENCUESTAS DE SATISFACCIÓN**
+
+### 11.1 Configuración
+- [ ] Ir a **Configuración > Soporte > Encuestas de Satisfacción**
+- [ ] Verificar que se puede habilitar/deshabilitar
+- [ ] Verificar que se puede configurar el tiempo de espera
+- [ ] Verificar que se pueden editar las preguntas
+
+### 11.2 Envío Automático
+- [ ] Resolver un ticket
+- [ ] Esperar el tiempo configurado (o ejecutar: `php artisan support:send-pending-surveys`)
+- [ ] Verificar que se envía email con la encuesta
+- [ ] Verificar que el email incluye branding de la organización
+
+### 11.3 Envío Manual
+- [ ] Abrir un ticket resuelto
+- [ ] Usar "Acciones > Enviar Encuesta"
+- [ ] Verificar que se envía el email
+
+### 11.4 Portal Público
+- [ ] Abrir el enlace de la encuesta desde el email
+- [ ] Verificar que se muestra:
+  - [ ] Logo de la organización
+  - [ ] Preguntas de la encuesta
+  - [ ] Opción de calificar (1-5 estrellas)
+  - [ ] Campo de comentarios
+- [ ] Completar la encuesta
+- [ ] Verificar que se guarda correctamente
+- [ ] Verificar que NO se muestra el layout completo de la app (solo la encuesta)
+
+### 11.5 Ver Resultados
+- [ ] Ir a **Soporte > Reportes > Reporte de Satisfacción**
+- [ ] Verificar que se muestran las calificaciones recibidas
+- [ ] Verificar que se muestran los comentarios
+
+### 11.6 Restricción de Acceso
+- [ ] Intentar acceder al enlace de encuesta como agente (usuario logueado)
+- [ ] Verificar que NO se puede completar la encuesta
+- [ ] Verificar que solo los clientes pueden completarla
+
+---
+
+## 12. **CAMPOS PERSONALIZADOS**
+
+### 12.1 Crear Campo Personalizado
+- [ ] Ir a **Configuración > Soporte > Campos Personalizados**
+- [ ] Crear un nuevo campo
+- [ ] Verificar que se pueden configurar:
+  - [ ] Nombre
+  - [ ] Tipo (texto, número, fecha, select, checkbox, textarea)
+  - [ ] Opciones (para select y checkbox)
+  - [ ] Requerido/Opcional
+  - [ ] Activo/Inactivo
+  - [ ] Orden
+- [ ] Verificar que se guarda correctamente
+
+### 12.2 Usar Campo Personalizado
+- [ ] Crear un ticket
+- [ ] Verificar que aparece el campo personalizado
+- [ ] Completar el campo
+- [ ] Guardar y verificar que se guarda el valor
+
+### 12.3 Editar Campo Personalizado
+- [ ] Modificar un campo personalizado existente
+- [ ] Verificar que se actualiza
+- [ ] Verificar que los valores existentes no se pierden
+
+### 12.4 Desactivar Campo
+- [ ] Desactivar un campo personalizado
+- [ ] Verificar que NO aparece en formularios nuevos
+- [ ] Verificar que los valores existentes se mantienen
+
+---
+
+## 13. **BÚSQUEDA Y VISTAS GUARDADAS**
+
+### 13.1 Búsqueda Básica
+- [ ] En el listado de tickets, usar la búsqueda
+- [ ] Buscar por número de ticket
+- [ ] Buscar por título
+- [ ] Verificar que encuentra los tickets correctos
+
+### 13.2 Búsqueda Avanzada
+- [ ] Abrir el panel de filtros avanzados
+- [ ] Aplicar múltiples filtros:
+  - [ ] Estado
+  - [ ] Prioridad
+  - [ ] Tipo
+  - [ ] Agente
+  - [ ] Cliente
+  - [ ] Etiquetas
+  - [ ] Rango de fechas
+  - [ ] Palabras clave
+- [ ] Verificar que se filtran correctamente
+
+### 13.3 Guardar Vista
+- [ ] Aplicar filtros
+- [ ] Hacer clic en "Guardar Vista"
+- [ ] Dar un nombre a la vista
+- [ ] Verificar que se guarda
+- [ ] Verificar que aparece en el selector de vistas
+
+### 13.4 Usar Vista Guardada
+- [ ] Seleccionar una vista guardada
+- [ ] Verificar que se aplican los filtros correctos
+- [ ] Verificar que se mantiene la vista al recargar
+
+### 13.5 Editar Vista Guardada
+- [ ] Modificar una vista guardada
+- [ ] Verificar que se actualiza
+- [ ] Verificar que se aplican los nuevos filtros
+
+### 13.6 Eliminar Vista Guardada
+- [ ] Eliminar una vista guardada
+- [ ] Verificar que se quita del selector
+- [ ] Verificar que no afecta otros tickets
+
+---
+
+## 14. **ACCIONES MASIVAS**
+
+### 14.1 Seleccionar Múltiples Tickets
+- [ ] En el listado, usar los checkboxes
+- [ ] Seleccionar múltiples tickets
+- [ ] Verificar que aparece el contador de seleccionados
+
+### 14.2 Cambiar Estado Masivo
+- [ ] Seleccionar múltiples tickets
+- [ ] Usar "Acciones Masivas > Cambiar Estado"
+- [ ] Seleccionar un nuevo estado
+- [ ] Verificar que se actualizan todos los tickets seleccionados
+- [ ] Verificar que se registra en el historial de cada ticket
+
+### 14.3 Asignar Masivo
+- [ ] Seleccionar múltiples tickets
+- [ ] Usar "Acciones Masivas > Asignar"
+- [ ] Seleccionar un agente
+- [ ] Verificar que se asignan todos los tickets
+- [ ] Verificar que se envían notificaciones
+
+### 14.4 Agregar Etiquetas Masivo
+- [ ] Seleccionar múltiples tickets
+- [ ] Usar "Acciones Masivas > Agregar Etiquetas"
+- [ ] Seleccionar etiquetas
+- [ ] Verificar que se agregan a todos los tickets
+
+### 14.5 Cerrar Masivo
+- [ ] Seleccionar múltiples tickets
+- [ ] Usar "Acciones Masivas > Cerrar"
+- [ ] Verificar que se cierran todos los tickets
+- [ ] Verificar que se registra en el historial
+
+---
+
+## 15. **PERMISOS**
+
+### 15.1 Verificar Permisos Básicos
+- [ ] Crear un usuario sin permisos de soporte
+- [ ] Verificar que NO puede acceder al módulo
+- [ ] Asignar permiso `support.view`
+- [ ] Verificar que puede acceder al dashboard
+
+### 15.2 Permisos de Tickets
+- [ ] Verificar que `support.tickets.view` permite ver tickets
+- [ ] Verificar que `support.tickets.create` permite crear tickets
+- [ ] Verificar que `support.tickets.edit` permite editar tickets
+- [ ] Verificar que `support.tickets.assign` permite asignar tickets
+- [ ] Verificar que `support.tickets.escalate` permite escalar tickets
+
+### 15.3 Permisos de Automatización
+- [ ] Verificar que `support.automation.view` permite ver reglas
+- [ ] Verificar que `support.automation.create` permite crear reglas
+- [ ] Verificar que `support.automation.edit` permite editar reglas
+- [ ] Verificar que `support.automation.delete` permite eliminar reglas
+
+### 15.4 Permisos de SLA
+- [ ] Verificar que `support.sla.view` permite ver SLAs
+- [ ] Verificar que `support.sla.create` permite crear SLAs
+- [ ] Verificar que `support.sla.edit` permite editar SLAs
+- [ ] Verificar que `support.sla.delete` permite eliminar SLAs
+
+### 15.5 Permisos de Configuración
+- [ ] Verificar que `support.settings.view` permite ver configuración
+- [ ] Verificar que `support.settings.edit` permite editar configuración
+- [ ] Verificar que sin permisos NO se puede acceder a configuración
+
+---
+
+## 🔧 **COMANDOS ARTISAN IMPORTANTES**
+
+Para probar funcionalidades automáticas, ejecutar estos comandos:
+
+```bash
+# Procesar emails entrantes
+php artisan support:process-emails
+
+# Verificar violaciones de SLA
+php artisan support:check-sla-violations
+
+# Enviar encuestas de satisfacción pendientes
+php artisan support:send-pending-surveys
+```
+
+---
+
+## 📝 **NOTAS IMPORTANTES**
+
+1. **Multi-tenancy**: Todos los datos están filtrados por organización. Verificar que cada organización solo ve sus propios tickets.
+
+2. **Timezone**: El sistema usa `America/Santo_Domingo`. Verificar que las fechas y horas se muestran correctamente.
+
+3. **Logs**: Revisar `storage/logs/support_email.log` para errores de procesamiento de emails.
+
+4. **Branding**: Verificar que los emails y páginas públicas muestran el branding de la organización (logo, colores, nombre).
+
+5. **Ordenamiento**: Los tickets se ordenan por `updated_at` descendente por defecto. Los comentarios también se ordenan por fecha descendente (más recientes primero).
+
+6. **Filtros Rápidos**: "Mis Tickets" y "Sin Asignar" solo muestran tickets **abiertos**, no cerrados.
+
+---
+
+## ✅ **CHECKLIST FINAL**
+
+Antes de marcar como completado, verificar:
+
+- [ ] Todas las funcionalidades principales funcionan
+- [ ] No hay errores en la consola del navegador
+- [ ] No hay errores en los logs de Laravel
+- [ ] Los emails se envían correctamente
+- [ ] Los permisos funcionan correctamente
+- [ ] La integración con email funciona
+- [ ] Los reportes se generan correctamente
+- [ ] Las exportaciones funcionan
+- [ ] El diseño es consistente con el resto de la app
+- [ ] El onboarding funciona correctamente
+
+---
+
+**Última actualización:** Enero 2026  
+**Versión del módulo:** 1.0
