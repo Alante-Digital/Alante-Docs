@@ -26,7 +26,13 @@
         "group": "Ventas",
         "pages": [
           "ventas/tablero",
-          "ventas/facturacion"
+          "ventas/facturacion",
+          "ventas/cotizaciones",
+          "ventas/notas-credito",
+          "ventas/clientes",
+          "ventas/recibos-cobro",
+          "ventas/recurrencias",
+          "ventas/reportes"
         ]
       },
       {
@@ -81,7 +87,13 @@
       {
         "group": "Fiscal",
         "pages": [
-          "fiscal/tablero"
+          "fiscal/tablero",
+          "fiscal/autorizaciones",
+          "fiscal/documentos-fiscales",
+          "fiscal/recordatorios",
+          "fiscal/reportes",
+          "fiscal/reporte-dgii-607",
+          "fiscal/reporte-retenciones"
         ]
       },
       {
