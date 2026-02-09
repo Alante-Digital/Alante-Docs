@@ -62,7 +62,20 @@
       {
         "group": "Contabilidad",
         "pages": [
-          "contabilidad/tablero"
+          "contabilidad/tablero",
+          "contabilidad/cuentas-contables",
+          "contabilidad/auxiliares",
+          "contabilidad/libro-diario",
+          "contabilidad/centros-costos",
+          "contabilidad/balance-comprobacion",
+          "contabilidad/estado-resultados",
+          "contabilidad/balance-general",
+          "contabilidad/accionistas",
+          "contabilidad/activos-fijos-tablero",
+          "contabilidad/activos-fijos-listado",
+          "contabilidad/activos-fijos-ubicaciones",
+          "contabilidad/activos-fijos-categorias",
+          "contabilidad/activos-fijos-campos"
         ]
       },
       {
