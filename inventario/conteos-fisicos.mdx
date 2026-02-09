@@ -1,0 +1,56 @@
+# Conteos Fisicos de Inventario
+
+## Introduccion
+
+Los conteos fisicos permiten comparar el stock real contra el stock del sistema y corregir diferencias. Son utiles para auditorias y cierres mensuales.
+
+## Crear un Conteo
+
+1. Ve a Inventario > Conteos Fisicos
+2. Haz clic en "Nuevo Conteo"
+3. Selecciona:
+   - **Almacen**
+   - **Fecha**
+   - **Notas** (opcional)
+4. Guarda el conteo
+
+El conteo se crea con estado **abierto**.
+
+## Agregar Productos al Conteo
+
+En el detalle del conteo:
+
+1. Selecciona el producto
+2. Ingresa la cantidad contada
+3. Guarda el item
+
+El sistema registra:
+- **Cantidad teorica** (stock actual)
+- **Cantidad contada**
+- **Diferencia**
+
+## Editar o Eliminar Items
+
+Mientras el conteo esta abierto puedes:
+
+- Editar cantidades
+- Agregar notas por item
+- Eliminar items
+
+## Cerrar y Conciliar
+
+Al cerrar el conteo:
+
+- Se ajusta el stock por cada diferencia
+- Se crean movimientos de inventario tipo ajuste
+- Se registran asientos contables correspondientes
+- El conteo queda en estado **cerrado**
+
+## Restricciones
+
+- Un conteo cerrado no se puede editar ni eliminar
+- Un conteo abierto puede eliminarse si fue creado por error
+
+## Alertas en el Tablero
+
+Los conteos abiertos aparecen como alerta en el Tablero de Inventario para que puedas completarlos.

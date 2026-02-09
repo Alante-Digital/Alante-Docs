@@ -144,6 +144,15 @@ Stock Total = Stock en Lotes + Stock sin Lote
 - Si hay 80 unidades sin lote, máximo puedes asignar 80 a un lote
 - El sistema valida automáticamente estas restricciones
 
+## Stock sin Lote Asignado
+
+Cuando un producto requiere lotes, el sistema separa el stock en dos grupos:
+
+- **Stock en lotes**: cantidad asignada a lotes activos
+- **Stock sin lote**: cantidad pendiente por asignar
+
+Este control es por almacén, así puedes tener lotes en un almacén y stock sin lote en otro.
+
 ## Alertas y Notificaciones
 
 El sistema proporciona alertas útiles para la gestión de lotes:
@@ -189,6 +198,46 @@ El sistema de lotes está diseñado para ser completamente compatible con produc
 - **Cantidad máxima**: No puedes asignar más cantidad de la disponible sin lote
 - **Lotes cerrados**: Se mantienen en el historial pero no se usan en nuevas ventas
 - **Trazabilidad**: Puedes consultar qué lote se utilizó en cada movimiento a través del kardex del producto
+
+## Asociar Compra a un Lote
+
+Puedes vincular un lote con una compra para trazabilidad adicional:
+
+1. Abre el detalle del lote
+2. Busca la compra por número
+3. Asocia la compra al lote
+
+También puedes desasociarla si fue un error.
+
+## Renombrar un Lote
+
+Si necesitas un identificador interno adicional:
+
+1. Abre el detalle del lote
+2. Actualiza el nombre del lote
+3. Guarda los cambios
+
+## Descartar o Cerrar un Lote
+
+Si un lote está vencido o debe retirarse:
+
+1. Abre el detalle del lote
+2. Selecciona "Descartar lote"
+3. Indica el motivo
+4. Confirma
+
+**Resultado:**
+- El lote se cierra y su cantidad queda en 0
+- Se registra el movimiento de salida (si aplica)
+
+## Eliminar un Lote
+
+Solo se puede eliminar si:
+
+- Está cerrado, o
+- Tiene cantidad 0
+
+Si el lote aún tiene cantidad, primero debes cerrarlo o dejarlo en cero.
 
 ## Resumen
 

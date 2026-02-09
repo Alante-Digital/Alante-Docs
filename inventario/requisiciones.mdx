@@ -1,0 +1,77 @@
+# Requisiciones de Inventario
+
+## Introducción
+
+Las requisiciones permiten solicitar productos entre almacenes y llevar un control formal de aprobaciones y entregas. Se usan para movimientos internos y para procesos de produccion.
+
+## Tipos de Requisicion
+
+### Requisicion de Inventario
+Solicitud de productos para mover stock entre almacenes.
+
+### Requisicion de Produccion
+Solicitud para fabricar un producto con receta. El sistema calcula automaticamente los componentes requeridos.
+
+## Estados del Proceso
+
+- **Borrador**: editable, aun no enviada a aprobacion
+- **Pendiente de aprobacion**: en revision
+- **Aprobada**: lista para entrega
+- **Rechazada**: cancelada con motivo opcional
+- **En proceso**: entregas parciales realizadas
+- **Completada**: entregada en su totalidad
+
+## Crear una Requisicion
+
+1. Ve a Inventario > Requisiciones
+2. Haz clic en "Nueva Requisicion"
+3. Define:
+   - **Tipo** (inventario o produccion)
+   - **Fecha necesaria** (needed_by)
+   - **Almacen origen y destino** (opcional en borrador)
+   - **Notas**
+4. Agrega productos y cantidades
+5. Guarda como borrador o envia a aprobacion
+
+## Requisiciones de Produccion
+
+Cuando el tipo es produccion:
+
+- Seleccionas productos que tienen receta
+- El sistema calcula los componentes a partir de la receta
+- Si un producto no tiene receta, se muestra una advertencia
+- Puedes revisar los componentes antes de enviar a aprobacion
+
+## Enviar a Aprobacion
+
+Desde el detalle de la requisicion:
+
+1. Haz clic en "Enviar a aprobacion"
+2. Si es produccion, debes seleccionar almacen origen y destino
+3. La requisicion pasa a estado **Pendiente de aprobacion**
+
+## Aprobar o Rechazar
+
+- **Aprobar**: habilita la entrega
+- **Rechazar**: requiere un motivo opcional y bloquea la requisicion
+
+## Entregas (Parciales o Totales)
+
+Las entregas pueden ser parciales. Cada entrega:
+
+- Actualiza la cantidad entregada por item
+- Crea movimientos de inventario (salida en origen y entrada en destino)
+- Cambia el estado a **En proceso** o **Completada**
+
+**Validaciones:**
+- No puedes entregar mas de lo pendiente
+- Debe haber stock suficiente en el almacen origen
+
+## Historial y Trazabilidad
+
+En el detalle de la requisicion puedes ver:
+
+- Productos solicitados
+- Cantidades entregadas y pendientes
+- Historial de entregas
+- Movimientos de inventario asociados

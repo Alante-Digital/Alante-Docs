@@ -15,9 +15,10 @@ Un movimiento es un documento que registra un cambio en el inventario. Cada movi
 - Notas opcionales
 
 **Características principales:**
-- Cada movimiento es permanente e inmodificable
+- Cada movimiento queda registrado con trazabilidad completa
+- Con permisos adecuados, un movimiento puede editarse o eliminarse
 - Se registran automáticamente en el historial (kardex) de cada producto
-- Se generan asientos contables automáticamente
+- Se generan asientos contables automáticamente para entradas, salidas y ajustes
 - Proporcionan trazabilidad completa de todos los cambios
 
 ## Tipos de Movimientos
@@ -62,7 +63,7 @@ Una salida disminuye el stock de productos en un almacén.
 **Validaciones:**
 - Debe haber suficiente stock disponible
 - Si el producto requiere lotes, se descuentan automáticamente del lote más próximo a vencer
-- No permite salidas que resulten en stock negativo (a menos que el producto lo permita)
+- No permite salidas que resulten en stock negativo
 
 **Información requerida:**
 - Almacén de donde salen los productos
@@ -108,6 +109,7 @@ Para crear un nuevo movimiento:
    - **Tipo**: Selecciona Entrada, Salida o Ajuste
    - **Almacén**: Selecciona el almacén donde ocurre el movimiento
    - **Fecha**: Fecha y hora del movimiento (por defecto es la fecha actual)
+   - **Centro de costos** (opcional): Para clasificar el movimiento contablemente
    - **Notas**: Información adicional sobre el movimiento (opcional)
 4. Agrega productos:
    - Haz clic en "Agregar Producto"
@@ -141,7 +143,7 @@ Las transferencias permiten mover productos de un almacén a otro. El sistema cr
 **Resultado:**
 - Se descuenta el stock del almacén de origen
 - Se agrega el stock al almacén de destino
-- Se mantiene el costo del producto
+- El costo en el almacén destino se recalcula con promedio ponderado
 - Se crean dos movimientos vinculados (salida y entrada)
 - Ambos movimientos se marcan como transferencia
 
@@ -192,6 +194,10 @@ Al hacer clic en un movimiento, verás:
 - Auditar cambios en el inventario
 - Revisar costos utilizados
 - Consultar notas y referencias
+
+### Exportar o Imprimir
+- **Excel**: Exporta el detalle del movimiento
+- **PDF**: Imprime el comprobante del movimiento
 
 ## Números de Secuencia
 
@@ -265,6 +271,18 @@ Cuando registras un ajuste:
 - Se genera un asiento contable automáticamente
 
 **Nota:** Los asientos contables se generan automáticamente y no requieren intervención manual.
+
+## Editar o Eliminar Movimientos
+
+Con los permisos correspondientes, puedes:
+
+- **Editar** un movimiento para corregir datos o productos
+- **Eliminar** un movimiento si fue registrado por error
+
+**Efecto del sistema:**
+- Recalcula el kardex y los balances de stock
+- Recalcula el costo promedio por almacén
+- Actualiza los asientos contables relacionados
 
 ## Validaciones y Restricciones
 

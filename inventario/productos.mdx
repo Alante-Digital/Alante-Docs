@@ -53,7 +53,7 @@ Para crear un nuevo producto:
 2. Haz clic en "Producto o Servicio"
 3. Asegúrate de que el tipo esté en "Producto" (no "Servicio")
 4. Completa la información básica:
-   - **Código**: Se genera automáticamente (puedes cambiarlo)
+   - **Código**: Se genera automáticamente (no se edita desde el formulario)
    - **Nombre**: Nombre del producto
    - **Categoría**: Categoría a la que pertenece (opcional)
    - **Tasa de ITBIS**: 0%, 16% o 18%
@@ -93,6 +93,8 @@ Cuando desactivas "¿Rastrear inventario?":
 - No aparecerá en movimientos de inventario
 - Se podrá vender sin restricciones de stock
 - Útil para productos fabricados bajo pedido
+
+**Nota:** El rastreo de inventario es una opción manual. Los servicios normalmente no lo usan.
 
 ### Permitir Stock Negativo
 
@@ -288,6 +290,32 @@ Las variantes son versiones diferentes del mismo producto.
 - Productos con diferentes tallas
 - Productos con diferentes colores
 - Productos con diferentes especificaciones
+
+## Conversión entre Variantes
+
+El sistema permite convertir stock entre variantes relacionadas del mismo producto base.
+
+**Características:**
+- Solo aplica a variantes que comparten el mismo producto padre
+- La conversión usa el factor de cada variante (ej: unidad a presentación)
+- Se registra en el kardex con movimientos de conversión
+- Puedes elegir el almacén de origen y destino
+
+**Cuándo usar:**
+- Reempacar unidades a presentaciones
+- Convertir formatos relacionados (ej: caja ↔ unidades)
+
+## Equivalencias de Unidades
+
+Puedes definir equivalencias entre la unidad base y unidades adicionales del producto.
+
+**Ejemplo:**
+- Unidad base: unidad
+- Equivalencia: caja = 12 unidades
+
+**Uso:**
+- Facilitar recetas y conversiones
+- Registrar cantidades con diferentes unidades
 
 ## Códigos de Barras
 

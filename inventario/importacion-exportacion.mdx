@@ -1,0 +1,56 @@
+# Importacion y Exportacion de Productos
+
+## Exportar Productos y Servicios
+
+Puedes exportar el catalogo a CSV desde:
+
+Inventario > Productos y Servicios > Exportar
+
+**Opciones comunes:**
+- Tipo: productos, servicios o todos
+- Categoria (opcional)
+- Incluir stock por almacen
+
+**El archivo incluye:**
+- UUID (para actualizaciones masivas)
+- SKU, nombre, tipo y estado
+- Categoria, codigo de barras, unidad
+- Precio, costo, margen y ITBIS
+- Flags: vendible, comprable, maneja stock, permite stock negativo
+- Stock por almacen (si se incluye)
+
+## Importar Productos y Servicios
+
+Desde Inventario > Productos y Servicios > Importar puedes cargar un CSV.
+
+### Plantilla
+Descarga la plantilla oficial para asegurar el formato correcto.
+
+### Campos Principales
+- `uuid` (opcional): si viene, el sistema actualiza el producto existente
+- `sku`: codigo del producto (si esta vacio, se genera)
+- `nombre`
+- `tipo`: producto o servicio
+- `estado`: activo o inactivo
+- `categoria`
+- `codigo_barras`
+- `unidad_medida`
+- `precio_venta`
+- `costo`
+- `margen_ganancia`
+- `itbis`
+- `vendible`, `comprable`
+- `maneja_stock`, `permite_stock_negativo`
+- `cantidad_existencia`
+
+### Reglas Importantes
+- Si no envias `uuid` y el codigo de barras ya existe, el producto se omite
+- `cantidad_existencia` se aplica en el almacen principal
+- En actualizaciones, el sistema crea un ajuste para igualar la existencia indicada
+- Servicios no deben tener existencia
+
+### Validacion del Archivo
+Antes de importar, el sistema valida:
+- Formato de columnas
+- Tipos de datos
+- Duplicados dentro del archivo

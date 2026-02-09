@@ -2,7 +2,10 @@
 
 ## Introducción
 
-El sistema de recetas de productos permite crear productos compuestos que se fabrican o ensamblan a partir de otros productos (componentes). Cuando vendes un producto con receta, el sistema automáticamente descuenta los componentes necesarios del inventario, calcula el costo basado en los componentes, y valida que haya suficiente stock disponible.
+El sistema de recetas de productos permite crear productos compuestos que se fabrican o ensamblan a partir de otros productos (componentes). El comportamiento al vender un producto con receta depende de si **rastrea inventario** o no:
+
+- **Si NO rastrea inventario**: al vender, se descuentan automáticamente sus componentes.
+- **Si SÍ rastrea inventario**: las ventas descuentan el producto final y la receta se usa para producción (para convertir componentes en stock del producto).
 
 ## ¿Qué son las Recetas?
 
@@ -14,11 +17,12 @@ Una receta es una lista de componentes (productos) y las cantidades necesarias p
 
 Cuando vendes 1 "Sandwich Especial", el sistema automáticamente descuenta 2 panes, 1 jamón, 1 queso y 0.5 lechuga del inventario.
 
-**Características principales:**
-- El producto final no tiene stock propio, se calcula basado en los componentes
-- El costo se calcula automáticamente sumando los costos de los componentes
-- Al vender, se descuentan automáticamente los componentes del inventario
-- El sistema valida que haya suficiente stock antes de permitir la venta
+**Características principales (según configuración de inventario):**
+- El producto puede **rastrear inventario** o **no rastrearlo**
+- El costo puede calcularse automáticamente sumando los costos de los componentes
+- Si no rastrea inventario, la venta descuenta componentes automáticamente
+- Si rastrea inventario, la venta descuenta el producto final; los componentes se descuentan en producción
+- El sistema valida stock según corresponda (componentes o producto final)
 
 ## Configuración de Productos con Receta
 
@@ -27,8 +31,8 @@ Para que un producto funcione con receta, debe estar marcado como "Tiene receta"
 **Consideraciones importantes:**
 - Un producto con receta NO puede ser al mismo tiempo un producto pesado
 - Un producto con receta puede tener lotes de vencimiento si sus componentes los requieren
-- El producto con receta debe ser stockable (manejar inventario)
-- El producto con receta no tiene stock propio, su stock se calcula basado en los componentes
+- Si **no rastrea inventario**, no tiene stock propio y su stock se calcula basado en los componentes
+- Si **rastrea inventario**, sí tiene stock propio y la receta se usa para producción
 
 ## Creación de Recetas
 
@@ -90,7 +94,10 @@ Costo Total Calculado: RD$135.00
 
 ## Cálculo del Stock Disponible
 
-El stock disponible de un producto con receta se calcula basado en el componente que tiene menos stock disponible:
+El stock disponible depende de si el producto rastrea inventario:
+
+- **Si NO rastrea inventario**: se calcula basado en el componente que tiene menos stock disponible.
+- **Si SÍ rastrea inventario**: se usa el stock del producto final en el almacén seleccionado.
 
 ```
 Stock Disponible = Mínimo (Stock del componente / Cantidad requerida)
@@ -116,12 +123,16 @@ Stock Disponible del Producto: 33 pizzas (limitado por el queso mozzarella)
 
 ## Validación de Stock
 
-Antes de permitir una venta, el sistema valida que haya suficiente stock de todos los componentes:
+Antes de permitir una venta, el sistema valida stock según el tipo de producto:
 
 **Proceso de validación:**
-1. Calcula cuánto de cada componente se necesita para la cantidad a vender
-2. Verifica que haya suficiente stock disponible de cada componente
-3. Si falta algún componente, muestra un error indicando qué falta y cuánto
+- **Si NO rastrea inventario**:
+  1. Calcula cuánto de cada componente se necesita para la cantidad a vender
+  2. Verifica que haya suficiente stock disponible de cada componente
+  3. Si falta algún componente, muestra un error indicando qué falta y cuánto
+- **Si SÍ rastrea inventario**:
+  1. Verifica que haya suficiente stock del producto final
+  2. Si falta, muestra un error indicando el faltante
 
 **Ejemplo de validación:**
 
@@ -141,10 +152,10 @@ Resultado: Venta bloqueada, falta queso mozzarella
 Cuando vendes un producto con receta, el sistema automáticamente:
 
 ### 1. Validación de Stock
-Verifica que haya suficiente stock de todos los componentes antes de procesar la venta.
+Verifica stock según corresponda (componentes o producto final).
 
-### 2. Descuento de Componentes
-Descuenta automáticamente los componentes del inventario:
+### 2. Descuento
+- **Si NO rastrea inventario**: descuenta automáticamente los componentes del inventario:
 
 ```
 Cantidad a descontar = Cantidad vendida × Cantidad del componente en la receta
@@ -164,11 +175,11 @@ Componentes descontados:
 
 ### 3. Registro de Movimientos
 Se registran movimientos de inventario para:
-- Cada componente descontado (salida)
+- Cada componente descontado (salida) cuando no rastrea inventario
 - El producto con receta vendido (para trazabilidad)
 
 ### 4. Cálculo de Costos
-El costo utilizado para contabilidad es el costo calculado de la receta al momento de la venta.
+El costo utilizado para contabilidad puede ser el costo calculado de la receta (según configuración del producto).
 
 ## Gestión de Recetas
 
@@ -267,16 +278,15 @@ Los productos con receta pueden tener presentaciones relacionadas, pero la recet
 
 ### Stock del Producto con Receta
 
-- El producto con receta **NO tiene stock propio**
-- Su stock se calcula dinámicamente basado en los componentes
-- El stock disponible es el mínimo de todos los componentes
+- Si **NO rastrea inventario**, no tiene stock propio y su stock se calcula dinámicamente basado en componentes
+- Si **SÍ rastrea inventario**, su stock es el del producto final en el almacén seleccionado
 
 ### Costo del Producto
 
-- El costo se calcula automáticamente
+- El costo puede calcularse automáticamente desde los componentes
 - Se actualiza cuando cambias componentes o sus cantidades
 - Se actualiza cuando cambia el costo de algún componente
-- No debes ingresar el costo manualmente
+- En productos con receta y stock, el costo también puede ser gestionado según el proceso de producción
 
 ### Componentes Faltantes
 
@@ -293,10 +303,10 @@ Los productos con receta pueden tener presentaciones relacionadas, pero la recet
 
 El sistema de recetas permite gestionar productos compuestos de manera eficiente y automática. Cuando vendes un producto con receta:
 
-1. El sistema valida que haya suficiente stock de todos los componentes
-2. Descuenta automáticamente los componentes del inventario
-3. Calcula el costo basado en los componentes actuales
-4. Registra todos los movimientos para trazabilidad completa
+1. El sistema valida stock según si rastrea inventario o no
+2. Si no rastrea inventario, descuenta componentes automáticamente
+3. Si rastrea inventario, descuenta el producto final
+4. Calcula el costo según configuración y registra movimientos
 
 **Flujo típico:**
 1. Creas un producto y lo marcas como "Tiene receta"

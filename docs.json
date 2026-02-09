@@ -45,6 +45,10 @@
           "inventario/recetas",
           "inventario/lotes",
           "inventario/movimientos",
+          "inventario/requisiciones",
+          "inventario/conteos-fisicos",
+          "inventario/reportes",
+          "inventario/importacion-exportacion",
           "inventario/almacenes",
           "inventario/categorias"
         ]
@@ -71,6 +75,16 @@
         "group": "Recursos Humanos",
         "pages": [
           "recursos-humanos/tablero",
+          "recursos-humanos/empleados",
+          "recursos-humanos/departamentos",
+          "recursos-humanos/posiciones",
+          "recursos-humanos/comisiones",
+          "recursos-humanos/ausencias-vacaciones",
+          "recursos-humanos/politicas-vacaciones",
+          "recursos-humanos/balance-vacaciones",
+          "recursos-humanos/nominas",
+          "recursos-humanos/tss",
+          "recursos-humanos/regalia-pascual",
           "recursos-humanos/prestamos"
         ]
       }
