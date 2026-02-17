@@ -1,0 +1,474 @@
+# Documentación Técnica: Integración de ERP con Facturación Electrónica
+
+## Descripción General
+
+Esta documentación describe la **API de Facturación Electrónica** de Alante Digital, pensada para que sistemas ERP externos generen comprobantes fiscales electrónicos (e-CF) que serán procesados y enviados a la **DGII** (Dirección General de Impuestos Internos) de la República Dominicana.
+
+El flujo de integración es el mismo que se utiliza en otras integraciones ERP: el ERP envía los datos de la factura vía API; Alante Digital se encarga de:
+
+- Asignar el siguiente **NCF** (Número de Comprobante Fiscal) disponible
+- Generar el **XML** según las especificaciones de la DGII
+- **Firmar digitalmente** el XML con el certificado de la organización
+- **Enviar** el comprobante a la DGII
+- **Consultar** el estado del comprobante en la DGII
+- Generar automáticamente **PDF**, **código QR** y **XML** cuando el comprobante es aceptado
+- Almacenar el documento para su consulta posterior
+
+---
+
+## Requisitos Previos
+
+- **Cuenta en Alante Digital** con la organización configurada (RNC, razón social, dirección, certificado digital).
+- **Certificado digital** (.p12) de la organización registrado en Alante Digital para firma de e-CF.
+- **Lotes fiscales** activos del tipo de comprobante que se va a emitir (por ejemplo E31).
+- **API Key** generada en Configuración → Integraciones (una por organización).
+
+---
+
+## Autenticación
+
+Todas las peticiones requieren autenticación mediante **API Key**. La API Key está asociada a una organización; no es necesario enviar `organization_id` en el cuerpo de la petición.
+
+### Obtener una API Key
+
+1. Iniciar sesión en Alante Digital.
+2. Ir a **Configuración** → **Integraciones**.
+3. Crear una nueva API Key.
+4. Copiar la clave generada (**solo se muestra una vez**).
+
+### Formato de autenticación
+
+**Opción 1: Header (recomendado)**
+
+```http
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Opción 2: Parámetro en URL**
+
+```http
+?api_key=alante_xxxxxxxxxxxxx
+```
+
+**Opción 3: Bearer Token**
+
+```http
+Authorization: Bearer alante_xxxxxxxxxxxxx
+```
+
+---
+
+## Base URL
+
+| Ambiente   | URL base |
+|-----------|----------|
+| Producción | `https://alantedigital.com/api/external/fiscal` |
+
+---
+
+## Endpoints
+
+### 1. Crear comprobante fiscal
+
+Genera un nuevo comprobante fiscal electrónico y lo envía a la DGII.
+
+**Método y ruta:** `POST /invoices`
+
+**Headers:**
+
+```http
+Content-Type: application/json
+X-API-Key: alante_xxxxxxxxxxxxx
+```
+
+**Cuerpo (JSON):**
+
+```json
+{
+  "tipo_comprobante": "E31",
+  "fecha_emision": "2025-01-15",
+  "environment": "testecf",
+  "rnc_comprador": "123456789",
+  "razon_social_comprador": "Cliente XYZ SRL",
+  "razon_social_emisor": "Mi Empresa SRL",
+  "direccion_emisor": "Calle Principal #123",
+  "correo_emisor": "contacto@miempresa.com",
+  "items": [
+    {
+      "nombre": "Producto 1",
+      "descripcion": "Descripción detallada del producto",
+      "cantidad": 2,
+      "precio_unitario": 100.00,
+      "descuento": 0,
+      "tasa_itbis": 18,
+      "indicador_bien_servicio": "1"
+    },
+    {
+      "nombre": "Servicio de Consultoría",
+      "descripcion": "Servicio profesional",
+      "cantidad": 1,
+      "precio_unitario": 500.00,
+      "descuento": 50.00,
+      "tasa_itbis": 18,
+      "indicador_bien_servicio": "2"
+    }
+  ],
+  "formas_pago": [
+    {
+      "codigo": "01",
+      "monto": 754.00
+    }
+  ]
+}
+```
+
+#### Parámetros requeridos
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `tipo_comprobante` | string | Valores válidos: `B01`, `B02`, `B04`, `B14`, `B15`, `E31`. Para factura electrónica de crédito fiscal use `E31`. |
+| `fecha_emision` | string | Fecha de emisión en formato `YYYY-MM-DD`. |
+| `rnc_comprador` | string | **Obligatorio para E31.** RNC del comprador (9 dígitos) o cédula (11 dígitos). |
+| `razon_social_comprador` | string | Razón social del comprador. |
+| `items` | array | Lista de ítems de la factura (mínimo 1). |
+
+#### Parámetros opcionales
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `environment` | string | `ecf` (producción), `certecf` (certificación), `testecf` (pruebas). Si no se envía, se usa el del certificado de la organización. |
+| `razon_social_emisor` | string | Razón social del emisor (si no se envía, se usa la de la organización). |
+| `direccion_emisor` | string | Dirección del emisor (obligatoria si no está en la organización). |
+| `correo_emisor` | string | Correo del emisor. |
+| `fecha_limite_pago` | string | Fecha límite de pago en `YYYY-MM-DD`. Por defecto se usa la fecha de emisión. |
+| `formas_pago` | array | Lista de formas de pago (código y monto). |
+
+#### Estructura de ítems
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|-----------|-------------|
+| `nombre` | string | Sí | Nombre del producto o servicio. |
+| `descripcion` | string | Sí | Descripción detallada. |
+| `cantidad` | number | Sí | Cantidad (máximo 2 decimales). |
+| `precio_unitario` | number | Sí | Precio unitario (máximo 2 decimales). |
+| `descuento` | number | No | Monto del descuento (máximo 2 decimales). |
+| `tasa_itbis` | number | Sí | Tasa de ITBIS: `0`, `16` o `18`. |
+| `unidad_medida` | string | No | Unidad de medida (solo se incluye en XML si tiene valor). |
+| `indicador_bien_servicio` | string | Sí | `1` = bienes, `2` = servicios. |
+
+#### Estructura de formas de pago
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|-----------|-------------|
+| `codigo` | string | Sí | Código DGII: `01` Efectivo, `02` Cheque, `03` Transferencia, etc. |
+| `monto` | number | Sí | Monto pagado con esta forma. |
+
+#### Respuesta exitosa (201 Created) – Comprobante aceptado
+
+```json
+{
+  "success": true,
+  "fiscal_document": {
+    "uuid": "29d2c2fa-8bf1-4005-88d8-cdbc63e853eb",
+    "numero": "E310000000004",
+    "tipo_comprobante": "E31",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente XYZ SRL",
+    "monto_total": "767.00",
+    "total_itbis": "117.00",
+    "fecha_emision": "2025-01-15",
+    "estado": "Aceptado"
+  },
+  "dgii": {
+    "success": true,
+    "track_id": "bf9f19f4-691e-487f-aa5d-3c9966164bd0",
+    "estado": "Aceptado",
+    "mensajes": [],
+    "environment": "testecf"
+  },
+  "pdf_url": "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf",
+  "qr_url": "https://ecf.dgii.gov.do/eCF/ConsultaTimbre?rncemisor=...",
+  "xml_url": "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/xml"
+}
+```
+
+#### Respuesta comprobante rechazado (422)
+
+Cuando la DGII rechaza el comprobante, el documento se crea en Alante con estado "Rechazado" y se responde con HTTP 422 y `success: false`. Las URLs de PDF, QR y XML no se incluyen.
+
+```json
+{
+  "success": false,
+  "fiscal_document": {
+    "uuid": "29d2c2fa-8bf1-4005-88d8-cdbc63e853eb",
+    "numero": "E310000000004",
+    "estado": "Rechazado"
+  },
+  "dgii": {
+    "success": false,
+    "track_id": "bf9f19f4-691e-487f-aa5d-3c9966164bd0",
+    "estado": "Rechazado",
+    "mensajes": [
+      { "valor": "Mensaje de error de la DGII", "codigo": 1209 }
+    ],
+    "environment": "testecf"
+  }
+}
+```
+
+#### Respuesta error de validación (422)
+
+```json
+{
+  "success": false,
+  "error": "VALIDATION_ERROR",
+  "message": "Error de validación",
+  "errors": {
+    "tipo_comprobante": ["El campo tipo_comprobante es requerido."],
+    "rnc_comprador": ["El RNC del comprador es obligatorio para comprobantes tipo E31."],
+    "items": ["Debe haber al menos un item en la factura."]
+  }
+}
+```
+
+#### Respuesta error de proceso (500)
+
+```json
+{
+  "success": false,
+  "error": "PROCESSING_ERROR",
+  "message": "Error procesando la factura: [mensaje de error]"
+}
+```
+
+---
+
+### 2. Consultar comprobante fiscal
+
+Obtiene la información de un comprobante por su **UUID** (devuelto al crear).
+
+**Método y ruta:** `GET /invoices/{uuid}`
+
+**Headers:** `X-API-Key: alante_xxxxxxxxxxxxx`
+
+**Respuesta exitosa (200):**
+
+```json
+{
+  "success": true,
+  "fiscal_document": {
+    "uuid": "29d2c2fa-8bf1-4005-88d8-cdbc63e853eb",
+    "numero": "E310000000004",
+    "tipo_comprobante": "E31",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente XYZ SRL",
+    "total_monto": "767.00",
+    "total_itbis": "117.00",
+    "fecha_emision": "2025-01-15",
+    "created_at": "2025-11-13T15:52:25.000000Z"
+  },
+  "dgii": {
+    "track_id": "bf9f19f4-691e-487f-aa5d-3c9966164bd0",
+    "estado": "Aceptado",
+    "mensajes": []
+  }
+}
+```
+
+**Error 404:** `DOCUMENT_NOT_FOUND` – Documento fiscal no encontrado.
+
+---
+
+### 3. Descargar PDF
+
+**Método y ruta:** `GET /invoices/{uuid}/pdf`
+
+**Headers:** `X-API-Key: alante_xxxxxxxxxxxxx`
+
+**Respuesta:** Archivo PDF con nombre `comprobante-{NCF}.pdf`.
+
+Solo disponible para comprobantes **aceptados** por la DGII. En caso de error de generación se devuelve 500 con `PDF_GENERATION_ERROR`.
+
+---
+
+### 4. Obtener datos del código QR
+
+**Método y ruta:** `GET /invoices/{uuid}/qr`
+
+**Headers:** `X-API-Key: alante_xxxxxxxxxxxxx`
+
+**Respuesta exitosa (200):**
+
+```json
+{
+  "success": true,
+  "qr_data": {
+    "rnc": "130932621",
+    "encf": "E310000000004",
+    "monto_total": "767.00",
+    "itbis": "117.00",
+    "fecha_emision": "15-01-2025",
+    "codigo_seguridad": "ABC123"
+  },
+  "qr_url": "https://ecf.dgii.gov.do/eCF/ConsultaTimbre?rncemisor=...&..."
+}
+```
+
+`qr_url` es la URL para consultar el comprobante en el portal de la DGII (útil para generar un QR escaneable).
+
+---
+
+### 5. Descargar XML
+
+**Método y ruta:** `GET /invoices/{uuid}/xml`
+
+**Headers:** `X-API-Key: alante_xxxxxxxxxxxxx`
+
+**Respuesta:** Archivo XML con `Content-Type: application/xml` y nombre `{NCF}.xml`.
+
+Si el XML no existe: 404 con `XML_NOT_FOUND`.
+
+---
+
+## Tipos de comprobantes
+
+| Código | Descripción |
+|--------|-------------|
+| B01 | Factura de contado |
+| B02 | Factura a crédito |
+| B04 | Nota de crédito |
+| B14 | Regímenes especiales |
+| B15 | Gubernamental |
+| **E31** | **Factura de crédito fiscal electrónica** (requiere RNC comprador) |
+
+Para integración ERP de facturación electrónica se utiliza normalmente **E31**.
+
+---
+
+## Ambientes DGII
+
+| Valor | Uso | Nota |
+|-------|-----|------|
+| `testecf` | Pruebas | En desarrollo local se puede forzar este ambiente. |
+| `certecf` | Certificación | Validación antes de producción. |
+| `ecf` | Producción | Solo cuando la integración esté validada. |
+
+---
+
+## Códigos de forma de pago (DGII)
+
+| Código | Descripción |
+|--------|-------------|
+| 01 | Efectivo |
+| 02 | Cheque |
+| 03 | Transferencia bancaria |
+| 04 | Tarjeta de crédito |
+| 05 | Tarjeta de débito |
+| 06 | Nota de crédito |
+| 07 | Nota de débito |
+| 08 | Letra de cambio |
+| 09 | Pagaré |
+| 10 | Otros |
+
+---
+
+## Códigos de error habituales
+
+| Código HTTP | Error | Descripción | Acción sugerida |
+|-------------|-------|-------------|------------------|
+| 401 | UNAUTHORIZED | API Key inválida o no enviada | Revisar header/parámetro y que la clave esté activa. |
+| 404 | ORGANIZATION_NOT_FOUND | Organización no encontrada | La API Key debe estar asociada a una organización válida. |
+| 422 | VALIDATION_ERROR | Datos inválidos | Revisar campos requeridos y formatos. |
+| 422 | NO_BATCH_AVAILABLE | Sin lotes fiscales activos | Configurar lotes E31 (u otro tipo) en Alante. |
+| 422 | NO_SEQUENCES_AVAILABLE | Sin secuencias en el lote | Solicitar nuevo lote o ampliar secuencias. |
+| 422 | CERTIFICATE_NOT_FOUND | Sin certificado digital | Registrar certificado .p12 en la organización. |
+| 422 | ORGANIZATION_CONFIG_ERROR | RNC no configurado | Completar datos fiscales de la organización. |
+| 404 | DOCUMENT_NOT_FOUND | Documento no encontrado | Verificar UUID y que pertenezca a la misma organización. |
+| 500 | PROCESSING_ERROR | Error interno al procesar | Revisar mensaje y logs; contactar soporte si persiste. |
+| 500 | SIGNATURE_ERROR | Error al firmar XML | Revisar certificado y contraseña. |
+| 500 | PDF_GENERATION_ERROR / QR_GENERATION_ERROR / XML_NOT_FOUND | Error al generar recurso | Comprobar que el comprobante esté aceptado y que exista XML firmado. |
+
+---
+
+## Ejemplos de uso (cURL)
+
+### Crear factura electrónica E31
+
+```bash
+curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx" \
+  -d '{
+    "tipo_comprobante": "E31",
+    "fecha_emision": "2025-01-15",
+    "environment": "testecf",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente de Prueba",
+    "items": [
+      {
+        "nombre": "Producto de Prueba",
+        "descripcion": "Descripción del producto",
+        "cantidad": 2,
+        "precio_unitario": 100.00,
+        "descuento": 0,
+        "tasa_itbis": 18,
+        "indicador_bien_servicio": "1"
+      }
+    ],
+    "formas_pago": [{ "codigo": "01", "monto": 236.00 }]
+  }'
+```
+
+### Consultar comprobante
+
+```bash
+curl -X GET "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx"
+```
+
+### Descargar PDF
+
+```bash
+curl -X GET "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx" \
+  -o factura.pdf
+```
+
+### Obtener datos del QR
+
+```bash
+curl -X GET "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/qr" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx"
+```
+
+### Descargar XML
+
+```bash
+curl -X GET "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/xml" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx" \
+  -o comprobante.xml
+```
+
+---
+
+## Notas para la integración ERP
+
+1. **Identificación:** Se usan **UUID** para identificar documentos en la API. No se exponen IDs numéricos internos (multi-tenant).
+2. **NCF:** El sistema asigna automáticamente el siguiente NCF disponible; no se envía en el request.
+3. **Fechas:** Siempre en formato `YYYY-MM-DD`.
+4. **Montos:** Máximo 2 decimales.
+5. **E31:** RNC del comprador obligatorio; formato válido: 9 dígitos (RNC) o 11 (cédula).
+6. **Rechazos DGII:** Si el comprobante es rechazado, se guarda en Alante con estado "Rechazado" y la respuesta es 422 con `success: false`. En algunos casos la secuencia NCF no se consume y se puede reintentar.
+7. **Consultas:** Los comprobantes creados por API también aparecen en el módulo Fiscal de Alante Digital.
+8. **Certificado:** La organización debe tener certificado digital válido y lotes fiscales activos para el tipo de comprobante (p. ej. E31).
+
+---
+
+## Soporte
+
+Para soporte técnico o dudas sobre la integración, contactar al equipo de Alante Digital.
+
+---
+
+**Versión:** 1.2  
+**Última actualización:** Noviembre 2025
