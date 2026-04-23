@@ -7,15 +7,19 @@ description: "Documentación Técnica: Integración de ERP con Facturación Elec
 
 Esta documentación describe la **API de Facturación Electrónica** de Alante Digital, pensada para que sistemas ERP externos generen comprobantes fiscales electrónicos (e-CF) que serán procesados y enviados a la **DGII** (Dirección General de Impuestos Internos) de la República Dominicana.
 
-El flujo de integración es el mismo que se utiliza en otras integraciones ERP: el ERP envía los datos de la factura vía API; Alante Digital se encarga de:
+El flujo de integración habitual es el mismo que en otras integraciones ERP: el ERP envía los datos de la factura vía API; Alante Digital se encarga de:
 
-- Asignar el siguiente **NCF** (Número de Comprobante Fiscal) disponible
+- Asignar el siguiente **NCF** (Número de Comprobante Fiscal) disponible **(flujo estándar; ver excepción TesteCF más abajo)**
 - Generar el **XML** según las especificaciones de la DGII
 - **Firmar digitalmente** el XML con el certificado de la organización
 - **Enviar** el comprobante a la DGII
 - **Consultar** el estado del comprobante en la DGII
-- Generar automáticamente **PDF**, **código QR** y **XML** cuando el comprobante es aceptado
-- Almacenar el documento para su consulta posterior
+- Generar automáticamente **PDF**, **código QR** y **XML** cuando el comprobante es aceptado **(flujo estándar; en modo prueba TesteCF sin persistencia no aplica)**
+- Almacenar el documento para su consulta posterior **(flujo estándar)**
+
+### Modo pruebas TesteCF sin persistencia en Alante
+
+Si el cuerpo del `POST` incluye **`"environment": "testecf"`** y el campo **`numero`** con el **eNCF completo de prueba** (13 caracteres, p. ej. `E310000000099`), el sistema **no** asigna NCF desde lotes, **no** guarda el comprobante en Alante Digital y **no** devuelve `pdf_url`, `qr_url` ni `xml_url`. Solo genera el XML, firma, envía a la DGII en TesteCF y devuelve la respuesta (`track_id`, estado DGII, etc.), con la marca **`testecf_sin_persistencia: true`** y **`fiscal_document.uuid` en `null`**. Sirve para que un integrador pruebe la API y la DGII **antes** de tener lotes E31 o sin dejar registros visibles en el módulo Fiscal.
 
 ---
 
@@ -23,7 +27,7 @@ El flujo de integración es el mismo que se utiliza en otras integraciones ERP: 
 
 - **Cuenta en Alante Digital** con la organización configurada (RNC, razón social, dirección, certificado digital).
 - **Certificado digital** (.p12) de la organización registrado en Alante Digital para firma de e-CF.
-- **Lotes fiscales** activos del tipo de comprobante que se va a emitir (por ejemplo E31).
+- **Lotes fiscales** activos del tipo de comprobante que se va a emitir (por ejemplo E31) — **necesarios en el flujo estándar**; **no** son necesarios para el modo **`testecf` + `numero`** (prueba sin persistencia).
 - **API Key** generada en Configuración → Integraciones (una por organización).
 
 ---
@@ -67,6 +71,8 @@ Authorization: Bearer alante_xxxxxxxxxxxxx
 |-----------|----------|
 | Producción | `https://alantedigital.com/api/external/fiscal` |
 
+Las rutas de esta documentación son relativas a esa base (por ejemplo: `POST https://alantedigital.com/api/external/fiscal/invoices`).
+
 ---
 
 ## Endpoints
@@ -84,13 +90,13 @@ Content-Type: application/json
 X-API-Key: alante_xxxxxxxxxxxxx
 ```
 
-**Cuerpo (JSON):**
+**Cuerpo (JSON) — ejemplo flujo estándar** (NCF asignado por Alante; conviene indicar `environment` explícito, p. ej. `certecf` o `ecf`):
 
 ```json
 {
   "tipo_comprobante": "E31",
-  "fecha_emision": "2025-01-15",
-  "environment": "testecf",
+  "fecha_emision": "2026-04-23",
+  "environment": "certecf",
   "rnc_comprador": "123456789",
   "razon_social_comprador": "Cliente XYZ SRL",
   "razon_social_emisor": "Mi Empresa SRL",
@@ -125,6 +131,31 @@ X-API-Key: alante_xxxxxxxxxxxxx
 }
 ```
 
+**Cuerpo (JSON) — ejemplo modo prueba TesteCF sin persistencia** (obligatorio `numero` = eNCF de prueba elegido por el integrador; debe empezar por el mismo tipo que `tipo_comprobante`, p. ej. `E31`):
+
+```json
+{
+  "environment": "testecf",
+  "numero": "E310000000099",
+  "tipo_comprobante": "E31",
+  "fecha_emision": "2026-04-23",
+  "rnc_comprador": "123456789",
+  "razon_social_comprador": "Cliente de prueba",
+  "items": [
+    {
+      "nombre": "Producto de Prueba",
+      "descripcion": "Descripción del producto",
+      "cantidad": 2,
+      "precio_unitario": 100.00,
+      "descuento": 0,
+      "tasa_itbis": 18,
+      "indicador_bien_servicio": "1"
+    }
+  ],
+  "formas_pago": [{ "codigo": "01", "monto": 236.00 }]
+}
+```
+
 #### Parámetros requeridos
 
 | Parámetro | Tipo | Descripción |
@@ -135,16 +166,23 @@ X-API-Key: alante_xxxxxxxxxxxxx
 | `razon_social_comprador` | string | Razón social del comprador. |
 | `items` | array | Lista de ítems de la factura (mínimo 1). |
 
-#### Parámetros opcionales
+#### Parámetros opcionales (flujo estándar y general)
 
 | Parámetro | Tipo | Descripción |
 |-----------|------|-------------|
-| `environment` | string | `ecf` (producción), `certecf` (certificación), `testecf` (pruebas). Si no se envía, se usa el del certificado de la organización. |
+| `environment` | string | `ecf` (producción), `certecf` (certificación), `testecf` (pruebas DGII). Si no se envía, se usa el del certificado de la organización. Para control explícito del ambiente DGII, se recomienda enviarlo siempre. |
 | `razon_social_emisor` | string | Razón social del emisor (si no se envía, se usa la de la organización). |
 | `direccion_emisor` | string | Dirección del emisor (obligatoria si no está en la organización). |
 | `correo_emisor` | string | Correo del emisor. |
 | `fecha_limite_pago` | string | Fecha límite de pago en `YYYY-MM-DD`. Por defecto se usa la fecha de emisión. |
 | `formas_pago` | array | Lista de formas de pago (código y monto). |
+
+#### Parámetros del modo `testecf` sin persistencia
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `environment` | string | Debe ser **`testecf`** para activar este modo. |
+| `numero` | string | **Obligatorio** en este modo: eNCF completo (13 caracteres: `E` + 2 dígitos de tipo + 10 dígitos). Debe coincidir con `tipo_comprobante` (p. ej. `E31` → `E310000000099`). |
 
 #### Estructura de ítems
 
@@ -166,7 +204,7 @@ X-API-Key: alante_xxxxxxxxxxxxx
 | `codigo` | string | Sí | Código DGII: `01` Efectivo, `02` Cheque, `03` Transferencia, etc. |
 | `monto` | number | Sí | Monto pagado con esta forma. |
 
-#### Respuesta exitosa (201 Created) – Comprobante aceptado
+#### Respuesta exitosa (201 Created) – Comprobante aceptado (flujo estándar)
 
 ```json
 {
@@ -179,7 +217,39 @@ X-API-Key: alante_xxxxxxxxxxxxx
     "razon_social_comprador": "Cliente XYZ SRL",
     "monto_total": "767.00",
     "total_itbis": "117.00",
-    "fecha_emision": "2025-01-15",
+    "fecha_emision": "2026-04-23",
+    "estado": "Aceptado"
+  },
+  "dgii": {
+    "success": true,
+    "track_id": "bf9f19f4-691e-487f-aa5d-3c9966164bd0",
+    "estado": "Aceptado",
+    "mensajes": [],
+    "environment": "certecf"
+  },
+  "pdf_url": "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf",
+  "qr_url": "https://ecf.dgii.gov.do/eCF/ConsultaTimbre?rncemisor=...",
+  "xml_url": "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/xml"
+}
+```
+
+#### Respuesta aceptada (201) – Modo `testecf` sin persistencia
+
+Sin `pdf_url`, `qr_url` ni `xml_url`. No hay UUID para consultas posteriores.
+
+```json
+{
+  "success": true,
+  "testecf_sin_persistencia": true,
+  "fiscal_document": {
+    "uuid": null,
+    "numero": "E310000000099",
+    "tipo_comprobante": "E31",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente de prueba",
+    "monto_total": "236.00",
+    "total_itbis": "36.00",
+    "fecha_emision": "2026-04-23",
     "estado": "Aceptado"
   },
   "dgii": {
@@ -188,16 +258,15 @@ X-API-Key: alante_xxxxxxxxxxxxx
     "estado": "Aceptado",
     "mensajes": [],
     "environment": "testecf"
-  },
-  "pdf_url": "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/pdf",
-  "qr_url": "https://ecf.dgii.gov.do/eCF/ConsultaTimbre?rncemisor=...",
-  "xml_url": "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf1-4005-88d8-cdbc63e853eb/xml"
+  }
 }
 ```
 
 #### Respuesta comprobante rechazado (422)
 
-Cuando la DGII rechaza el comprobante, el documento se crea en Alante con estado "Rechazado" y se responde con HTTP 422 y `success: false`. Las URLs de PDF, QR y XML no se incluyen.
+**Flujo estándar:** cuando la DGII rechaza el comprobante, el documento puede crearse en Alante con estado "Rechazado" y se responde con HTTP 422 y `success: false`. Las URLs de PDF, QR y XML no se incluyen.
+
+**Modo `testecf` sin persistencia:** no queda documento en Alante; la respuesta puede incluir `testecf_sin_persistencia: true` y mensajes orientados a reintento si la DGII indica que la secuencia no se consumió (`secuenciaUtilizada: false`).
 
 ```json
 {
@@ -214,7 +283,7 @@ Cuando la DGII rechaza el comprobante, el documento se crea en Alante con estado
     "mensajes": [
       { "valor": "Mensaje de error de la DGII", "codigo": 1209 }
     ],
-    "environment": "testecf"
+    "environment": "certecf"
   }
 }
 ```
@@ -229,7 +298,8 @@ Cuando la DGII rechaza el comprobante, el documento se crea en Alante con estado
   "errors": {
     "tipo_comprobante": ["El campo tipo_comprobante es requerido."],
     "rnc_comprador": ["El RNC del comprador es obligatorio para comprobantes tipo E31."],
-    "items": ["Debe haber al menos un item en la factura."]
+    "items": ["Debe haber al menos un item en la factura."],
+    "numero": ["El campo numero es obligatorio cuando environment es testecf."]
   }
 }
 ```
@@ -248,11 +318,13 @@ Cuando la DGII rechaza el comprobante, el documento se crea en Alante con estado
 
 ### 2. Consultar comprobante fiscal
 
-Obtiene la información de un comprobante por su **UUID** (devuelto al crear).
+Obtiene la información de un comprobante por su **UUID** (devuelto al crear en el **flujo estándar**).
 
 **Método y ruta:** `GET /invoices/{uuid}`
 
 **Headers:** `X-API-Key: alante_xxxxxxxxxxxxx`
+
+**Nota:** En el modo **`testecf` + `numero`** no se genera UUID; este endpoint no aplica a esas pruebas.
 
 **Respuesta exitosa (200):**
 
@@ -267,7 +339,7 @@ Obtiene la información de un comprobante por su **UUID** (devuelto al crear).
     "razon_social_comprador": "Cliente XYZ SRL",
     "total_monto": "767.00",
     "total_itbis": "117.00",
-    "fecha_emision": "2025-01-15",
+    "fecha_emision": "2026-04-23",
     "created_at": "2025-11-13T15:52:25.000000Z"
   },
   "dgii": {
@@ -290,7 +362,7 @@ Obtiene la información de un comprobante por su **UUID** (devuelto al crear).
 
 **Respuesta:** Archivo PDF con nombre `comprobante-{NCF}.pdf`.
 
-Solo disponible para comprobantes **aceptados** por la DGII. En caso de error de generación se devuelve 500 con `PDF_GENERATION_ERROR`.
+Solo disponible para comprobantes **aceptados** por la DGII en el flujo estándar. En caso de error de generación se devuelve 500 con `PDF_GENERATION_ERROR`.
 
 ---
 
@@ -310,7 +382,7 @@ Solo disponible para comprobantes **aceptados** por la DGII. En caso de error de
     "encf": "E310000000004",
     "monto_total": "767.00",
     "itbis": "117.00",
-    "fecha_emision": "15-01-2025",
+    "fecha_emision": "23-04-2026",
     "codigo_seguridad": "ABC123"
   },
   "qr_url": "https://ecf.dgii.gov.do/eCF/ConsultaTimbre?rncemisor=...&..."
@@ -352,7 +424,7 @@ Para integración ERP de facturación electrónica se utiliza normalmente **E31*
 
 | Valor | Uso | Nota |
 |-------|-----|------|
-| `testecf` | Pruebas | En desarrollo local se puede forzar este ambiente. |
+| `testecf` | Pruebas DGII (TesteCF) | Puede usarse con persistencia en Alante (NCF por lote) **o**, con **`numero`**, en modo **solo prueba** sin registro en Alante. |
 | `certecf` | Certificación | Validación antes de producción. |
 | `ecf` | Producción | Solo cuando la integración esté validada. |
 
@@ -378,24 +450,24 @@ Para integración ERP de facturación electrónica se utiliza normalmente **E31*
 ## Códigos de error habituales
 
 | Código HTTP | Error | Descripción | Acción sugerida |
-|-------------|-------|-------------|------------------|
+|-------------|-------|-------------|-----------------|
 | 401 | UNAUTHORIZED | API Key inválida o no enviada | Revisar header/parámetro y que la clave esté activa. |
 | 404 | ORGANIZATION_NOT_FOUND | Organización no encontrada | La API Key debe estar asociada a una organización válida. |
-| 422 | VALIDATION_ERROR | Datos inválidos | Revisar campos requeridos y formatos. |
-| 422 | NO_BATCH_AVAILABLE | Sin lotes fiscales activos | Configurar lotes E31 (u otro tipo) en Alante. |
-| 422 | NO_SEQUENCES_AVAILABLE | Sin secuencias en el lote | Solicitar nuevo lote o ampliar secuencias. |
+| 422 | VALIDATION_ERROR | Datos inválidos | Revisar campos requeridos y formatos (`numero` si `environment` es `testecf`). |
+| 422 | NO_BATCH_AVAILABLE | Sin lotes fiscales activos | Configurar lotes E31 (u otro tipo) en Alante — **no aplica** al modo `testecf` + `numero`. |
+| 422 | NO_SEQUENCES_AVAILABLE | Sin secuencias en el lote | Solicitar nuevo lote o ampliar secuencias — **no aplica** al modo `testecf` + `numero`. |
 | 422 | CERTIFICATE_NOT_FOUND | Sin certificado digital | Registrar certificado .p12 en la organización. |
 | 422 | ORGANIZATION_CONFIG_ERROR | RNC no configurado | Completar datos fiscales de la organización. |
 | 404 | DOCUMENT_NOT_FOUND | Documento no encontrado | Verificar UUID y que pertenezca a la misma organización. |
 | 500 | PROCESSING_ERROR | Error interno al procesar | Revisar mensaje y logs; contactar soporte si persiste. |
 | 500 | SIGNATURE_ERROR | Error al firmar XML | Revisar certificado y contraseña. |
-| 500 | PDF_GENERATION_ERROR / QR_GENERATION_ERROR / XML_NOT_FOUND | Error al generar recurso | Comprobar que el comprobante esté aceptado y que exista XML firmado. |
+| 500 | PDF_GENERATION_ERROR / QR_GENERATION_ERROR / XML_NOT_FOUND | Error al generar recurso | Comprobar que el comprobante esté aceptado y que exista XML firmado (flujo estándar). |
 
 ---
 
 ## Ejemplos de uso (cURL)
 
-### Crear factura electrónica E31
+### Crear factura electrónica E31 (flujo estándar, certificación)
 
 ```bash
 curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
@@ -403,8 +475,36 @@ curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
   -H "X-API-Key: alante_xxxxxxxxxxxxx" \
   -d '{
     "tipo_comprobante": "E31",
-    "fecha_emision": "2025-01-15",
+    "fecha_emision": "2026-04-23",
+    "environment": "certecf",
+    "rnc_comprador": "123456789",
+    "razon_social_comprador": "Cliente de Prueba",
+    "items": [
+      {
+        "nombre": "Producto de Prueba",
+        "descripcion": "Descripción del producto",
+        "cantidad": 2,
+        "precio_unitario": 100.00,
+        "descuento": 0,
+        "tasa_itbis": 18,
+        "indicador_bien_servicio": "1"
+      }
+    ],
+    "formas_pago": [{ "codigo": "01", "monto": 236.00 }]
+  }'
+```
+
+### Prueba TesteCF sin persistencia (con `numero`)
+
+```bash
+curl -X POST https://alantedigital.com/api/external/fiscal/invoices \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: alante_xxxxxxxxxxxxx" \
+  -d '{
     "environment": "testecf",
+    "numero": "E310000000099",
+    "tipo_comprobante": "E31",
+    "fecha_emision": "2026-04-23",
     "rnc_comprador": "123456789",
     "razon_social_comprador": "Cliente de Prueba",
     "items": [
@@ -456,14 +556,23 @@ curl -X GET "https://alantedigital.com/api/external/fiscal/invoices/29d2c2fa-8bf
 
 ## Notas para la integración ERP
 
-1. **Identificación:** Se usan **UUID** para identificar documentos en la API. No se exponen IDs numéricos internos (multi-tenant).
-2. **NCF:** El sistema asigna automáticamente el siguiente NCF disponible; no se envía en el request.
+1. **Identificación:** Se usan **UUID** para identificar documentos en la API. No se exponen IDs numéricos internos (multi-tenant). **No hay UUID** en el modo `testecf` + `numero` (`uuid` viene en `null`).
+
+2. **NCF:** En el **flujo estándar**, el sistema asigna el siguiente NCF disponible; no se envía en el request. En **`environment: "testecf"`** con **`numero`**, el integrador envía el eNCF de prueba completo (13 caracteres).
+
 3. **Fechas:** Siempre en formato `YYYY-MM-DD`.
+
 4. **Montos:** Máximo 2 decimales.
+
 5. **E31:** RNC del comprador obligatorio; formato válido: 9 dígitos (RNC) o 11 (cédula).
-6. **Rechazos DGII:** Si el comprobante es rechazado, se guarda en Alante con estado "Rechazado" y la respuesta es 422 con `success: false`. En algunos casos la secuencia NCF no se consume y se puede reintentar.
-7. **Consultas:** Los comprobantes creados por API también aparecen en el módulo Fiscal de Alante Digital.
-8. **Certificado:** La organización debe tener certificado digital válido y lotes fiscales activos para el tipo de comprobante (p. ej. E31).
+
+6. **Rechazos DGII (flujo estándar):** Si el comprobante es rechazado, puede guardarse en Alante con estado "Rechazado" y la respuesta es 422 con `success: false`. En algunos casos la secuencia NCF no se consume y se puede reintentar. **En modo `testecf` + `numero`** no se persiste el comprobante en Alante.
+
+7. **Consultas:** Los comprobantes creados por API en el flujo estándar aparecen en el módulo Fiscal de Alante Digital.
+
+8. **Certificado:** La organización debe tener certificado digital válido para firmar. Los **lotes fiscales** activos son necesarios para el **flujo estándar**; para **solo prueba** con `testecf` + `numero` no se consumen lotes en Alante.
+
+9. **Ambiente DGII:** Se recomienda enviar siempre `environment` explícito (`testecf`, `certecf` o `ecf`) para evitar ambigüedad respecto al certificado u otras reglas del servidor.
 
 ---
 
@@ -473,5 +582,5 @@ Para soporte técnico o dudas sobre la integración, contactar al equipo de Alan
 
 ---
 
-**Versión:** 1.2  
-**Última actualización:** Noviembre 2025
+**Versión:** 1.3  
+**Última actualización:** abril 2026 (modo TesteCF sin persistencia, campo `numero`, tablas de errores y requisitos actualizados).
