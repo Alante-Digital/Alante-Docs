@@ -17,6 +17,7 @@
         "group": "Comenzando",
         "pages": [
           "introduccion/introduction",
+          "introduccion/navegacion-y-modulos",
           "introduccion/configuracion",
           "introduccion/usuarios",
           "actualizaciones"
@@ -33,6 +34,18 @@
           "ventas/recibos-cobro",
           "ventas/recurrencias",
           "ventas/reportes"
+        ]
+      },
+      {
+        "group": "Punto de venta",
+        "pages": [
+          "punto-de-venta/tablero"
+        ]
+      },
+      {
+        "group": "Restaurantes",
+        "pages": [
+          "restaurantes/tablero"
         ]
       },
       {
@@ -77,6 +90,7 @@
           "contabilidad/estado-resultados",
           "contabilidad/balance-general",
           "contabilidad/accionistas",
+          "contabilidad/poliza-seguros",
           "contabilidad/activos-fijos-tablero",
           "contabilidad/activos-fijos-listado",
           "contabilidad/activos-fijos-ubicaciones",
@@ -90,10 +104,19 @@
           "fiscal/tablero",
           "fiscal/autorizaciones",
           "fiscal/documentos-fiscales",
+          "fiscal/comprobantes-recibidos",
+          "fiscal/gastos-menores",
           "fiscal/recordatorios",
           "fiscal/reportes",
           "fiscal/reporte-dgii-607",
+          "fiscal/reporte-dgii-606",
           "fiscal/reporte-retenciones"
+        ]
+      },
+      {
+        "group": "CRM",
+        "pages": [
+          "crm/tablero"
         ]
       },
       {
@@ -111,6 +134,18 @@
           "recursos-humanos/tss",
           "recursos-humanos/regalia-pascual",
           "recursos-humanos/prestamos"
+        ]
+      },
+      {
+        "group": "Proyectos",
+        "pages": [
+          "proyectos/tablero"
+        ]
+      },
+      {
+        "group": "Soporte al cliente",
+        "pages": [
+          "soporte/modulo-soporte"
         ]
       }
     ]

@@ -1,61 +1,58 @@
-# Importacion y Exportacion de Productos
+---
+title: Importación y exportación de productos
+description: 'Descarga el catálogo en archivo de hoja de cálculo e importa productos con plantilla oficial'
+---
 
-## Exportar Productos y Servicios
+# Importación y exportación de productos
 
-Puedes exportar el catalogo a CSV desde:
+## Exportar productos y servicios
 
-Inventario > Productos y Servicios > Exportar
+Puedes exportar el catálogo a un archivo **CSV** (compatible con Excel) desde:
 
-**Opciones comunes:**
-- Tipo: productos, servicios o todos
-- Categoria (opcional)
-- Incluir stock por almacen
+**Inventario → Productos y servicios → Exportar**
 
-**El archivo incluye:**
-- UUID (para actualizaciones masivas)
-- SKU, nombre, tipo y estado
-- Categoria, codigo de barras, unidad
-- Precio, costo, margen y ITBIS
-- Flags: vendible, comprable, maneja stock, permite stock negativo
-- Stock por almacen (si se incluye)
+**Opciones habituales:**
 
-## Importar Productos y Servicios
+- Tipo: solo productos, solo servicios o ambos
+- Categoría (opcional)
+- Incluir existencias por almacén
 
-Desde Inventario > Productos y Servicios > Importar puedes cargar un CSV.
+**Qué trae el archivo exportado**
+
+- Un **identificador único de cada producto** generado por Alante (sirve para que el sistema reconozca el mismo artículo si vuelves a importar y quieres actualizarlo en lugar de crear duplicados)
+- Código interno (SKU), nombre, tipo y estado
+- Categoría, código de barras y unidad de medida
+- Precio de venta, costo, margen e ITBIS
+- Indicadores de si es vendible, comprable, si maneja existencias y si permite existencia negativa
+- Cantidades por almacén (si elegiste incluir existencias)
+
+## Importar productos y servicios
+
+Desde **Inventario → Productos y servicios → Importar** puedes cargar un archivo CSV.
 
 ### Plantilla
-Descarga la plantilla oficial para asegurar el formato correcto.
 
-### Campos Principales
-- `uuid` (opcional): si viene, el sistema actualiza el producto existente
-- `sku`: codigo del producto (si esta vacio, se genera)
-- `nombre`
-- `tipo`: producto o servicio
-- `estado`: activo o inactivo
-- `categoria`
-- `codigo_barras`
-- `unidad_medida`
-- `precio_venta`
-- `costo`
-- `margen_ganancia`
-- `itbis`
-- `vendible`, `comprable`
-- `maneja_stock`, `permite_stock_negativo`
-- `cantidad_existencia`
+Descarga la **plantilla oficial** desde la misma pantalla de importación. Así las columnas coinciden con lo que el sistema espera y reduces errores.
 
-### Reglas Importantes
-- Si no envias `uuid` y el codigo de barras ya existe, el producto se omite
-- `cantidad_existencia` se aplica en el almacen principal
-- En actualizaciones, el sistema crea un ajuste para igualar la existencia indicada
-- Servicios no deben tener existencia
+### Cómo actualizar productos existentes
 
-### Validacion del Archivo
-Antes de importar, el sistema valida:
-- Formato de columnas
-- Tipos de datos
-- Duplicados dentro del archivo
+Si el archivo incluye la columna con el **identificador del producto** (el mismo valor que viste en una exportación previa de Alante), el sistema **actualiza** ese registro en lugar de crear uno nuevo.
+
+### Cómo evitar duplicados
+
+Si **no** incluyes el identificador y el **código de barras** ya existe en el catálogo, esa fila se **omite** para no duplicar artículos.
+
+### Existencias
+
+- La cantidad de existencia indicada en el archivo suele aplicarse al **almacén principal**.
+- Los **servicios** no deben llevar cantidad en existencia.
+
+### Validación antes de importar
+
+Antes de confirmar, el sistema revisa el archivo y te avisa si hay problemas de formato, datos inválidos o filas duplicadas entre sí.
 
 ## Por qué es fácil
 
-- Plantillas listas para usar
-- Importación guiada con validaciones claras
+- Plantilla lista para descargar
+- Mensajes claros si algo falla en la importación
+- Exportación útil para respaldos o edición masiva en Excel
