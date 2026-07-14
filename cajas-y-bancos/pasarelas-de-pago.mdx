@@ -1,0 +1,31 @@
+---
+title: Pasarelas de pago
+description: 'Configurar medios de cobro electrónico y retención de ITBIS'
+---
+
+# Pasarelas de pago
+
+## Qué son
+
+Las **pasarelas** representan los destinos contables o de tesorería donde caen cobros con tarjeta, links de pago u otros medios electrónicos (por ejemplo Azul). Se usan desde Ventas, POS o el [Link de Pago Azul](/ventas/facturacion).
+
+## Configurar una pasarela
+
+1. Ve a **Cajas y Bancos → Pasarelas de pago**
+2. Crea o edita la pasarela (nombre, cuenta o caja destino, moneda)
+3. Si aplica, configura retención de ITBIS u otros parámetros del medio
+4. Guarda
+
+Asocia la pasarela correcta en:
+
+- Cobros e integraciones de tarjeta en el POS
+- [Link de Pago Azul](/introduccion/configuracion) (pasarela donde se registra el cobro automático)
+
+## Relación con transferencias pendientes
+
+Cuando el procesador liquida fondos, pueden aparecer operaciones en [Transferencias pendientes](/cajas-y-bancos/transferencias-pendientes) para aprobar o rechazar antes de que impacten el banco o la caja definitiva.
+
+## Recomendaciones
+
+- Usa una pasarela por medio de cobro o por sucursal si necesitas separar reportes
+- Verifica que la moneda de la pasarela coincida con la del comercio en Azul u otro proveedor

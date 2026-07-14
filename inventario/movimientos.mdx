@@ -103,27 +103,26 @@ Resultado: Se registra una salida de 5 unidades
 
 Para crear un nuevo movimiento:
 
-1. Accede a la sección de Movimientos en el módulo de Inventario
-2. Haz clic en "Nuevo Movimiento"
-3. Completa la información básica:
-   - **Tipo**: Selecciona Entrada, Salida o Ajuste
-   - **Almacén**: Selecciona el almacén donde ocurre el movimiento
-   - **Fecha**: Fecha y hora del movimiento (por defecto es la fecha actual)
-   - **Centro de costos** (opcional): Para clasificar el movimiento contablemente
-   - **Notas**: Información adicional sobre el movimiento (opcional)
-4. Agrega productos:
-   - Haz clic en "Agregar Producto"
-   - Selecciona el producto
-   - Ingresa la cantidad
-   - Para entradas y ajustes positivos, ingresa el costo unitario
-5. Revisa el total calculado
-6. Haz clic en "Guardar Movimiento"
+1. Accede a la sección de **Movimientos** en el módulo de Inventario
+2. Haz clic en **Nuevo Movimiento**
+3. Elige el tipo con las tarjetas visuales:
+   - **Entrada** — incrementa stock
+   - **Salida** — reduce stock disponible
+   - **Ajuste** — corrige diferencias de inventario
+4. Completa las secciones numeradas del formulario (almacén, productos, detalles):
+   - **Almacén**: donde ocurre el movimiento
+   - **Fecha**: fecha y hora (por defecto la actual)
+   - **Centro de costos** (opcional)
+   - **Notas** (opcional)
+5. Agrega productos con cantidad y, en entradas o ajustes positivos, el costo unitario
+6. Revisa el total calculado
+7. Guarda el movimiento
 
 **Consideraciones:**
 - Puedes agregar múltiples productos en un solo movimiento
 - El sistema calcula automáticamente el total
 - Para salidas, el sistema valida que haya suficiente stock
-- Una vez guardado, el movimiento no se puede modificar
+- Con los permisos adecuados, un movimiento puede editarse o eliminarse después de guardado
 
 ## Transferencias entre Almacenes
 
@@ -131,26 +130,30 @@ Las transferencias permiten mover productos de un almacén a otro. El sistema cr
 - Una salida en el almacén de origen
 - Una entrada en el almacén de destino
 
-**Proceso:**
-1. Accede a la transferencia desde el detalle de un almacén o desde movimientos
-2. Selecciona el almacén de destino
-3. Agrega los productos a transferir:
-   - Solo aparecen productos que tienen stock en el almacén de origen
-   - Especifica la cantidad a transferir
-4. Agrega notas si es necesario
-5. Confirma la transferencia
+### Flujo guiado (Transferir stock)
+
+Desde **Inventario → Transferir stock** el proceso va por pasos:
+
+1. **Ruta** — almacén origen y destino
+2. **Detalles** — fecha, referencias y notas
+3. **Productos** — líneas con cantidad y validación de existencia
+4. **Resumen** — revisión antes de confirmar
+
+Al guardar, el sistema genera la salida en origen y la entrada en destino en un solo paso.
+
+### Resultado y validaciones
 
 **Resultado:**
 - Se descuenta el stock del almacén de origen
 - Se agrega el stock al almacén de destino
 - El costo en el almacén destino se recalcula con promedio ponderado
 - Se crean dos movimientos vinculados (salida y entrada)
-- Ambos movimientos se marcan como transferencia
 
 **Validaciones:**
 - Debe haber suficiente stock en el almacén de origen
 - El almacén de destino debe ser diferente al de origen
 - La cantidad no puede exceder el stock disponible
+- Solo aparecen productos con stock en el almacén de origen
 
 ## Ver Movimientos
 
@@ -229,7 +232,7 @@ Cada movimiento queda registrado permanentemente y proporciona trazabilidad comp
 
 **En el sistema:**
 - Todos los movimientos quedan registrados con fecha, hora y usuario
-- No se pueden modificar ni eliminar
+- Con permisos adecuados pueden editarse o eliminarse; el sistema recalcula kardex, costos y asientos
 - Proporcionan un registro completo de cambios
 
 ## Productos con Lotes

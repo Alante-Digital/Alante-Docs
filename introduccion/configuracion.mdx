@@ -1,105 +1,87 @@
 ---
 title: Configuración de la Organización
-description: 'Personaliza la información visible en tus facturas'
+description: 'Datos generales, branding, monedas, POS, integraciones y más'
 ---
 
-En esta sección configuras los datos clave de tu empresa. Es un proceso rápido y guiado que hace que todo el sistema se vea profesional desde el primer día.
+En esta sección configuras los datos clave de tu empresa. Es un proceso guiado que hace que el sistema se vea y opere correctamente desde el primer día.
 
-##  Configurar Información General
+Accede con el icono de **Configuración** en la barra lateral de aplicaciones.
 
-Objetivo: Completar los datos básicos de tu empresa y la información que aparecerá en las facturas de ventas.
+## Información general
 
-Pasos:
+1. Configuración → **Generales**
+2. Completa razón social, RNC y datos de contacto
+3. Guarda
 
-Accede al módulo Configuración
+## Branding (identidad visual)
 
-En el menú lateral, entra a Configuración → Generales
+1. Configuración → **Branding** → Nuevo branding
+2. Nombre interno y de marca, colores, logo (JPG/PNG/GIF, máx. 2 MB)
+3. Email, teléfono, sitio web y dirección
+4. Guarda. Puedes tener varias marcas (por sucursal) y elegir la principal en documentos
 
-Introduce:
+## Facturación y cotizaciones
 
-•	 Razón Social.
+- Activa y personaliza el **pie de página** de facturas y cotizaciones
+- Define series y comportamientos por defecto de documentos de venta
 
-•	 Número de RNC.
+## Clientes
 
-•	Haz clic en Guardar Cambios.
+- Campos **personalizados** en la ficha del cliente (zona, vendedor asignado, etc.)
 
+## Productos
 
-## Configurar el Branding (Identidad Visual, Contactos y Logo)
+- Preferencias de productos (unidades por defecto, modo de código de barras en productos pesados, etc.)
 
+## Punto de venta (POS)
 
-Objetivo: Establecer la identidad visual y los datos de contacto de tu empresa.
+- Pie de página de tickets POS y cantidad de copias
+- Correos para **resumen de cierre** de sesión
+- **Permitir que el cajero vea el efectivo esperado** al cerrar turno (arqueo ciego vs supervisado). Detalle en [Punto de venta](/punto-de-venta/tablero)
 
-Pasos:
+## Fiscal y ECF
 
-En el menú lateral, entra a Configuración → Branding
+- Indica si tu organización opera bajo **RST**
+- Configura certificación y certificado para **facturación electrónica (ECF / DGII)** cuando tu negocio lo requiera
+- Los lotes de NCF se gestionan en [Fiscal → Autorizaciones](/fiscal/autorizaciones)
 
-Haz clic en ➕ Nuevo Branding
+## Monedas
 
-Completa la Información Básica:
+Activa monedas y tipos de cambio en Configuración → **Monedas**. Guía: [Monedas](/introduccion/monedas).
 
-•	Nombre interno.
+## Usuarios y roles
 
-•	Nombre de la marca.
+Invita usuarios y define permisos. Guía: [Usuarios y roles](/introduccion/usuarios).
 
-•	Colores primarios y secundarios.
+## Políticas de vacaciones
 
-•	Completa la Información de Contacto (Email, teléfono, sitio web, dirección física)
+Las políticas de ausencias/vacaciones de RRHH se configuran aquí o desde el módulo, según tu menú. Ver [Políticas de vacaciones](/recursos-humanos/politicas-vacaciones).
 
-•	Carga tu logo. (Formatos permitidos: JPG, PNG, GIF. Tamaño máximo: 2 MB)
+## Integraciones
 
-•	Haz clic en Guardar Cambios.
+### Link de Pago Azul Dominicana
 
+1. Configuración → **Integraciones → Link de Pago Azul**
+2. Activa el botón de pago en facturas públicas
+3. Completa Merchant ID, Private Key, moneda del comercio y la [pasarela](/cajas-y-bancos/pasarelas-de-pago) donde se registra el cobro
+4. (Opcional) email de notificación de pagos aprobados
 
-## Configurar Facturación
+Flujo para el cliente: [Facturación](/ventas/facturacion).
 
-Objetivo: Personalizar el pie de página de las facturas predeterminadas.
+### Claves de API
 
-Pasos:
+Crea y gestiona claves para conectar Alante con otros sistemas (e-commerce, apps). Consulta también la documentación de [API de facturación electrónica](/api-facturacion-electronica) si aplica.
 
-•	Habilita la opción del pie de página.
+## Soporte
 
-•	Escribe el contenido que aparecerá en todas las facturas.
+Si usas el módulo Soporte: email de entrada, WhatsApp, encuestas, campos personalizados, auto-asignación e IA. Ver [Configuración de canales](/soporte/configuracion-canales).
 
-•	Haz clic en Guardar Cambios.
+## Mi cuenta / facturación de la licencia
 
- 
-## Configurar Cotización
-
-Objetivo: Personalizar el pie de página para todas las cotizaciones predeterminadas.
-
-Pasos:
-
-•	Habilita la opción del pie de página.
-
-•	Escribe el contenido que aparecerá en todas las cotizaciones.
-
-•	Haz clic en Guardar Cambios.
-
-
-## Configurar Punto de Venta (POS)
-
-Objetivo: Ajustar el pie de página que saldrá por defecto en las facturas realizadas mediante el punto de venta y los parámetros del sistema de punto de venta.
-
-Pasos:
-
-•	Habilita la opción del pie de página.
-
-•	Escribe el contenido que aparecerá al pie de de las facturas del POS.
-
-•	Define la cantidad de copias a imprimir.
-
-
-Si deseas recibir el detalle de los cierres de sesión, haz lo siguiente: 
-
-
-•   Activa la opción para recibir resúmenes de cierre
-
-•	Introduce los correos electrónicos donde se enviarán los reportes.
-
-•	Haz clic en Guardar Cambios.
+Desde la cuenta de la organización puedes ver facturas del plan, métodos de pago y tarjetas (incluido 3D Secure cuando corresponda).
 
 ## Por qué es fácil
 
 - Todo está organizado por secciones claras
-- Guardas una sola vez y se aplica en todos los documentos
+- Guardas una vez y se aplica en documentos y módulos
 - Puedes actualizar la información cuando lo necesites

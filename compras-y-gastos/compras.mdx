@@ -1,0 +1,38 @@
+---
+title: Compras
+description: 'Registrar, aprobar y pagar facturas de compra a suplidores'
+---
+
+# Compras
+
+## Crear una compra
+
+1. Ve a **Compras y Gastos → Compras → Nueva compra**
+2. Selecciona el [suplidor](/compras-y-gastos/suplidores) (puedes crearlo desde el formulario)
+3. Indica fecha, moneda, almacén (si impacta inventario) y líneas de productos o servicios
+4. Revisa ITBIS, totales y vista previa de retenciones si aplica
+5. Guarda como **borrador** o continúa el flujo de aprobación
+
+## Estados típicos
+
+- **Borrador**: editable
+- **Aprobada**: lista para pagar y, si aplica, impacto en inventario
+- **Pagada / parcial**: según [recibos de pago](/compras-y-gastos/recibos-de-pago)
+- **Cancelada**: ya no forma parte de la cartera a pagar
+
+## Acciones en el detalle
+
+- Aprobar o cancelar (según permisos)
+- Aplicar pago
+- Generar [nota de crédito](/compras-y-gastos/notas-credito)
+- Vista previa fiscal / DGII cuando uses comprobantes electrónicos recibidos
+- Imprimir o exportar
+
+## Inventario
+
+Si la compra incluye productos stockables y un almacén, al aprobarse actualiza existencias. Revisa [movimientos de inventario](/inventario/movimientos) para la trazabilidad.
+
+## Recomendaciones
+
+- Valida el NCF/comprobante del suplidor antes de aprobar
+- Usa la misma moneda acordada con el proveedor; el sistema convierte a moneda base para contabilidad ([Monedas](/introduccion/monedas))

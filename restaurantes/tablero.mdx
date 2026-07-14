@@ -1,51 +1,59 @@
 ---
 title: Restaurantes
-description: 'Operación de mesas, cocina, menús y configuración de sucursales'
+description: 'Configuración, mesas, cocina, cuentas separadas y cobro en POS'
 ---
 
 # Restaurantes
 
 ## Qué es este módulo
 
-**Restaurantes** está pensado para negocios de comida que atienden por mesas o zonas: tomar pedidos, coordinar la cocina y administrar menús y sucursales.
+**Restaurantes** cubre el servicio en mesas: configuración del local, toma de pedidos, cocina y cobro (incluido separar cuentas).
 
-## Operación (día a día)
+## Configuración inicial (orden recomendado)
+
+1. **Estaciones** de cocina (parrilla, bebidas, postres…) y vínculo con categorías de inventario si aplica
+2. **Sucursales** (locales)
+3. **Zonas** (terraza, salón, barra)
+4. **Menús** e ítems con precios y disponibilidad
+5. **Mesas** (numeración y disposición)
+
+Sin menú y mesas listos, el mapa operativo no sirve en un día de alta demanda.
+
+## Operación del día
 
 ### Tablero
 
-Vista general del servicio en curso: pedidos activos y accesos rápidos a operar.
+Vista de pedidos activos y accesos rápidos.
 
 ### Mesas
 
-Estado de las **mesas** (libre, ocupada, cuenta, etc.) y flujo para abrir pedidos desde la mesa.
+Estado de cada mesa (libre, ocupada, cuenta…). Abre la mesa, indica comensales, agrega productos, notas y mesero, y **envía a cocina**.
 
-### Cocina
+### Separar mesas (cuentas independientes)
 
-Pantalla orientada a **preparación**: órdenes entrantes y estado de cada plato para reducir tiempos de espera.
+Cuando comparten mesa pero pagan por separado:
 
-## Configuración
+1. Activa la separación de cuentas en la mesa u orden
+2. Crea **Cuenta 1, 2…** (o sepárala antes de tomar la orden)
+3. Asigna o mueve productos entre cuentas
+4. Imprime **pre-cuenta** y cobra cada cuenta en el [POS](/punto-de-venta/tablero)
 
-### Sucursales
+Los pagos quedan sincronizados con cada cuenta. Útil para quien se va antes o para dividir por persona/grupo.
 
-Datos de cada local o sede si operas en más de un sitio.
+### Cocina (KDS)
 
-### Zonas
+Pantalla de preparación filtrable por estación: órdenes entrantes y estado de cada plato. Reduce tiempos y pedidos olvidados. Puedes imprimir comanda según la configuración.
 
-División del local (terraza, salón, barra) para ubicar mesas y pedidos.
+## Cobro
 
-### Estaciones
+1. Desde la mesa (o cuenta) envía a cobro
+2. Completa el pago en el **Punto de venta** (quedará asociada a la sesión de caja)
+3. Cancela órdenes solo con el flujo auditado del sistema
 
-Puntos de preparación (por ejemplo parrilla, ensaladas, postres) para repartir el trabajo en cocina.
-
-### Menús
-
-**Carta o menú** con productos, precios y disponibilidad según el horario o la sucursal.
-
-### Mesas (Config)
-
-Ajustes de disposición o numeración de mesas cuando cambias el layout del local.
+El POS de mostrador también puede **enviar a cocina** para servicio sin mesa.
 
 ## Recomendaciones
 
-- Configura primero sucursales, zonas y menús antes de operar un día alto de tráfico.
-- Capacita al equipo de cocina en el uso de la pantalla de **Cocina** para evitar pedidos olvidados.
+- Configura estaciones y menús antes del fin de semana pico
+- Entrena a meseros en separación de cuentas y a cocina en el KDS
+- Cierra cuentas en el POS con la misma caja del turno

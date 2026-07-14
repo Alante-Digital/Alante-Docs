@@ -1,0 +1,53 @@
+---
+title: Conciliación bancaria
+description: 'Cuadrar el extracto del banco con los movimientos del sistema'
+---
+
+# Conciliación bancaria
+
+## Qué es
+
+La conciliación te permite comparar el **extracto del banco** con los movimientos registrados en Alante para una **cuenta bancaria**. Es informativa: no crea asientos ni ajusta saldos sola; si hay diferencias, las corriges con movimientos, recibos o pagos habituales.
+
+> Solo aplica a **cuentas bancarias** (no a cajas ni pasarelas). Se trabaja por **fecha de corte** (día calendario) en la **moneda de la cuenta**. En esta versión no se importa un extracto: tú digitas la fecha y el saldo según el banco.
+
+## Cómo conciliar
+
+1. Ve a **Cajas y Bancos → Bancos** y abre la cuenta
+2. Entra a **Conciliar**
+3. Indica la **fecha de corte** y el **saldo según banco** a esa fecha
+4. Marca los movimientos que ya aparecen en el extracto (el **balance inicial** aparece siempre marcado y no se puede desmarcar)
+5. Revisa los indicadores hasta que la **diferencia sea 0**
+6. **Guarda borrador** (sin bloquear) o **cierra** la conciliación
+
+### Indicadores
+
+- Saldo según banco (lo que digitaste)
+- Saldo banco al cierre anterior (o balance inicial en la primera)
+- Cambio neto esperado según banco
+- Total conciliado (movimientos marcados)
+- Pendiente por conciliar
+- **Diferencia** — debe ser **cero** para poder cerrar (sin tolerancia de redondeo)
+
+## Borrador vs cierre
+
+| Acción | Efecto |
+| --- | --- |
+| Guardar borrador | Conserva fecha, saldo y marcas. **No** bloquea el período. |
+| Cerrar | Queda cerrado. No podrás crear ni eliminar movimientos bancarios con fecha ≤ la de corte, salvo que **reabras**. |
+| Reabrir | Vuelve a borrador; conciliaciones posteriores de esa cuenta quedan por revisar y deben cerrarse de nuevo en orden. |
+
+## Primera conciliación y siguientes
+
+- **Primera:** lista movimientos desde el inicio de la cuenta hasta la fecha de corte (incluido el balance inicial).
+- **Siguientes:** lista el período desde el día después del último cierre hasta la nueva fecha de corte, más **tránsitos** (movimientos anteriores no marcados en un cierre previo, por ejemplo cheques o depósitos pendientes).
+
+## Historial y reportes
+
+Puedes consultar conciliaciones cerradas y su detalle para auditoría. Usa esos reportes cuando el contador pida evidencia del cuadre.
+
+## Recomendaciones
+
+- Corrige diferencias con movimientos reales antes de insistir en cerrar
+- Conciliá con la misma frecuencia que recibes el extracto
+- Reabre solo cuando realmente debas corregir una fecha ya cerrada

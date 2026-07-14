@@ -1,27 +1,74 @@
 ---
 title: Punto de venta
-description: 'Ventas rápidas en mostrador o caja con cobro y cierres'
+description: 'Sesiones, ventas, hold, favoritos, cortesías, desembolsos y cierres'
 ---
 
 # Punto de venta
 
 ## Qué es este módulo
 
-El **Punto de venta** (POS) está optimizado para cobrar en persona de forma ágil: escanear o buscar productos, aplicar descuentos si corresponde, cobrar con distintos medios de pago y emitir el comprobante al cliente.
+El **Punto de venta** (POS) está optimizado para cobrar en persona: buscar productos, cobrar con varios medios, gestionar el turno de caja y emitir el comprobante.
 
-## Uso típico
+## Sesión de caja
 
-1. Abre el módulo desde el icono **Punto de Venta** en la barra lateral.
-2. Selecciona la **caja** o turno con el que vas a operar, si el sistema lo solicita.
-3. Agrega líneas al ticket (productos o servicios).
-4. Indica el **método de pago** (efectivo, tarjeta, transferencia, etc.).
-5. Finaliza la venta para generar el documento y, si aplica, abrir cajón o impresión.
+Antes de vender debes **abrir una sesión**:
 
-## Reportes y cierres
+1. Elige la **caja** y el **monto inicial**
+2. Confirma la apertura
+3. Opera ventas, hold, desembolsos y transferencias dentro de ese turno
+4. Al final, **cierra la sesión**
 
-Según la configuración de tu organización, podrás consultar **reportes de ventas del POS** y realizar **cierres de caja** para cuadrar lo cobrado con lo declarado.
+### Cierre de turno
+
+- En **Configuración → Punto de Venta** puedes permitir o no que el cajero vea el **efectivo esperado** (arqueo ciego vs supervisado). Detalle en [Configuración](/introduccion/configuracion).
+- El efectivo esperado considera ventas en efectivo menos desembolsos y transferencias del turno (sin incluir el balance de apertura).
+- Tras cerrar puedes consultar el **reporte Z** y reportes de la sesión (facturas, productos, clientes, vendedores).
+
+## Nueva venta
+
+1. Abre **Nueva venta** con la sesión activa
+2. Agrega productos (búsqueda, código de barras o categorías)
+3. Aplica descuentos o [cortesías](#favoritos-y-cortesías) si tienes permiso
+4. Cobra con uno o varios métodos de pago
+5. Imprime o envía el comprobante
+
+### Órdenes en hold
+
+Puedes **suspender** una venta y retomarla después desde **Órdenes en hold**, útil cuando el cliente deja el ticket mientras sigue comprando.
+
+### Facturas a crédito
+
+Con permiso, puedes emitir a crédito y más tarde **cobrar facturas pendientes** desde el mismo POS sin cambiar de módulo.
+
+### Enviar a cocina
+
+Si tienes el módulo [Restaurantes](/restaurantes/tablero), puedes enviar líneas a cocina desde el mostrador.
+
+## Desembolsos y transferencias de efectivo
+
+Durante el turno, en **Acciones rápidas**:
+
+- **Desembolso**: sacar efectivo (gastos menores del turno, retiros, etc.; puede requerir autorización/supervisor según configuración)
+- **Transferencia de efectivo**: mover dinero a otra caja sin cerrar sesión
+
+Ambas afectan el efectivo esperado al cierre. Las [alertas de límite](/cajas-y-bancos/cajas) se configuran por usuario en la caja de ventas.
+
+## Favoritos y cortesías
+
+- **Favoritos**: acceso rápido a productos frecuentes en grilla
+- **Cortesías**: opciones de descuento o cortesía definidas por la organización
+
+Administra ambos desde el menú del POS según permisos.
+
+## Reportes
+
+Además de los reportes por sesión:
+
+- Ventas del período desde el tablero del POS
+- Reporte de **propina legal** y generación de novedades para nómina, cuando tu negocio lo use
 
 ## Recomendaciones
 
-- Cierra caja con la periodicidad que defina tu negocio (turno, día) para detectar diferencias a tiempo.
-- Si algo no cuadra, revisa primero los tickets anulados o pendientes antes del cierre.
+- Abre y cierra caja con la periodicidad de tu turno
+- Si no cuadra, revisa hold pendientes, desembolsos, transferencias y tickets anulados
+- Capacita al equipo en arqueo ciego vs esperado según tu política de control

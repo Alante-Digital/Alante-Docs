@@ -18,7 +18,9 @@
         "pages": [
           "introduccion/introduction",
           "introduccion/navegacion-y-modulos",
+          "introduccion/calendario-y-tareas",
           "introduccion/configuracion",
+          "introduccion/monedas",
           "introduccion/usuarios",
           "actualizaciones"
         ]
@@ -51,7 +53,14 @@
       {
         "group": "Compras y Gastos",
         "pages": [
-          "compras-y-gastos/tablero"
+          "compras-y-gastos/tablero",
+          "compras-y-gastos/compras",
+          "compras-y-gastos/gastos",
+          "compras-y-gastos/gastos-recurrentes",
+          "compras-y-gastos/suplidores",
+          "compras-y-gastos/recibos-de-pago",
+          "compras-y-gastos/notas-credito",
+          "compras-y-gastos/reportes"
         ]
       },
       {
@@ -75,7 +84,14 @@
       {
         "group": "Cajas y Bancos",
         "pages": [
-          "cajas-y-bancos/tablero"
+          "cajas-y-bancos/tablero",
+          "cajas-y-bancos/cajas",
+          "cajas-y-bancos/bancos-y-movimientos",
+          "cajas-y-bancos/conciliacion-bancaria",
+          "cajas-y-bancos/pasarelas-de-pago",
+          "cajas-y-bancos/transferencias-pendientes",
+          "cajas-y-bancos/prestamos",
+          "cajas-y-bancos/reportes"
         ]
       },
       {
@@ -116,7 +132,13 @@
       {
         "group": "CRM",
         "pages": [
-          "crm/tablero"
+          "crm/tablero",
+          "crm/empresas",
+          "crm/contactos",
+          "crm/campanas",
+          "crm/pipelines",
+          "crm/oportunidades",
+          "crm/reportes"
         ]
       },
       {
@@ -145,7 +167,14 @@
       {
         "group": "Soporte al cliente",
         "pages": [
-          "soporte/modulo-soporte"
+          "soporte/modulo-soporte",
+          "soporte/tickets",
+          "soporte/agentes-y-clientes",
+          "soporte/base-conocimientos",
+          "soporte/automatizacion-y-sla",
+          "soporte/whatsapp",
+          "soporte/configuracion-canales",
+          "soporte/reportes"
         ]
       }
     ]

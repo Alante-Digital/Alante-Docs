@@ -41,6 +41,27 @@ Después de guardar puedes:
 - **Editar o eliminar** (si no está emitida)
 - **Aplicar nota de crédito** si necesitas anular o ajustar
 
+## Link de pago con Azul Dominicana
+
+Si tu organización tiene activo el **Link de Pago de Azul Dominicana**, tus clientes pueden pagar facturas pendientes con tarjeta desde el correo de la factura o desde la **vista pública**.
+
+### Cómo se configura
+
+1. Ve a **Configuración → Integraciones → Link de Pago Azul**
+2. Activa el botón de pago en facturas públicas
+3. Completa Merchant ID, Private Key, moneda del comercio y la pasarela donde se registrará el cobro
+4. (Opcional) indica un email de notificación al aprobar pagos
+
+Requiere un contrato de Link de Pago / Payment Page con Azul Dominicana. No es lo mismo que el cobro con tarjeta 3DS del Punto de Venta.
+
+### Qué ocurre al pagar
+
+- El cliente es redirigido a la página segura de Azul
+- Al aprobar el pago, el sistema registra un **recibo de cobro** automáticamente
+- El equipo puede recibir un aviso por email según la configuración
+
+Solo aplica a facturas con saldo pendiente y moneda compatible con la configuración.
+
 ## Branding y pie de factura
 
 Si manejas varias marcas:
@@ -53,6 +74,7 @@ Si manejas varias marcas:
 - Flujo guiado que evita errores
 - Cálculos automáticos de ITBIS y totales
 - Acciones rápidas para imprimir, cobrar o enviar
+- Vista pública de factura (y pago en línea con Azul si está activo) sin que el cliente tenga usuario
 
 Con pocos clics tienes tu factura lista y profesional.
 
