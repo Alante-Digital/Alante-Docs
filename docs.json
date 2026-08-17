@@ -10,6 +10,9 @@
   "fonts": {
     "family": "Inter"
   },
+  "icons": {
+    "library": "fontawesome"
+  },
   "favicon": "/favicon.svg",
   "navigation": {
     "groups": [
@@ -17,9 +20,11 @@
         "group": "Comenzando",
         "pages": [
           "introduccion/introduction",
+          "introduccion/primeros-pasos",
           "introduccion/navegacion-y-modulos",
           "introduccion/calendario-y-tareas",
           "introduccion/configuracion",
+          "introduccion/facturacion-electronica",
           "introduccion/monedas",
           "introduccion/usuarios",
           "actualizaciones"
@@ -41,13 +46,21 @@
       {
         "group": "Punto de venta",
         "pages": [
-          "punto-de-venta/tablero"
+          "punto-de-venta/tablero",
+          "punto-de-venta/sesiones",
+          "punto-de-venta/nueva-venta",
+          "punto-de-venta/favoritos-y-cortesias",
+          "punto-de-venta/reportes"
         ]
       },
       {
         "group": "Restaurantes",
         "pages": [
-          "restaurantes/tablero"
+          "restaurantes/tablero",
+          "restaurantes/configuracion",
+          "restaurantes/mesas-y-cuentas",
+          "restaurantes/cocina",
+          "restaurantes/cobro-con-pos"
         ]
       },
       {
@@ -161,7 +174,11 @@
       {
         "group": "Proyectos",
         "pages": [
-          "proyectos/tablero"
+          "proyectos/tablero",
+          "proyectos/crear-y-gestionar",
+          "proyectos/tareas-kanban",
+          "proyectos/miembros-y-etiquetas",
+          "proyectos/mis-tareas-y-notificaciones"
         ]
       },
       {
@@ -175,6 +192,12 @@
           "soporte/whatsapp",
           "soporte/configuracion-canales",
           "soporte/reportes"
+        ]
+      },
+      {
+        "group": "API e integraciones",
+        "pages": [
+          "api-facturacion-electronica"
         ]
       }
     ]

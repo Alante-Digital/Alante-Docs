@@ -1,34 +1,59 @@
 ---
 title: Vista general del módulo Fiscal
-description: 'Cómo está organizado el módulo Fiscal y por dónde empezar'
+description: 'Autorizaciones, e-CF, comprobantes y reportes DGII'
+icon: 'scale-balanced'
 ---
 
-# Vista general del módulo Fiscal
+El módulo **Fiscal** concentra comprobantes electrónicos, autorizaciones ante la DGII y reportes de cumplimiento.
 
-## Introducción
+<img src="/images/icons/fiscal.svg" alt="Icono Fiscal" width="48" height="48" />
 
-El módulo **Fiscal** concentra todo lo relacionado con **comprobantes electrónicos**, **autorizaciones** ante la DGII (República Dominicana) y **reportes** para cumplimiento. En el menú lateral verás las secciones en el orden en que conviene trabajarlas la mayoría de los días.
+## Cómo está organizado
 
-## Cómo está organizado el menú
+Esta página resume el módulo. En el menú lateral la primera sección suele ser **Autorizaciones**.
 
-Cuando abres **Fiscal** desde la barra de aplicaciones, la primera opción del menú es **Autorizaciones**: ahí administras los **lotes** y **secuencias** de comprobantes (NCF / e-CF) que la DGII te ha autorizado.
+<Columns cols={2}>
+  <Card title="Autorizaciones" icon="key" href="/fiscal/autorizaciones">
+    Lotes y secuencias de NCF / e-CF.
+  </Card>
+  <Card title="Documentos fiscales" icon="file-lines" href="/fiscal/documentos-fiscales">
+    Comprobantes emitidos por tu empresa.
+  </Card>
+  <Card title="Comprobantes recibidos" icon="inbox" href="/fiscal/comprobantes-recibidos">
+    e-CF que otros te emitieron.
+  </Card>
+  <Card title="Gastos menores" icon="receipt" href="/fiscal/gastos-menores">
+    Registro y emisión cuando aplique.
+  </Card>
+  <Card title="Recordatorios" icon="bell" href="/fiscal/recordatorios">
+    Secuencias por agotarse e hitos fiscales.
+  </Card>
+  <Card title="Reportes" icon="chart-column" href="/fiscal/reportes">
+    607, 606, retenciones e IT1 según tu menú.
+  </Card>
+</Columns>
 
-Luego encontrarás, entre otras:
+## Por dónde empezar
 
-- **Documentos fiscales**: comprobantes **emitidos** por tu empresa.
-- **Comprobantes recibidos**: e-CF que **otros** te han emitido.
-- **Gastos menores**: registro y emisión de comprobantes de gastos menores, cuando aplique.
-- **Recordatorios**: avisos por secuencias próximas a agotarse o hitos fiscales.
-- **Reportes**: acceso al listado de reportes (607, 606, retenciones, etc.).
+<Steps>
+  <Step title="Certificar e-CF (si aplica)">
+    Guía de usuario: [Facturación electrónica](/introduccion/facturacion-electronica).
+  </Step>
+  <Step title="Cargar autorizaciones">
+    Sin lotes activos no podrás emitir. Ver [Autorizaciones](/fiscal/autorizaciones).
+  </Step>
+  <Step title="Operar el mes">
+    Emite desde Ventas/POS, revisa documentos y genera reportes al cierre.
+  </Step>
+</Steps>
 
-No existe una pantalla separada llamada “Tablero” dentro del menú Fiscal: esta página resume el **conjunto del módulo** para orientarte antes de entrar a cada sección.
+```mermaid
+flowchart LR
+  A[Autorizaciones] --> B[Emitir en Ventas/POS]
+  B --> C[Documentos fiscales]
+  C --> D[Reportes 606/607]
+```
 
-## Recomendaciones
-
-- Antes de facturar, confirma que tienes **autorizaciones activas** con secuencias disponibles.
-- Antes de cada cierre mensual, revisa **Documentos fiscales** y los **reportes** que use tu contador.
-
-## Por qué es fácil
-
-- Cada tipo de documento tiene su propia lista y filtros claros.
-- Los recordatorios ayudan a no quedarte sin secuencias disponibles.
+<Warning>
+  Antes de facturar en producción, confirma secuencias disponibles y que el certificado e-CF no esté vencido.
+</Warning>

@@ -1,0 +1,84 @@
+---
+title: Nueva venta
+description: 'Carrito, métodos de pago, hold, crédito y envío a cocina'
+icon: 'cart-shopping'
+---
+
+La pantalla **Nueva venta** es el corazón del POS: buscas productos, armas el ticket y cobras.
+
+## Requisitos
+
+- Tener una [sesión abierta](/punto-de-venta/sesiones).
+- Productos con precio (y stock, si controlas inventario).
+- Cliente opcional (o cliente de contado).
+
+## Flujo de una venta
+
+<Steps>
+  <Step title="Agregar productos">
+    Busca por nombre, SKU o código de barras; o usa categorías y [favoritos](/punto-de-venta/favoritos-y-cortesias).
+  </Step>
+  <Step title="Ajustar el ticket">
+    Cambia cantidades, aplica descuento por línea, quita ingredientes o elige bloques de opciones si el producto tiene [receta / modificadores](/inventario/recetas).
+  </Step>
+  <Step title="Cliente e impuestos">
+    Selecciona o crea el cliente. El sistema calcula ITBIS; en algunos casos puedes ajustarlo según permiso.
+  </Step>
+  <Step title="Cobrar">
+    Elige uno o varios métodos de pago hasta cubrir el total. Imprime o envía el comprobante.
+  </Step>
+</Steps>
+
+## Métodos de pago
+
+| Método | Qué debes indicar |
+| --- | --- |
+| **Efectivo** | Monto recibido; el sistema calcula el cambio |
+| **Transferencia** | Monto y cuenta / pasarela de destino |
+| **Tarjeta** | Monto (y flujo 3DS si tu integración lo usa en mostrador) |
+| **Cheque** | Monto, número y banco |
+| **Saldo a favor** | Aplica crédito previo del cliente |
+| **Cortesía** | Según [cortesías](/punto-de-venta/favoritos-y-cortesias) autorizadas |
+| **Factura a crédito** | Deja saldo pendiente en cuentas por cobrar |
+
+Puedes **combinar** métodos (por ejemplo mitad efectivo y mitad transferencia).
+
+## Órdenes en hold
+
+Cuando el cliente deja el ticket a medias:
+
+1. Pulsa **Hold** / suspender.
+2. Retoma después desde **Órdenes en hold**.
+3. Completa el cobro o cancela la orden suspendida.
+
+<Tip>
+  Antes de cerrar la sesión, revisa holds abiertos para no dejar ventas a medias.
+</Tip>
+
+## Cobrar facturas a crédito
+
+Desde el POS puedes buscar **facturas pendientes**, ver el saldo y registrar el cobro sin salir a Ventas. Se genera el recibo y se actualiza la cuenta por cobrar.
+
+## Multimoneda
+
+Si tu organización tiene [monedas](/introduccion/monedas) activas, el POS puede cobrar en la moneda configurada para la caja/sesión. La contabilidad se refleja en la moneda base según el tipo de cambio.
+
+## Enviar a cocina (Restaurantes)
+
+Si el módulo [Restaurantes](/restaurantes/tablero) está activo y tienes permiso:
+
+1. En Nueva venta aparece **Enviar a cocina**.
+2. Indica tipo de orden y notas.
+3. Al completar (o según el flujo), se crea la orden en cocina ligada a la venta.
+
+Para mesas con cuenta abierta, el cobro suele iniciar desde Restaurantes → **Cobrar en POS**. Ver [Cobro con POS](/restaurantes/cobro-con-pos).
+
+## Pantalla de cliente (CFD)
+
+Algunas instalaciones usan una pantalla orientada al cliente (CFD) que muestra el total mientras cobras. Se configura según tu hardware y la opción disponible en el POS.
+
+## Buenas prácticas
+
+- Verifica el almacén activo si vendes desde varios depósitos.
+- Usa cortesía solo con permiso y motivo claro.
+- Imprime o envía el ticket al cliente antes de la siguiente venta en cola.

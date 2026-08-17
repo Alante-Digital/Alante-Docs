@@ -1,25 +1,35 @@
 ---
 title: Usuarios y roles
 description: 'Invitar usuarios, roles, permisos y cambio de organización'
+icon: 'user-group'
 ---
 
 Administrar usuarios en Alante Digital es sencillo y seguro. Con roles y permisos controlas quién ve o edita cada módulo.
 
 ## Roles y permisos
 
-1. Ve a **Configuración → Roles** (o Usuarios / Roles según el menú)
-2. Crea un rol con nombre y descripción (por ejemplo Vendedor, Contador, Cajero)
-3. Marca los permisos por módulo (ver, crear, editar, reportes, etc.)
-4. Guarda
+<Steps>
+  <Step title="Abrir Roles">
+    Ve a **Configuración → Roles** (o Usuarios / Roles según el menú).
+  </Step>
+  <Step title="Crear el rol">
+    Nombre y descripción (por ejemplo Vendedor, Contador, Cajero).
+  </Step>
+  <Step title="Marcar permisos">
+    Por módulo: ver, crear, editar, reportes, anular, etc.
+  </Step>
+  <Step title="Guardar">
+    Asigna el rol al invitar o editar usuarios.
+  </Step>
+</Steps>
 
 Puedes limitar pantallas sensibles (nómina, bancos, fiscal, anular ventas) a roles específicos.
 
 ## Invitar usuarios
 
-1. Ve a **Configuración → Usuarios**
-2. **Nuevo usuario** / Enviar invitación
-3. Indica el **correo** y el **rol**
-4. La persona recibe el email, completa nombre y contraseña, y queda lista para trabajar
+1. **Configuración → Usuarios → Nuevo usuario** / Enviar invitación
+2. Indica el **correo** y el **rol**
+3. La persona recibe el email, completa nombre y contraseña, y queda lista
 
 ### Gestionar invitaciones
 
@@ -27,21 +37,28 @@ Puedes limitar pantallas sensibles (nómina, bancos, fiscal, anular ventas) a ro
 - **Cancelar** una invitación pendiente
 - Editar el rol de un usuario activo cuando cambien sus responsabilidades
 
+## Ejemplo de roles
+
+| Rol | Permisos típicos |
+| --- | --- |
+| **Cajero** | POS (vender, cerrar su sesión), ver productos |
+| **Vendedor** | Facturas, cotizaciones, clientes; sin bancos ni nómina |
+| **Contador** | Contabilidad, fiscal, reportes; sin anular POS |
+| **Gerente** | La mayoría de módulos operativos y reportes |
+
 ## Propietario y miembros
 
 Quien crea la organización suele ser el **propietario** (acceso amplio). El resto son **miembros** con el rol que les asignes.
 
 ## Varias organizaciones
 
-Si tu usuario pertenece a más de una empresa, usa el **selector de organización** en el menú de usuario (arriba a la derecha). Cada organización tiene sus propios datos, roles y módulos contratados.
+Si tu usuario pertenece a más de una empresa, usa el **selector de organización** en el menú de usuario. Cada organización tiene sus propios datos, roles y módulos contratados.
 
 ## Relación con Soporte y RRHH
 
 - Los **agentes** de Soporte son usuarios con acceso a ese módulo
 - Los **empleados** de RRHH son fichas laborales; no sustituyen la cuenta de usuario salvo que la persona también tenga acceso al sistema
 
-## Beneficios
-
-- Control de accesos por área
-- Seguridad y trazabilidad
-- Altas de equipo en minutos con invitación por email
+<Tip>
+  Revisa permisos después de activar un módulo nuevo (Restaurantes, CRM, etc.): el rol puede necesitar casillas adicionales.
+</Tip>

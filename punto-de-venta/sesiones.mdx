@@ -1,0 +1,74 @@
+---
+title: Sesiones de caja
+description: 'Abrir, suspender y cerrar turnos; desembolsos, transferencias y reporte Z'
+icon: 'clock'
+---
+
+Una **sesión** es el turno de un cajero sobre una caja: desde la apertura con fondo inicial hasta el cierre con arqueo.
+
+## Antes de abrir
+
+- Tu usuario debe tener una **caja asignada** (en [Cajas](/cajas-y-bancos/cajas)).
+- Conoce el **monto inicial** (fondo de cambio).
+- Si hay varias sucursales/almacenes, confirma el almacén desde el que venderás.
+
+## Abrir sesión
+
+<Steps>
+  <Step title="Ir a Sesiones">
+    En el menú del POS elige **Sesiones** (o abre sesión desde el tablero).
+  </Step>
+  <Step title="Elegir caja y monto">
+    Selecciona la caja e indica el efectivo inicial.
+  </Step>
+  <Step title="Confirmar">
+    La sesión queda en estado **abierta** y ya puedes vender.
+  </Step>
+</Steps>
+
+## Estados de la sesión
+
+| Estado | Significado |
+| --- | --- |
+| **Abierta** | Turno activo; puedes vender, hacer hold, desembolsos y transferencias |
+| **Suspendida** | Pausa temporal (cambio de cajero o descanso) sin cerrar el arqueo |
+| **Cerrada** | Turno finalizado; ya no admite ventas |
+
+## Desembolsos y transferencias
+
+Durante el turno, en **Acciones rápidas**:
+
+<Columns cols={2}>
+  <Card title="Desembolso" icon="money-bill-transfer" type="note">
+    Sacar efectivo del cajón (gasto menor, retiro a bóveda, etc.). Puede pedir autorización de supervisor según configuración.
+  </Card>
+  <Card title="Transferencia de efectivo" icon="right-left" type="tip">
+    Mover dinero a otra caja **sin cerrar** la sesión. Útil cuando una caja se llena.
+  </Card>
+</Columns>
+
+Ambas afectan el **efectivo esperado** al cierre. Las [alertas de límite](/cajas-y-bancos/cajas) se configuran por usuario en la caja de ventas.
+
+## Cerrar el turno
+
+1. Asegúrate de no dejar **órdenes en hold** sin resolver (o déjalas documentadas).
+2. Inicia el **cierre** e indica el efectivo contado (y otros medios según la pantalla).
+3. Según **Configuración → Punto de Venta**:
+   - **Con efectivo esperado visible**: el sistema muestra cuánto debería haber (ventas en efectivo − desembolsos − transferencias, sin el fondo de apertura en el cálculo de esperado de movimiento).
+   - **Arqueo ciego**: el cajero solo cuenta; un supervisor compara después.
+4. Confirma el cierre. Revisa diferencias si las hay.
+
+### Reporte Z y reportes de sesión
+
+Tras cerrar (o desde el detalle de la sesión) puedes consultar:
+
+- **Reporte Z** — resumen del turno
+- Facturas / productos / clientes / vendedores del turno
+
+<Warning>
+  Si el efectivo no cuadra, revisa hold pendientes, desembolsos, transferencias, anulaciones y tickets de cortesía antes de forzar un ajuste.
+</Warning>
+
+## Ejemplo
+
+María abre la caja «Mostrador» con RD$2,000. Durante el turno vende RD$15,000 en efectivo, hace un desembolso de RD$500 y transfiere RD$3,000 a la caja fuerte. Al cerrar, el efectivo esperado de movimiento refleja esas salidas; María cuenta el cajón y cierra la sesión. El supervisor revisa el Z-Report al final del día.

@@ -1,30 +1,46 @@
 ---
 title: CRM
 description: 'Empresas, contactos, campañas, pipelines, oportunidades y reportes'
+icon: 'handshake'
 ---
-
-# CRM
-
-## Qué es este módulo
 
 El **CRM** organiza la cartera comercial: prospectos, clientes, seguimiento y embudo de oportunidades. Según el plan, puede estar disponible junto a Ventas y Soporte.
 
+<img src="/images/icons/crm.svg" alt="Icono CRM" width="48" height="48" />
+
 ## Secciones
 
-| Sección | Documentación |
-| --- | --- |
-| Empresas | [Empresas](/crm/empresas) |
-| Contactos | [Contactos](/crm/contactos) |
-| Campañas | [Campañas](/crm/campanas) |
-| Pipelines | [Pipelines](/crm/pipelines) |
-| Oportunidades | [Oportunidades](/crm/oportunidades) |
-| Reportes | [Reportes CRM](/crm/reportes) |
+<Columns cols={2}>
+  <Card title="Empresas" icon="building" href="/crm/empresas">
+    Cuentas y cuentas potenciales.
+  </Card>
+  <Card title="Contactos" icon="address-book" href="/crm/contactos">
+    Personas vinculadas a cada empresa.
+  </Card>
+  <Card title="Campañas" icon="bullhorn" href="/crm/campanas">
+    Acciones comerciales agrupadas.
+  </Card>
+  <Card title="Pipelines" icon="filter" href="/crm/pipelines">
+    Etapas del embudo de venta.
+  </Card>
+  <Card title="Oportunidades" icon="sack-dollar" href="/crm/oportunidades">
+    Negocios en curso y su valor.
+  </Card>
+  <Card title="Reportes" icon="chart-column" href="/crm/reportes">
+    Conversión y desempeño comercial.
+  </Card>
+</Columns>
 
 ## Actividades
 
 En empresas y oportunidades usas el mismo panel de **actividades** (llamada, email, reunión, demo, tarea, nota) que en [Clientes](/ventas/clientes).
 
-## Recomendaciones
+## Ejemplo breve
 
-- Mantén actualizadas las etapas del pipeline para que los reportes reflejen la realidad
-- Vincula contactos a empresas para no perder contexto
+1. Creas la empresa “Acme SRL” y el contacto María.
+2. Abres una oportunidad “Licencia anual” en el pipeline Comercial, etapa Propuesta.
+3. Registras una actividad Reunión para el jueves; al ganar, conviertes el avance en factura desde Ventas.
+
+<Tip>
+  Mantén actualizadas las etapas del pipeline para que los reportes reflejen la realidad. Vincula contactos a empresas para no perder contexto.
+</Tip>

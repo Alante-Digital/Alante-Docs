@@ -1,59 +1,46 @@
 ---
 title: Restaurantes
-description: 'Configuración, mesas, cocina, cuentas separadas y cobro en POS'
+description: 'Mesas, cocina, menús, cuentas separadas y cobro en POS'
+icon: 'utensils'
 ---
 
-# Restaurantes
+El módulo **Restaurantes** cubre el servicio en mesas: configuración del local, toma de pedidos, cocina (KDS) y cobro (incluido separar cuentas).
 
-## Qué es este módulo
+<img src="/images/icons/restaurantes.svg" alt="Icono Restaurantes" width="56" height="56" />
 
-**Restaurantes** cubre el servicio en mesas: configuración del local, toma de pedidos, cocina y cobro (incluido separar cuentas).
+## Guías de este módulo
 
-## Configuración inicial (orden recomendado)
+<Columns cols={2}>
+  <Card title="Configuración inicial" icon="gears" href="/restaurantes/configuracion">
+    Sucursales, zonas, estaciones, menús y mesas.
+  </Card>
+  <Card title="Mesas y cuentas" icon="chair" href="/restaurantes/mesas-y-cuentas">
+    Abrir mesa, tomar orden, separar cuentas y pre-cuenta.
+  </Card>
+  <Card title="Cocina (KDS)" icon="fire-burner" href="/restaurantes/cocina">
+    Estaciones, estados de platos e impresión de comanda.
+  </Card>
+  <Card title="Cobro con POS" icon="cash-register" href="/restaurantes/cobro-con-pos">
+    Enviar a cobro, liberar mesa e integración fast-food.
+  </Card>
+</Columns>
 
-1. **Estaciones** de cocina (parrilla, bebidas, postres…) y vínculo con categorías de inventario si aplica
-2. **Sucursales** (locales)
-3. **Zonas** (terraza, salón, barra)
-4. **Menús** e ítems con precios y disponibilidad
-5. **Mesas** (numeración y disposición)
+## Tablero
 
-Sin menú y mesas listos, el mapa operativo no sirve en un día de alta demanda.
+El tablero muestra órdenes activas, ocupación y accesos rápidos a mesas y cocina. Úsalo al inicio del turno para ver el estado del salón.
 
-## Operación del día
+## Flujo del servicio
 
-### Tablero
+```mermaid
+flowchart LR
+  A[Abrir mesa] --> B[Tomar pedido]
+  B --> C[Enviar a cocina]
+  C --> D[Preparar / Listo]
+  D --> E[Pre-cuenta]
+  E --> F[Cobrar en POS]
+  F --> G[Liberar mesa]
+```
 
-Vista de pedidos activos y accesos rápidos.
-
-### Mesas
-
-Estado de cada mesa (libre, ocupada, cuenta…). Abre la mesa, indica comensales, agrega productos, notas y mesero, y **envía a cocina**.
-
-### Separar mesas (cuentas independientes)
-
-Cuando comparten mesa pero pagan por separado:
-
-1. Activa la separación de cuentas en la mesa u orden
-2. Crea **Cuenta 1, 2…** (o sepárala antes de tomar la orden)
-3. Asigna o mueve productos entre cuentas
-4. Imprime **pre-cuenta** y cobra cada cuenta en el [POS](/punto-de-venta/tablero)
-
-Los pagos quedan sincronizados con cada cuenta. Útil para quien se va antes o para dividir por persona/grupo.
-
-### Cocina (KDS)
-
-Pantalla de preparación filtrable por estación: órdenes entrantes y estado de cada plato. Reduce tiempos y pedidos olvidados. Puedes imprimir comanda según la configuración.
-
-## Cobro
-
-1. Desde la mesa (o cuenta) envía a cobro
-2. Completa el pago en el **Punto de venta** (quedará asociada a la sesión de caja)
-3. Cancela órdenes solo con el flujo auditado del sistema
-
-El POS de mostrador también puede **enviar a cocina** para servicio sin mesa.
-
-## Recomendaciones
-
-- Configura estaciones y menús antes del fin de semana pico
-- Entrena a meseros en separación de cuentas y a cocina en el KDS
-- Cierra cuentas en el POS con la misma caja del turno
+<Tip>
+  Configura estaciones y menús **antes** del fin de semana pico. Sin menú y mesas listos, el mapa operativo no sirve en alta demanda.
+</Tip>

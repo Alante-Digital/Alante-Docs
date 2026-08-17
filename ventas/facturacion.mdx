@@ -1,80 +1,106 @@
 ---
 title: Facturación
-description: 'Sección principal para crear y consultar facturas'
+description: 'Crear, emitir, cobrar y enviar facturas; link de pago Azul'
+icon: 'file-invoice-dollar'
 ---
 
-Facturar en Alante Digital es rápido y seguro. El sistema guía cada paso, calcula impuestos automáticamente y deja todo listo para imprimir, enviar o cobrar.
+Facturar en Alante Digital es rápido y seguro: el sistema guía cada paso, calcula impuestos y deja el documento listo para imprimir, enviar o cobrar.
 
 ## Antes de comenzar
 
 Ten a mano:
 
 - El cliente (nombre, RNC o teléfono)
-- Los productos o servicios que vas a facturar
-- El tipo de comprobante que deseas emitir
+- Los productos o servicios
+- El tipo de comprobante / NCF que vas a emitir
+- Lotes activos en [Autorizaciones](/fiscal/autorizaciones) si emites fiscalmente
 
 ## Crear una factura
 
-1. Ve a **Ventas > Facturación**
-2. Haz clic en **Nueva factura**
-3. Selecciona el cliente (puedes crearlo desde el mismo formulario)
-4. Define fecha de emisión y vencimiento (si es a crédito)
-5. Selecciona el tipo de pago (crédito o contado)
-6. Agrega productos o servicios
-7. Revisa precios, descuentos e ITBIS
-8. Agrega notas si lo necesitas
-9. Guarda o emite la factura
+<Steps>
+  <Step title="Abrir el formulario">
+    Ve a **Ventas → Facturación → Nueva factura**.
+  </Step>
+  <Step title="Cliente y fechas">
+    Selecciona o crea el cliente. Define emisión y vencimiento (si es a crédito).
+  </Step>
+  <Step title="Condición de pago">
+    Elige crédito o contado.
+  </Step>
+  <Step title="Líneas">
+    Agrega productos o servicios, descuentos e ITBIS. Revisa totales.
+  </Step>
+  <Step title="Guardar o emitir">
+    Usa borrador, guardar o emitir según el caso (tabla siguiente).
+  </Step>
+</Steps>
 
 ## Opciones de guardado
 
-- **Guardar como borrador**: para completar luego
-- **Guardar factura**: registra la venta sin emitir fiscalmente
-- **Emitir factura**: genera el comprobante fiscal válido
+| Opción | Cuándo usarla |
+| --- | --- |
+| **Guardar como borrador** | Aún te faltan datos |
+| **Guardar factura** | Registra la venta sin emitir fiscalmente (según tu configuración) |
+| **Emitir factura** | Genera el comprobante fiscal válido (NCF / e-CF) |
 
-## Acciones disponibles en el detalle
+## Acciones en el detalle
 
 Después de guardar puedes:
 
-- **Aplicar pagos**
-- **Imprimir o descargar en PDF**
+- **Aplicar pagos** (o usar [recibos de cobro](/ventas/recibos-cobro))
+- **Imprimir / PDF**
 - **Enviar por email**
-- **Editar o eliminar** (si no está emitida)
-- **Aplicar nota de crédito** si necesitas anular o ajustar
+- **Editar o eliminar** (si no está emitida / según reglas)
+- **Aplicar nota de crédito** — [guía](/ventas/notas-credito)
+
+## Ejemplo: factura a crédito con cobro parcial
+
+1. Cliente “Distribuidora Norte”, crédito 30 días.
+2. Facturas RD$50,000 + ITBIS.
+3. Emiten el comprobante y envían el PDF.
+4. A los 10 días registran un [recibo de cobro](/ventas/recibos-cobro) de RD$20,000; el saldo queda en cuentas por cobrar.
+5. El cliente paga el resto con [Link de Pago Azul](#link-de-pago-con-azul-dominicana) desde el correo.
+
+```mermaid
+flowchart LR
+  C[Cotización] -->|aceptada| F[Factura]
+  F -->|emitir| E[NCF / e-CF]
+  E --> P[Cobro total o parcial]
+  P --> R[Recibo de cobro]
+```
 
 ## Link de pago con Azul Dominicana
 
-Si tu organización tiene activo el **Link de Pago de Azul Dominicana**, tus clientes pueden pagar facturas pendientes con tarjeta desde el correo de la factura o desde la **vista pública**.
+Si tu organización tiene activo el **Link de Pago de Azul Dominicana**, el cliente puede pagar facturas pendientes con tarjeta desde el correo o la **vista pública**.
 
-### Cómo se configura
+### Configuración
 
-1. Ve a **Configuración → Integraciones → Link de Pago Azul**
-2. Activa el botón de pago en facturas públicas
-3. Completa Merchant ID, Private Key, moneda del comercio y la pasarela donde se registrará el cobro
-4. (Opcional) indica un email de notificación al aprobar pagos
+1. **Configuración → Integraciones → Link de Pago Azul**
+2. Activa el botón en facturas públicas
+3. Merchant ID, Private Key, moneda y [pasarela](/cajas-y-bancos/pasarelas-de-pago) de destino
+4. (Opcional) email de aviso al aprobar pagos
 
-Requiere un contrato de Link de Pago / Payment Page con Azul Dominicana. No es lo mismo que el cobro con tarjeta 3DS del Punto de Venta.
+Requiere contrato de Link de Pago / Payment Page con Azul. No es lo mismo que el cobro con tarjeta 3DS del Punto de Venta.
 
 ### Qué ocurre al pagar
 
-- El cliente es redirigido a la página segura de Azul
-- Al aprobar el pago, el sistema registra un **recibo de cobro** automáticamente
-- El equipo puede recibir un aviso por email según la configuración
+- El cliente va a la página segura de Azul
+- Al aprobar, Alante registra un **recibo de cobro** automáticamente
+- El equipo puede recibir email según configuración
 
-Solo aplica a facturas con saldo pendiente y moneda compatible con la configuración.
+Solo aplica a facturas con saldo pendiente y moneda compatible.
 
 ## Branding y pie de factura
 
 Si manejas varias marcas:
 
-- Selecciona el **Branding** correspondiente
-- Puedes personalizar el **pie de factura** para ese documento
+- Selecciona el **Branding** del documento
+- Personaliza el **pie de factura** cuando lo necesites
 
-## Por qué es fácil
+## Facturación electrónica
 
-- Flujo guiado que evita errores
-- Cálculos automáticos de ITBIS y totales
-- Acciones rápidas para imprimir, cobrar o enviar
-- Vista pública de factura (y pago en línea con Azul si está activo) sin que el cliente tenga usuario
+Si ya certificaste e-CF, al **emitir** el sistema firma y envía a la DGII. Estado y XML/PDF: [Documentos fiscales](/fiscal/documentos-fiscales). Guía de certificación: [Facturación electrónica](/introduccion/facturacion-electronica).
 
-Con pocos clics tienes tu factura lista y profesional.
-
+<Tip>
+  ¿Vienes de una cotización? Ábrela y conviértela en factura con un clic — [Cotizaciones](/ventas/cotizaciones).
+</Tip>

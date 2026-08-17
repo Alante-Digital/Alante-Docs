@@ -1,43 +1,42 @@
 ---
 title: Proyectos
 description: 'Tablero, kanban, tareas, miembros y notificaciones'
+icon: 'diagram-project'
 ---
 
-# Proyectos
+**Proyectos** organiza el trabajo por iniciativas: tablero, kanban o tabla, miembros, etiquetas y notificaciones.
 
-## Qué es este módulo
+<img src="/images/icons/proyectos.svg" alt="Icono Proyectos" width="56" height="56" />
 
-**Proyectos** organiza trabajo por iniciativas: tablero, kanban o tabla de tareas, miembros, etiquetas y notificaciones.
+## Guías de este módulo
 
-## Secciones
+<Columns cols={2}>
+  <Card title="Crear y gestionar" icon="folder-plus" href="/proyectos/crear-y-gestionar">
+    Alta de proyectos, archivo y vistas principales.
+  </Card>
+  <Card title="Tareas y Kanban" icon="table-columns" href="/proyectos/tareas-kanban">
+    Columnas, arrastrar tareas, tabla y actividad.
+  </Card>
+  <Card title="Miembros y etiquetas" icon="users" href="/proyectos/miembros-y-etiquetas">
+    Equipo del proyecto y etiquetas de clasificación.
+  </Card>
+  <Card title="Mis tareas y avisos" icon="bell" href="/proyectos/mis-tareas-y-notificaciones">
+    Pendientes personales y notificaciones.
+  </Card>
+</Columns>
 
-### Tablero
+## Tablero
 
-Resumen del estado de los proyectos y accesos rápidos.
+Resumen del estado de los proyectos y actividad reciente. Ideal para empezar el día o la reunión semanal.
 
-### Proyectos
-
-1. Crea un proyecto con nombre, fechas y descripción
-2. Agrega **miembros** del equipo
-3. Define **columnas** (estados) y **etiquetas**
-4. Trabaja en vista **Kanban** (arrastrar tareas) o **Tabla**
-5. En cada tarea: responsables (uno o varios), comentarios, fechas y actividad
-6. **Archiva** el proyecto cuando termine
-
-### Notificaciones
-
-Avisos de cambios en proyectos o tareas donde participas.
-
-### Mis tareas
-
-Lista de lo que **tú** debes hacer en todos los proyectos, sin mezclar el trabajo del resto.
-
-## Relación con la lista global
+## Relación con la lista global de tareas
 
 La **lista de tareas** de la barra superior y el [calendario](/introduccion/calendario-y-tareas) incluyen pendientes generales (y actividades de clientes). **Mis tareas** de Proyectos se centra en el trabajo por iniciativa.
 
-## Recomendaciones
-
-- Revisa Mis tareas al inicio del día
-- Usa el Kanban en las reuniones de seguimiento semanal
-- No multipliques columnas: mantén un flujo simple (por hacer → en curso → hecho)
+```mermaid
+flowchart TB
+  P[Proyecto] --> K[Kanban / Tabla]
+  K --> T[Tareas]
+  T --> M[Miembros asignados]
+  T --> N[Notificaciones]
+```

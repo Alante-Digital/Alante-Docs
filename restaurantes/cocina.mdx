@@ -1,0 +1,36 @@
+---
+title: Cocina (KDS)
+description: 'Pantalla de cocina por estaciones, estados e impresión de comanda'
+icon: 'fire-burner'
+---
+
+El **KDS** (Kitchen Display System) es la pantalla de preparación: muestra lo enviado desde mesas o desde el POS.
+
+## Cómo usarlo
+
+1. Abre **Restaurantes → Cocina**.
+2. Filtra por **estación** (Bar, Parrilla, “Sin estación”, etc.).
+3. Avanza cada orden o ítem: enviada → en preparación → lista.
+4. Imprime **comanda** cuando necesites papel en estación.
+
+## Columnas típicas
+
+| Columna | Significado |
+| --- | --- |
+| **Enviadas** | Acaban de llegar; aún no se empezaron |
+| **En preparación** | Cocina trabajando |
+| **Listas** | Listas para servir / pickup |
+
+## Buenas prácticas
+
+- Una estación por tipo de trabajo evita ruido en pantalla.
+- Entrena al equipo a marcar **lista** apenas el plato salga; el salón depende de ese estado.
+- Revisa tiempos en el tablero si hay demoras recurrentes.
+
+<Warning>
+  No borres ítems desde cocina para “corregir” un error de mesero: usa el flujo de anulación / edición con permiso para mantener la auditoría.
+</Warning>
+
+## Relación con inventario
+
+Si los platos tienen [recetas](/inventario/recetas), el descuento de insumos ocurre según la configuración de producción/venta de tu organización (al cobrar o al producir). Coordina con Inventario antes de un cambio de menú grande.

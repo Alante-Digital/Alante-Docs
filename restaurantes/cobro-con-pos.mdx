@@ -1,0 +1,46 @@
+---
+title: Cobro con POS
+description: 'Cobrar mesas y cuentas en el punto de venta y enviar a cocina desde mostrador'
+icon: 'cash-register'
+---
+
+El cobro de restaurante se completa en el **Punto de venta**, asociado a la [sesión de caja](/punto-de-venta/sesiones) del turno.
+
+## Cobrar una mesa o cuenta
+
+<Steps>
+  <Step title="Desde la mesa">
+    Abre la mesa o la cuenta separada y elige **Cobrar en POS**.
+  </Step>
+  <Step title="Completar el pago">
+    Se abre (o retoma) la venta en el POS —a menudo en hold— para cobrar con los métodos habituales.
+  </Step>
+  <Step title="Liberar">
+    Al cerrar el cobro, la cuenta/mesa se actualiza y puedes liberar el salón.
+  </Step>
+</Steps>
+
+<Info>
+  Usa la misma caja del turno del restaurante para que el Z-Report y la propina legal cuadren.
+</Info>
+
+## Fast-food / mostrador sin mesa
+
+En **POS → Nueva venta**, si Restaurantes está activo:
+
+1. Activa **Enviar a cocina**.
+2. Indica tipo de orden y notas.
+3. Al crear/completar la venta se genera la orden en el KDS (`origen POS`), sin duplicar si ya existía.
+
+Detalle: [Nueva venta](/punto-de-venta/nueva-venta).
+
+## Propina legal
+
+Cuando aplica, el POS acumula propina legal del servicio en mesa. Consulta [Reportes del POS](/punto-de-venta/reportes) para el reporte y novedades de nómina.
+
+## Checklist de cierre de salón
+
+- [ ] No quedan cuentas abiertas sin cobro
+- [ ] Cocina sin órdenes colgadas en “enviadas”
+- [ ] Sesión de caja cerrada con Z-Report
+- [ ] Mesas en estado libre / limpieza según tu protocolo

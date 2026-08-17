@@ -1,0 +1,61 @@
+---
+title: Configuración de restaurante
+description: 'Sucursales, zonas, estaciones, menús y mesas administrativas'
+icon: 'gears'
+---
+
+Sigue este orden para dejar el restaurante listo para operar.
+
+## Orden recomendado
+
+<Steps>
+  <Step title="Sucursales">
+    Crea cada local y asócialo al [almacén](/inventario/almacenes) que descontará inventario.
+  </Step>
+  <Step title="Estaciones de cocina">
+    Define Bar, Parrilla, Postres, etc. Las estaciones alimentan el [KDS](/restaurantes/cocina).
+  </Step>
+  <Step title="Categorías → estación">
+    En inventario (o desde la configuración del menú), vincula categorías de productos a una estación para que los platos lleguen a la pantalla correcta.
+  </Step>
+  <Step title="Zonas">
+    Salón, terraza, barra… cada zona agrupa mesas en el plano.
+  </Step>
+  <Step title="Mesas (configuración)">
+    En **Mesas (Config)** crea numeración, capacidad y zona. Es distinto del mapa operativo de mesas.
+  </Step>
+  <Step title="Menús">
+    Arma menús por sucursal: categorías, ítems, precios y disponibilidad. Puedes indicar estación por categoría/sucursal.
+  </Step>
+</Steps>
+
+## Sucursales
+
+Una sucursal = un local operativo. Relaciónala con el almacén correcto para que al cobrar se descuente el stock del sitio adecuado.
+
+## Zonas y mesas
+
+| Concepto | Ejemplo |
+| --- | --- |
+| Zona | Terraza VIP |
+| Mesa | T-12, 4 personas |
+| Estado operativo | Libre, ocupada, limpieza… |
+
+## Menús
+
+1. Ve a **Restaurantes → Menús**.
+2. Crea o edita un menú.
+3. Agrega categorías e ítems (productos/servicios del inventario).
+4. Revisa precios y si el ítem debe ir a una estación concreta.
+
+<Info>
+  Los modificadores y bloques de opciones se definen en las [recetas](/inventario/recetas) del producto; el mesero los ve al agregar el plato.
+</Info>
+
+## Permisos típicos
+
+- **Admin / gerente**: configuración completa.
+- **Mesero**: operación de mesas y órdenes.
+- **Cocina**: solo KDS / estaciones asignadas.
+
+Detalle de roles: [Usuarios](/introduccion/usuarios).

@@ -1,9 +1,8 @@
 ---
 title: Navegación y módulos
 description: 'Cómo moverte por Alante Digital y qué hace cada área del sistema'
+icon: 'compass'
 ---
-
-# Navegación y módulos
 
 ## Barra lateral de aplicaciones
 
@@ -11,22 +10,29 @@ A la izquierda verás los iconos de las **aplicaciones** (módulos) a las que tu
 
 Al elegir un módulo, se abre el **menú lateral** de ese módulo con sus secciones (por ejemplo Facturación, Clientes, Reportes en Ventas).
 
+<img src="/images/icons/ventas.svg" alt="Icono de ejemplo del módulo Ventas" width="48" height="48" />
+
 ## Configuración y cierre de sesión
 
-En la parte inferior de la misma barra encontrarás el acceso a **Configuración** de la organización (datos generales, branding, integraciones, etc.) y la opción para **cerrar sesión**.
+En la parte inferior de la misma barra encontrarás:
+
+- **Configuración** de la organización (datos generales, branding, integraciones, etc.)
+- **Cerrar sesión**
 
 ## Barra superior
 
-En la parte superior de la pantalla suelen aparecer, entre otras cosas:
+En la parte superior de la pantalla suelen aparecer:
 
-- **Lista de tareas**: accesos rápidos a pendientes y recordatorios que te competen.
-- **Notificaciones**: avisos del sistema.
-- **Menú de usuario**: datos de tu cuenta y cambio de organización, si tienes más de una.
-- Acceso al **calendario** integrado (compras a pagar, eventos, cumpleaños, tareas). Ver [Calendario y tareas](/introduccion/calendario-y-tareas).
+| Elemento | Para qué sirve |
+| --- | --- |
+| **Lista de tareas** | Pendientes y recordatorios que te competen |
+| **Notificaciones** | Avisos del sistema (pagos, tickets, actividades…) |
+| **Menú de usuario** | Tu cuenta y cambio de organización |
+| **Calendario** | Compras a pagar, eventos, cumpleaños y tareas — [guía](/introduccion/calendario-y-tareas) |
 
-## Buscador general y acciones rápidas (Cmd+K)
+## Buscador general (Cmd+K / Ctrl+K)
 
-Desde cualquier pantalla puedes abrir la paleta de búsqueda con **Cmd+K** (Mac) o **Ctrl+K** (Windows).
+Desde cualquier pantalla abre la paleta con **Cmd+K** (Mac) o **Ctrl+K** (Windows).
 
 ### Acciones de creación
 
@@ -40,33 +46,46 @@ Escribe o selecciona para ir directo a crear, entre otras:
 
 También puedes saltar a los tableros de Ventas, Inventario, Contabilidad, Cajas y Bancos, CRM, RRHH, Soporte y al **Centro de ayuda**.
 
-### Permisos e inteligencia
+<Tip>
+  Solo ves las acciones de los módulos activos y para las que tu usuario tiene permiso. Escribe «factura», «gasto» o «inventario» para filtrar al instante.
+</Tip>
 
-Solo ves las acciones de los módulos activos en tu organización y para las que tu usuario tiene permiso. Escribe palabras clave como «factura», «gasto» o «inventario» para filtrar al instante.
+Las búsquedas de registros existentes (clientes, facturas, productos…) funcionan en la misma paleta cuando escribes sin elegir una acción de creación.
 
-Las búsquedas de registros existentes (clientes, facturas, productos, etc.) siguen funcionando en la misma paleta cuando escribes sin elegir una acción de creación.
+## Módulos disponibles
 
-## Módulos que puedes tener disponibles
+Según tu plan y permisos:
 
-Según tu plan y permisos, puede aparecerte alguno o todos de estos bloques:
-
-| En el sistema | Para qué sirve, en pocas palabras |
+| En el sistema | Para qué sirve |
 | --- | --- |
-| **Punto de Venta** | Cobrar en mostrador o caja con flujo rápido de venta. |
-| **Restaurantes** | Mesas, cocina, menús y operación de comedor. |
-| **Ventas** | Facturas, cotizaciones, clientes, cobros y reportes de ventas. |
-| **Compras y Gastos** | Compras a suplidores, gastos, pagos y reportes de egresos. |
-| **Inventario** | Productos, existencias, movimientos, almacenes y costos. |
-| **Cajas y Bancos** | Cajas físicas, cuentas bancarias, pasarelas de pago y conciliación. |
-| **Contabilidad** | Cuentas, diario, auxiliares y estados financieros. |
-| **Fiscal** | Autorizaciones DGII, comprobantes emitidos y recibidos, recordatorios y reportes tributarios. |
-| **CRM** | Empresas, contactos, campañas, oportunidades y embudos de venta. |
-| **Soporte** | Mesa de ayuda con tickets (si tu organización lo usa para atender clientes). |
-| **RRHH** | Empleados, nómina, vacaciones, TSS y prestaciones. |
-| **Proyectos** | Tablero de proyectos, listado, avisos y tus tareas. |
+| **Punto de Venta** | Cobrar en mostrador o caja con flujo rápido |
+| **Restaurantes** | Mesas, cocina, menús y operación de comedor |
+| **Ventas** | Facturas, cotizaciones, clientes, cobros y reportes |
+| **Compras y Gastos** | Compras, gastos, pagos y reportes de egresos |
+| **Inventario** | Productos, existencias, movimientos y costos |
+| **Cajas y Bancos** | Cajas, bancos, pasarelas y conciliación |
+| **Contabilidad** | Cuentas, diario, auxiliares y estados financieros |
+| **Fiscal** | Autorizaciones DGII, comprobantes y reportes |
+| **CRM** | Empresas, contactos, campañas y oportunidades |
+| **Soporte** | Mesa de ayuda con tickets |
+| **RRHH** | Empleados, nómina, vacaciones y TSS |
+| **Proyectos** | Tablero, kanban, tareas y notificaciones |
 
-Si no ves un módulo, puede deberse a que tu rol no tiene permiso o a que la organización no tiene contratada esa aplicación.
+Si no ves un módulo, puede deberse al rol o a que la organización no tiene contratada esa aplicación.
 
 ## Cambiar de organización
 
-Si tu usuario está en varias empresas, usa el selector de organización en el menú de usuario (arriba a la derecha). Cada organización tiene sus propios datos; al cambiar, verás la información correspondiente a la empresa elegida.
+Si tu usuario está en varias empresas, usa el selector en el menú de usuario (arriba a la derecha). Cada organización tiene sus propios datos; al cambiar, verás solo la información de la empresa elegida.
+
+```mermaid
+flowchart TB
+  subgraph barra [Barra de aplicaciones]
+    POS[POS]
+    V[Ventas]
+    I[Inventario]
+    F[Fiscal]
+    C[Configuración]
+  end
+  V --> MenuV[Menú: Facturas, Clientes…]
+  POS --> MenuP[Menú: Sesiones, Nueva venta…]
+```

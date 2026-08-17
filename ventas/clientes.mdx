@@ -1,88 +1,84 @@
-# Clientes
+---
+title: Clientes
+description: 'Ficha comercial, RST, estado de cuenta, importación y actividades'
+icon: 'address-book'
+---
 
-## Introducción
-
-La sección de Clientes te permite organizar toda la información comercial en un solo lugar: datos básicos, historial de ventas, actividades de seguimiento y estados de cuenta.
+La sección **Clientes** concentra la información comercial: datos básicos, historial de ventas, actividades de seguimiento y estados de cuenta.
 
 ## Crear un cliente
 
-1. Ve a **Ventas > Clientes**
-2. Haz clic en **Nuevo Cliente**
-3. Completa los datos principales
-4. Guarda
+<Steps>
+  <Step title="Abrir el alta">
+    **Ventas → Clientes → Nuevo Cliente**.
+  </Step>
+  <Step title="Datos principales">
+    Nombre, RNC o identificación, contactos, direcciones y condiciones de pago.
+  </Step>
+  <Step title="Guardar">
+    Queda disponible para facturar, cotizar y cobrar.
+  </Step>
+</Steps>
 
 ## Qué información puedes guardar
 
-- Datos de contacto
+- Datos de contacto y personas de contacto
 - RNC o identificación
 - Direcciones y teléfonos
-- Condiciones de pago
+- Condiciones de pago y **límite de crédito**
+- Campos personalizados (zona, vendedor, etc. — se definen en Configuración)
 
 ## Régimen Simplificado de Tributación (RST)
 
-Al validar el RNC del cliente con la DGII, el sistema detecta si el contribuyente está en el **Régimen Simplificado de Tributación (RST)** y guarda ese indicador en la ficha.
+Al validar el RNC con la DGII, el sistema detecta si el contribuyente está en **RST** y lo guarda en la ficha.
 
-- Verás la etiqueta **RST** en el listado y en el perfil del cliente.
-- También puedes indicar si tu propia organización opera bajo RST en la configuración fiscal.
-- Al aplicar retenciones en Compras y Gastos, el sistema filtra automáticamente los tipos compatibles con el régimen del contacto y el de tu empresa.
+- Verás la etiqueta **RST** en listado y perfil
+- También puedes indicar si **tu organización** opera bajo RST en la configuración fiscal
+- En Compras y Gastos, las retenciones se filtran según el régimen del contacto y el de tu empresa
 
-Consulta el [reporte de retenciones](/fiscal/reporte-retenciones) para revisar lo aplicado.
+Consulta el [reporte de retenciones](/fiscal/reporte-retenciones).
 
 ## Importar o exportar
 
-Si tienes muchos clientes puedes:
-
-- **Importar** desde una plantilla
+- **Importar** desde plantilla Excel
 - **Exportar** el listado para análisis o respaldo
 
-## Estado de cuenta y perfil comercial
+## Estado de cuenta y perfil
 
-Desde el detalle del cliente puedes:
+Desde el detalle:
 
-- Generar un **estado de cuenta en PDF** y **enviarlo** por email
-- Consultar antigüedad de saldos (aging) y facturas pendientes
-- Revisar historial de notas de crédito y comprobantes
-- Definir **límite de crédito** cuando tu flujo de ventas a crédito lo use
-- Ver tickets de [Soporte](/soporte/tickets) vinculados, si el módulo está activo
+- **Estado de cuenta en PDF** y envío por email
+- Antigüedad de saldos (aging) y facturas pendientes
+- Historial de notas de crédito y comprobantes
+- Tickets de [Soporte](/soporte/tickets) vinculados, si el módulo está activo
 
 ## Actividades y seguimiento
 
-En el perfil del cliente (sección **Actividades**) puedes registrar lo que ocurre con cada cuenta, más allá de una nota rápida.
+En **Actividades** registras el seguimiento comercial (más allá de una nota suelta).
 
-### Tipos de actividad
+### Tipos
 
-- Llamada
-- Email
-- Reunión
-- Demo
-- Tarea
-- Nota
+Llamada · Email · Reunión · Demo · Tarea · Nota
 
 ### Responsable y fecha
 
-Al crear una actividad puedes asignar un **responsable** y una **fecha**. Las actividades con fecha y responsable se vinculan con las **tareas pendientes** del sistema, para que quien quedó a cargo las vea junto al resto de sus pendientes.
+Puedes asignar responsable y fecha. Esas actividades alimentan las **tareas pendientes** del sistema.
 
 ### Comentarios y reacciones
 
-Cada actividad puede recibir comentarios y reacciones del equipo. Si alguien comenta o reacciona a una actividad tuya, recibes una notificación y puedes volver directo al perfil del cliente.
+El equipo comenta y reacciona; recibes notificación si interactúan con una actividad tuya.
 
-### Dónde más están disponibles
+### Dónde más están
 
-El mismo panel de actividades también está en:
+El mismo panel está en:
 
-- El perfil del suplidor en **Compras y Gastos**
-- Las empresas del **CRM**
-- Las oportunidades del **CRM**
+- Perfil del [suplidor](/compras-y-gastos/suplidores)
+- [Empresas](/crm/empresas) y [oportunidades](/crm/oportunidades) del CRM
 
-## Recomendaciones
+## Ejemplo
 
-- Usa actividades (no solo notas) para que el historial quede claro para todo el equipo
-- Asigna responsable y fecha cuando haya un seguimiento pendiente
-- Mantén los datos y el RNC actualizados para facturación y retenciones correctas
+El vendedor Ana crea la actividad **Llamada** para el cliente Acme, responsable Ana, fecha viernes. El viernes aparece en su lista de tareas; tras la llamada agrega un comentario “Interesados en plan anual” y programa una **Reunión** para la semana siguiente.
 
-## Por qué es fácil
-
-- Registro rápido y ordenado
-- Seguimiento comercial centralizado en el perfil
-- Importación masiva en minutos
-- Estado de cuenta listo para enviar
+<Tip>
+  Mantén el RNC actualizado: impacta facturación, e-CF y retenciones.
+</Tip>

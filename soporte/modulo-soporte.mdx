@@ -1,27 +1,48 @@
 ---
 title: Soporte al cliente
 description: 'Mesa de ayuda: tickets, WhatsApp, base de conocimientos y SLAs'
+icon: 'headset'
 ---
-
-# Soporte al cliente
-
-## Qué es este módulo
 
 **Soporte** es la mesa de ayuda de tu organización: tickets por email, web o WhatsApp, base de conocimientos, automatizaciones, SLAs y reportes.
 
+<img src="/images/icons/soporte.svg" alt="Icono Soporte" width="48" height="48" />
+
 ## Guías de esta sección
 
-| Tema | Página |
-| --- | --- |
-| Tickets | [Tickets](/soporte/tickets) |
-| Agentes y clientes | [Agentes y clientes](/soporte/agentes-y-clientes) |
-| Base de conocimientos | [Base de conocimientos](/soporte/base-conocimientos) |
-| Automatización y SLAs | [Automatización y SLAs](/soporte/automatizacion-y-sla) |
-| WhatsApp | [WhatsApp](/soporte/whatsapp) |
-| Canales y configuración | [Configuración de canales](/soporte/configuracion-canales) |
-| Reportes | [Reportes de soporte](/soporte/reportes) |
+<Columns cols={2}>
+  <Card title="Tickets" icon="ticket" href="/soporte/tickets">
+    Crear, asignar, responder y cerrar casos.
+  </Card>
+  <Card title="Agentes y clientes" icon="user-group" href="/soporte/agentes-y-clientes">
+    Quién atiende y quién es el contacto.
+  </Card>
+  <Card title="Base de conocimientos" icon="book" href="/soporte/base-conocimientos">
+    Artículos para autoservicio y respuestas rápidas.
+  </Card>
+  <Card title="Automatización y SLAs" icon="bolt" href="/soporte/automatizacion-y-sla">
+    Reglas, prioridades y tiempos de respuesta.
+  </Card>
+  <Card title="WhatsApp" icon="whatsapp" iconType="brands" href="/soporte/whatsapp">
+    Plantillas y ventana de 24 horas.
+  </Card>
+  <Card title="Canales" icon="gears" href="/soporte/configuracion-canales">
+    Email, WhatsApp, encuestas e IA.
+  </Card>
+</Columns>
 
-## Recomendaciones
+También: [Reportes de soporte](/soporte/reportes).
 
-- Define etiquetas, prioridades y SLAs antes de abrir el canal al público
-- Documenta en la base de conocimientos lo que más se repite
+## Flujo típico
+
+```mermaid
+flowchart LR
+  A[Canal: email / web / WhatsApp] --> B[Ticket]
+  B --> C[Asignación / SLA]
+  C --> D[Respuesta]
+  D --> E[Cierre / encuesta]
+```
+
+<Tip>
+  Define etiquetas, prioridades y SLAs **antes** de abrir el canal al público. Documenta en la base de conocimientos lo que más se repite.
+</Tip>

@@ -1,11 +1,33 @@
 ---
 title: Configuración de la Organización
-description: 'Datos generales, branding, monedas, POS, integraciones y más'
+description: 'Datos generales, branding, monedas, POS, e-CF e integraciones'
+icon: 'gear'
 ---
 
-En esta sección configuras los datos clave de tu empresa. Es un proceso guiado que hace que el sistema se vea y opere correctamente desde el primer día.
+Desde **Configuración** (icono en la barra de aplicaciones) defines cómo se ve y opera tu empresa.
 
-Accede con el icono de **Configuración** en la barra lateral de aplicaciones.
+## Mapa de secciones
+
+<Columns cols={2}>
+  <Card title="Generales" icon="building">
+    Razón social, RNC, dirección y contacto.
+  </Card>
+  <Card title="Branding" icon="palette">
+    Logos, colores y varias marcas por sucursal.
+  </Card>
+  <Card title="Usuarios y roles" icon="user-group" href="/introduccion/usuarios">
+    Invitaciones y permisos.
+  </Card>
+  <Card title="Monedas" icon="coins" href="/introduccion/monedas">
+    Divisas y tipos de cambio.
+  </Card>
+  <Card title="Facturación electrónica" icon="file-certificate" href="/introduccion/facturacion-electronica">
+    Certificado y certificación DGII e-CF.
+  </Card>
+  <Card title="Integraciones" icon="plug">
+    API Keys y Link de Pago Azul.
+  </Card>
+</Columns>
 
 ## Información general
 
@@ -15,73 +37,65 @@ Accede con el icono de **Configuración** en la barra lateral de aplicaciones.
 
 ## Branding (identidad visual)
 
-1. Configuración → **Branding** → Nuevo branding
+1. **Branding → Nuevo branding**
 2. Nombre interno y de marca, colores, logo (JPG/PNG/GIF, máx. 2 MB)
 3. Email, teléfono, sitio web y dirección
-4. Guarda. Puedes tener varias marcas (por sucursal) y elegir la principal en documentos
+4. Puedes tener varias marcas y elegir la principal en documentos
 
 ## Facturación y cotizaciones
 
-- Activa y personaliza el **pie de página** de facturas y cotizaciones
-- Define series y comportamientos por defecto de documentos de venta
+- Pie de página de facturas y cotizaciones
+- Series y comportamientos por defecto de documentos de venta
 
 ## Clientes
 
-- Campos **personalizados** en la ficha del cliente (zona, vendedor asignado, etc.)
+- Campos **personalizados** en la ficha (zona, vendedor asignado, etc.)
 
-## Productos
+## Productos / Inventario
 
-- Preferencias de productos (unidades por defecto, modo de código de barras en productos pesados, etc.)
+- Unidades por defecto, comportamiento de código de barras en productos pesados, etc.
 
 ## Punto de venta (POS)
 
-- Pie de página de tickets POS y cantidad de copias
+- Pie de tickets y cantidad de copias
 - Correos para **resumen de cierre** de sesión
-- **Permitir que el cajero vea el efectivo esperado** al cerrar turno (arqueo ciego vs supervisado). Detalle en [Punto de venta](/punto-de-venta/tablero)
+- **Permitir que el cajero vea el efectivo esperado** (arqueo ciego vs supervisado)
 
-## Fiscal y ECF
+Detalle de operación: [Punto de venta](/punto-de-venta/tablero).
 
-- Indica si tu organización opera bajo **RST**
-- Configura certificación y certificado para **facturación electrónica (ECF / DGII)** cuando tu negocio lo requiera
-- Los lotes de NCF se gestionan en [Fiscal → Autorizaciones](/fiscal/autorizaciones)
+## Fiscal y e-CF
 
-## Monedas
-
-Activa monedas y tipos de cambio en Configuración → **Monedas**. Guía: [Monedas](/introduccion/monedas).
-
-## Usuarios y roles
-
-Invita usuarios y define permisos. Guía: [Usuarios y roles](/introduccion/usuarios).
-
-## Políticas de vacaciones
-
-Las políticas de ausencias/vacaciones de RRHH se configuran aquí o desde el módulo, según tu menú. Ver [Políticas de vacaciones](/recursos-humanos/politicas-vacaciones).
+- Indica si operas bajo **RST**
+- Certificación y certificado en [Facturación electrónica](/introduccion/facturacion-electronica)
+- Lotes de NCF en [Fiscal → Autorizaciones](/fiscal/autorizaciones)
 
 ## Integraciones
 
 ### Link de Pago Azul Dominicana
 
-1. Configuración → **Integraciones → Link de Pago Azul**
-2. Activa el botón de pago en facturas públicas
-3. Completa Merchant ID, Private Key, moneda del comercio y la [pasarela](/cajas-y-bancos/pasarelas-de-pago) donde se registra el cobro
-4. (Opcional) email de notificación de pagos aprobados
+1. **Integraciones → Link de Pago Azul**
+2. Activa el botón en facturas públicas
+3. Merchant ID, Private Key, moneda y [pasarela](/cajas-y-bancos/pasarelas-de-pago)
+4. (Opcional) email de pagos aprobados
 
-Flujo para el cliente: [Facturación](/ventas/facturacion).
+Flujo del cliente: [Facturación](/ventas/facturacion).
 
 ### Claves de API
 
-Crea y gestiona claves para conectar Alante con otros sistemas (e-commerce, apps). Consulta también la documentación de [API de facturación electrónica](/api-facturacion-electronica) si aplica.
+Crea claves para conectar Alante con otros sistemas. Documentación: [API de facturación electrónica](/api-facturacion-electronica).
+
+<Warning>
+  Copia la API Key en el momento de crearla: suele mostrarse **una sola vez**.
+</Warning>
 
 ## Soporte
 
-Si usas el módulo Soporte: email de entrada, WhatsApp, encuestas, campos personalizados, auto-asignación e IA. Ver [Configuración de canales](/soporte/configuracion-canales).
+Email de entrada, WhatsApp, encuestas, campos personalizados, auto-asignación e IA: [Configuración de canales](/soporte/configuracion-canales).
 
-## Mi cuenta / facturación de la licencia
+## Políticas de vacaciones
 
-Desde la cuenta de la organización puedes ver facturas del plan, métodos de pago y tarjetas (incluido 3D Secure cuando corresponda).
+Ver [Políticas de vacaciones](/recursos-humanos/politicas-vacaciones).
 
-## Por qué es fácil
+## Mi cuenta / licencia
 
-- Todo está organizado por secciones claras
-- Guardas una vez y se aplica en documentos y módulos
-- Puedes actualizar la información cuando lo necesites
+Facturas del plan, métodos de pago y tarjetas (incluido 3D Secure cuando corresponda).
